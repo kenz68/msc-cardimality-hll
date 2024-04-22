@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.12)  22 APR 2024 14:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.12)  22 APR 2024 15:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -859,7 +859,7 @@ Package hyperref Info: Link coloring OFF on input line 116.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count337
-<hcmut.png, id=71, 272.01625pt x 277.035pt>
+<hcmut.png, id=83, 272.01625pt x 277.035pt>
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
 Package pdftex.def Info: hcmut.png  used on input line 136.
@@ -871,33 +871,56 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 144.
  (c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+Overfull \hbox (138.34312pt too wide) in paragraph at lines 144--163
+ [] 
+ []
+
+[1
 
 {c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./hcmut.png>]
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 202.
+Package pdftex.def Info: hcmut.png  used on input line 201.
 (pdftex.def)             Requested size: 85.35826pt x 86.93253pt.
+
+Overfull \hbox (138.34312pt too wide) in paragraph at lines 209--236
+ [] 
+ []
+
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.254 \end{titlepage}
-                      [1] (./main.toc)
-\tf@toc=\write5
-\openout5 = `main.toc'.
-
+l.251 \end{center}
+                   [1]
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 265.
+Package pdftex.def Info: hcmut.png  used on input line 252.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 265.
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 252.
  (c:/texlive/2023/texmf-dist/tex/latex/vntex/t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 
 LaTeX Font Warning: Font shape `T5/cmtt/b/n' undefined
-(Font)              using `T5/cmtt/m/n' instead on input line 265.
+(Font)              using `T5/cmtt/m/n' instead on input line 252.
+
+
+Package fancyhdr Warning: \headheight is too small (20.0pt): 
+(fancyhdr)                Make it at least 27.19998pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.19998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
+
+[2] (./main.toc)
+\tf@toc=\write5
+\openout5 = `main.toc'.
+
+File: hcmut.png Graphic file (type png)
+<use hcmut.png>
+Package pdftex.def Info: hcmut.png  used on input line 263.
+(pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -910,11 +933,11 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.265 \newpage
+l.263 \newpage
                [1]
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 278.
+Package pdftex.def Info: hcmut.png  used on input line 292.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 
@@ -924,20 +947,17 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
-
- []
-
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.292 
+       [2]
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 290.
+Package pdftex.def Info: hcmut.png  used on input line 299.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
+
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
 (fancyhdr)                Make it at least 27.19998pt, for example:
@@ -946,17 +966,7 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
 
  []
 
@@ -965,9 +975,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 307--308
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
+
+ []
+
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 304.
+Package pdftex.def Info: hcmut.png  used on input line 318.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -977,23 +1007,23 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 305--306
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \hbox (badness 10000) in paragraph at lines 322--323
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 313--314
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
  []
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 314.
+Package pdftex.def Info: hcmut.png  used on input line 328.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -1003,18 +1033,13 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 315--316
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 330--333
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
 
  []
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 333.
+Package pdftex.def Info: hcmut.png  used on input line 337.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -1024,23 +1049,28 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 344--347
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--338
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
-<bms.png, id=133, 326.4195pt x 235.47975pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 349--352
+
+ []
+
+<bms.png, id=153, 326.4195pt x 235.47975pt>
 File: bms.png Graphic file (type png)
 <use bms.png>
-Package pdftex.def Info: bms.png  used on input line 351.
+Package pdftex.def Info: bms.png  used on input line 365.
 (pdftex.def)             Requested size: 326.41869pt x 235.47917pt.
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 355.
+Package pdftex.def Info: hcmut.png  used on input line 369.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -1050,20 +1080,11 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [7]
-<fog-computing.png, id=141, 462.528pt x 305.34074pt>
-File: fog-computing.png Graphic file (type png)
-<use fog-computing.png>
-Package pdftex.def Info: fog-computing.png  used on input line 362.
-(pdftex.def)             Requested size: 462.52686pt x 305.34pt.
-
-Overfull \hbox (7.28275pt too wide) in paragraph at lines 362--364
- [][] 
- []
-
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 368.
+Package pdftex.def Info: hcmut.png  used on input line 371.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
+
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
 (fancyhdr)                Make it at least 27.19998pt, for example:
@@ -1072,9 +1093,31 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [8 <./bms.png>]
+<fog-computing.png, id=168, 462.528pt x 305.34074pt>
+File: fog-computing.png Graphic file (type png)
+<use fog-computing.png>
+Package pdftex.def Info: fog-computing.png  used on input line 376.
+(pdftex.def)             Requested size: 462.52686pt x 305.34pt.
+
+Overfull \hbox (7.28275pt too wide) in paragraph at lines 376--378
+ [][] 
+ []
+
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 383.
+Package pdftex.def Info: hcmut.png  used on input line 393.
+(pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
+
+Package fancyhdr Warning: \headheight is too small (20.0pt): 
+(fancyhdr)                Make it at least 27.19998pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.19998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
+
+[9]
+File: hcmut.png Graphic file (type png)
+<use hcmut.png>
+Package pdftex.def Info: hcmut.png  used on input line 410.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 
@@ -1084,71 +1127,25 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
-[9 <./fog-computing.png>]
-<plan.png, id=153, 462.528pt x 262.581pt>
+[10 <./fog-computing.png>]
+<plan.png, id=179, 462.528pt x 262.581pt>
 File: plan.png Graphic file (type png)
 <use plan.png>
-Package pdftex.def Info: plan.png  used on input line 399.
+Package pdftex.def Info: plan.png  used on input line 413.
 (pdftex.def)             Requested size: 361.34999pt x 205.15291pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 406--407
-
- []
-
-File: hcmut.png Graphic file (type png)
-<use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 408.
-(pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
-
-Package fancyhdr Warning: \headheight is too small (20.0pt): 
-(fancyhdr)                Make it at least 27.19998pt, for example:
-(fancyhdr)                \setlength{\headheight}{27.19998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
-
-[10 <./plan.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 408--410
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 413--414
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 415--416
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 417--418
-
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 424--425
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
 
  []
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 426.
+Package pdftex.def Info: hcmut.png  used on input line 425.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -1157,19 +1154,54 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 426--427
+[11 <./plan.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 425--426
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 428--429
+Underfull \hbox (badness 10000) in paragraph at lines 427--428
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 436--437
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 438--439
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--441
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 442--443
 
  []
 
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 488.
+Package pdftex.def Info: hcmut.png  used on input line 445.
 (pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
 
 Package fancyhdr Warning: \headheight is too small (20.0pt): 
@@ -1178,7 +1210,20 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
-[12] (./main.aux)
+[12]
+File: hcmut.png Graphic file (type png)
+<use hcmut.png>
+Package pdftex.def Info: hcmut.png  used on input line 502.
+(pdftex.def)             Requested size: 22.76204pt x 22.75928pt.
+
+
+Package fancyhdr Warning: \headheight is too small (20.0pt): 
+(fancyhdr)                Make it at least 27.19998pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.19998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
+
+[13] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1186,21 +1231,21 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E37670CEC9450B86AE7D4ED3CD978E5F;3679.
+(rerunfilecheck)             Checksum: 5319DC6C54A3710E74FDC5159C33B425;5434.
  ) 
 Here is how much of TeX's memory you used:
- 24005 strings out of 476047
- 431760 string characters out of 5794245
- 1863242 words of memory out of 5000000
- 43979 multiletter control sequences out of 15000+600000
+ 24012 strings out of 476047
+ 431887 string characters out of 5794245
+ 1865242 words of memory out of 5000000
+ 43982 multiletter control sequences out of 15000+600000
  530858 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,25n,80p,2850b,548s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,25n,80p,2850b,564s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnb10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (14 pages, 404600 bytes).
+Output written on main.pdf (16 pages, 409700 bytes).
 PDF statistics:
- 250 PDF objects out of 1000 (max. 8388607)
- 198 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 275 PDF objects out of 1000 (max. 8388607)
+ 220 compressed objects within 3 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

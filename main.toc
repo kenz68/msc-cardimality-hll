@@ -1,16 +1,19 @@
 \contentsline {section}{\numberline {1}GIỚI THIỆU ĐỀ TÀI, MỤC TIÊU VÀ ĐỐI TƯỢNG NGHIÊN CỨU}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Tính cấp thiết và lý do chọn đề tài}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Mục tiêu nghiên cứu }{2}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Phát triển thuật toán để đếm DAU trên một dòng dữ liệu (data stream):}{2}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Mở rộng thuật toán để đếm DAU trong một khoảng thời gian trên nhiều streams:}{3}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Phát triển một thuật toán để đếm DAU trên nhiều khung thời gian và trên nhiều streams hoặc services khác nhau:}{3}{subsubsection.1.2.3}%
 \contentsline {subsection}{\numberline {1.3}Giới hạn và đối tượng nghiên cứu }{3}{subsection.1.3}%
 \contentsline {subsubsection}{\numberline {1.3.1}Giới hạn}{3}{subsubsection.1.3.1}%
-\contentsline {subsubsection}{\numberline {1.3.2}Đối tượng nghiên cứu }{3}{subsubsection.1.3.2}%
-\contentsline {section}{\numberline {2}CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN }{3}{section.2}%
+\contentsline {subsubsection}{\numberline {1.3.2}Đối tượng nghiên cứu }{4}{subsubsection.1.3.2}%
+\contentsline {section}{\numberline {2}CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN }{4}{section.2}%
 \contentsline {section}{\numberline {3}CÁC PHƯƠNG PHÁP TỐI ƯU }{4}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Trạng thái sạc (SOC)}{4}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Trạng thái sức khỏe (SOH)}{5}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Trạng thái vòng đời (SOL)}{6}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Hệ thống quản lý pin đề xuất trong LV(Proposed BMSs)}{7}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Các phương pháp tối ưu và mô hình fog computing}{8}{subsection.3.5}%
-\contentsline {section}{\numberline {4}KẾ HOẠCH TRIỂN KHAI}{10}{section.4}%
+\contentsline {subsection}{\numberline {3.1}Trạng thái sạc (SOC)}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Trạng thái sức khỏe (SOH)}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Trạng thái vòng đời (SOL)}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Hệ thống quản lý pin đề xuất trong LV(Proposed BMSs)}{8}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Các phương pháp tối ưu và mô hình fog computing}{9}{subsection.3.5}%
+\contentsline {section}{\numberline {4}KẾ HOẠCH TRIỂN KHAI}{11}{section.4}%
 \contentsline {section}{\numberline {5}NỘI DUNG DỰ KIẾN CỦA LUẬN VĂN}{11}{section.5}%
-\contentsline {section}{\numberline {6}KẾT LUẬN}{11}{section.6}%
+\contentsline {section}{\numberline {6}KẾT LUẬN}{12}{section.6}%

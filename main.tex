@@ -76,7 +76,7 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 		\tiny \bf 
 	\end{tabular}  }
 \fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize \ttfamily Giải pháp giám sát pin trên xe điện}
+\fancyfoot[L]{\scriptsize \ttfamily Nghiên cứu phát triển kỹ thuật đếm số phần tử trên dòng dữ liệu}
 \rfoot{Trang \thepage}
 \renewcommand{\headrulewidth}{0.2pt}
 \renewcommand{\footrulewidth}{0.2pt}
@@ -143,8 +143,7 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \begin{center}
 \begin{tabular}{c}
 %\multicolumn{1}{c}{\textbf{{\Large BÁO CÁO BÀI TẬP LỚN}}}
-\multicolumn{1}{c}{\textbf{\Large GIẢI PHÁP GIÁM SÁT PIN TRÊN XE ĐIỆN
-}}
+\multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
 \vspace{2cm}
 \\
 \multicolumn{1}{c}{\textbf{\Large LUẬN VĂN THẠC SĨ}}
@@ -168,8 +167,8 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \begin{table}[h]
 \begin{tabular}{rrl}
 \hspace{5.1cm} 
-&\textit{Học viên: } & \textbf{NGÔ THÀNH NAM}\\
-&\textit{ID: } & \textbf{2270149 }\\
+&\textit{Học viên: } & \textbf{LÊ ANH QUỐC}\\
+&\textit{ID: } & \textbf{2070428}\\
 
 \end{tabular}
 \end{table}
@@ -209,8 +208,7 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \begin{center}
 \begin{tabular}{c}
 %\multicolumn{1}{c}{\textbf{{\Large BÁO CÁO BÀI TẬP LỚN}}}
-\multicolumn{1}{c}{\textbf{\Large GIẢI PHÁP GIÁM SÁT PIN TRÊN XE ĐIỆN
-}}
+\multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
 \vspace{2cm}
 \\
 \multicolumn{1}{c}{\textbf{\Large LUẬN VĂN THẠC SĨ}}
@@ -242,8 +240,8 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \begin{table}[h]
 \begin{tabular}{rrl}
 \hspace{5.6cm} 
-&\textit{Học viên: } & \textbf{NGÔ THÀNH NAM}\\
-&\textit{ID: } & \textbf{2270149 }\\
+&\textit{Học viên: } & \textbf{lÊ ANH QUỐC}\\
+&\textit{ID: } & \textbf{2070428}\\
 
 \end{tabular}
 \end{table}
@@ -265,12 +263,28 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \newpage
 \section{GIỚI THIỆU ĐỀ TÀI, MỤC TIÊU VÀ ĐỐI TƯỢNG NGHIÊN CỨU}
 \subsection{Tính cấp thiết và lý do chọn đề tài}
+\hspace{2em}Ngày nay, các ứng dụng và dịch vụ trực tuyến đóng vai trò ngày càng quan trọng trong cuộc sống của con người. 
+Chúng ta sử dụng mạng xã hội để kết nối với bạn bè và chia sẻ thông tin, mua sắm trực tuyến để tiết kiệm thời gian và tiền bạc, 
+hay xem phim và chơi game trực tuyến để giải trí. Để đánh giá hiệu quả hoạt động của các ứng dụng và dịch vụ này, 
+một trọng những chỉ số quan trọng nhất là số lượng người dùng hoạt động Distinct Active Users (DAU).
 
-Với sự quan tâm ngày càng tăng về thách thức về biến đổi khí hậu và năng lượng toàn cầu, việc sử dụng năng lượng sạch và năng lượng tái tạo đang nhận được sự chú ý ngày càng lớn, điều này dẫn đến sự phát triển nhanh chóng của lưu trữ năng lượng điện hóa và xe điện (EVs). Do có năng lượng cụ thể cao, điện áp hoạt động cao và tính thân thiện với môi trường, pin lithium-ion (LiBs) hiện đang là loại pin được sử dụng phổ biến nhất trong xe điện. Để đảm bảo hoạt động hiệu quả và an toàn của LiBs, điều kiện tiên quyết cho xe điện là trang bị hệ thống quản lý pin (BMS), và việc phát triển các thuật toán quản lý hiệu quả cho BMS phụ thuộc mạnh vào dữ liệu hoạt động của pin. Tuy nhiên, việc thu thập dữ liệu hoạt động cho các kịch bản quan trọng như xảy ra sự cố nhiệt hoặc lỗi là khó khăn.\\
-	Xe điện đang trở thành một phương tiện di chuyển phổ biến hơn trong nỗ lực chuyển đổi sang năng lượng sạch và giảm khí thải carbon. Pin là thành phần quan trọng nhất trong hệ thống lưu trữ năng lượng của xe điện. Để đảm bảo hoạt động an toàn và hiệu quả của pin, việc giám sát pin trở nên cấp thiết. Việc nắm bắt thông tin về trạng thái và hiệu suất pin sẽ giúp tối ưu hóa sử dụng năng lượng, kéo dài tuổi thọ pin và đảm bảo an toàn khi sử dụng. Việc giám sát pin trên xe điện là một phần quan trọng của hệ thống quản lý pin (BMS). BMS giúp kiểm soát và điều chỉnh các thông số quan trọng của pin như trạng thái sạc, nhiệt độ và dòng điện. BMS cung cấp thông tin quan trọng cho người vận hành xe điện và hệ thống điện tử của xe để đảm bảo hoạt động tối ưu và an toàn của pin.Việc giám sát pin trên xe điện cho phép phân tích và đánh giá hiệu suất hoạt động của pin. Thông qua việc theo dõi trạng thái sạc, xả và nhiệt độ, người vận hành và hệ thống BMS có thể tối ưu hóa sử dụng năng lượng và kéo dài tuổi thọ của pin. Điều này có ý nghĩa quan trọng trong việc tăng cường hiệu suất của hệ thống xe điện và giảm chi phí bảo trì thay thế pin. Giám sát pin trên xe điện cũng đóng vai trò quan trọng trong việc đảm bảo an toàn và độ tin cậy của hệ thống. BMS theo dõi các thông số quan trọng để phát hiện sớm các vấn đề tiềm ẩn như quá nhiệt, quá dòng hoặc nguy cơ hỏng hóc. Điều này giúp ngăn chặn các sự cố nghiêm trọng và đảm bảo an toàn khi sử dụng xe điện.\\
-Hiện nay cùng với sự phát triển bùng nổ của xe điện ở Việt Nam, nhu cầu xử lý lượng dữ liệu cũng như phương pháp monitoring lưu lượng pin ngày càng cấp thiết và thiết thực. Do đó, cần phải có một giải pháp giám sát pin xe điện đạt hiệu suất cao và tin cậy, để từ đó có thể ứng dụng rộng rãi trong nước cũng như quốc tế. 
+Việc theo dõi số lượng người dùng hoạt động trong một khoảng thời gian nhất định trên một dòng dữ liệu (data stream) 
+là một yêu cầu quan trọng đối với nhiều ứng dụng và dịch vụ trực tuyến, hiệu quả của các chiến dịch marketing, 
+và hỗ trợ ra quyết định kinh doanh. Ví dụ, trong các ứng dụng mạng xã hội, số lượng người dùng hoạt động cho thấy mức độ tương tác 
+và sự quan tâm của người dùng đối với nền tảng. Trong các dịch vụ thương mại điện tử, số lượng người dùng hoạt động cho thấy hiệu quả 
+và các chiến dịch quảng cáo và khuyến mãi. Tuy nhiên, việc đếm số lượng DAU không phải là một nhiệm vụ đơn giản, đặc biệt là khi dữ liệu lớn 
+và tốc độ truy cập cao. Các phương pháp truyền thống như lưu trữ và truy vấn trực tiếp vào cơ sở dữ liệu có thể gặp nhiều hạn chế về hiệu suất 
+và khả năng mở rộng.
+
+Trong nhiều trường hợp, cần phải tổng hợp số lượng DAU trên nhiều streams hoặc services khác nhau. Việc này giúp có được bức tranh toàn cảnh về hoạt động của người dùng trên toàn hệ thống, từ đó đưa ra các phân tích và đánh giá chính xác hơn. Ví dụ, trong hệ thống thương mại điện tử, cần tổng hợp số lượng DAU từ các trang web, ứng dụng di động và API khác nhau để có được số lượng người dùng hoạt động thực tế trên toàn hệ thống. Tuy nhiên, việc tổng hợp dữ liệu từ nhiều nguồn khác nhau có thể gặp thách thức về đồng bộ hóa dữ liệu, xử lý dữ liệu bị thiếu hoặc lỗi, và đảm bảo tính nhất quán của kết quả. 
+
+Ngoài ra, có thể cần phải đếm DAU trên nhiều đoạn khác nhau trong một stream, hoặc nhiều streams khác nhau. Việc này giúp phân tích chi tiết hơn hoạt động của người dùng theo thời gian, theo khu vực hoặc theo tiêu chí khác. Ví dụ, trong một ứng dụng phát trực tiếp, cần đếm số lượng người dùng hoạt động theo từng giờ hoặc từng phân đoạn chương trình để đánh giá mức độ quan tâm của người xem. Tuy nhiên, việc phân chia và xử lý dữ liệu theo nhiều đoạn có thể làm tăng độ phức tạp của thuật toán và ảnh hưởng đến hiệu suất của hệ thống. Do đó, cần phải có một giải pháp đếm số lượng phần tử trên dòng dữ liệu đạt hiệu suất cao và tin cậy, từ đó có thể ứng dụng rộng rãi trong các hệ thống khác nhau như mạng xã hội, thương mại điện tử, chương trình phát trực tiếp, hệ thống giám sát và hệ thống giao thông thông minh.
 
 \subsection{Mục tiêu nghiên cứu }
+\subsubsection{Phát triển thuật toán để đếm DAU trên một dòng dữ liệu (data stream):}
+Thiết kế thuật toán sử dụng HyperLogLog để đếm DAU trên một khung thời gian trên một stream với độ chính xác cao và hiệu quả tốt. Ví dụ, đếm số lượng users đăng nhập vào hệ thống trong 5 phút trước, 1 giờ trước, 1 ngày trước hay 1 tháng trước.
+\subsubsection{Mở rộng thuật toán để đếm DAU trong một khoảng thời gian trên nhiều streams:}
+\subsubsection{Phát triển một thuật toán để đếm DAU trên nhiều khung thời gian và trên nhiều streams hoặc services khác nhau:}
 Phát triển phương pháp và công cụ giám sát: Mục tiêu chính là thiết kế và phát triển các phương pháp và công cụ giám sát pin hiệu quả trên xe điện. Điều này bao gồm việc xác định các thông số quan trọng cần được giám sát như trạng thái sạc, nhiệt độ, dòng điện và điện áp của pin. Công cụ giám sát cần có khả năng thu thập, xử lý và hiển thị dữ liệu pin một cách dễ dàng và đáng tin cậy.\\
 Phân tích và đánh giá hiệu suất hoạt động của pin: Mục tiêu là phân tích và đánh giá hiệu suất hoạt động của pin trên xe điện. Điều này có thể bao gồm việc theo dõi và ghi nhận các thông số pin trong quá trình vận hành, phân tích các dữ liệu thu thập được để đánh giá hiệu suất sạc, xả và tổn thất năng lượng. Mục tiêu cuối cùng là tối ưu hóa sử dụng năng lượng và kéo dài tuổi thọ pin thông qua các biện pháp quản lý phù hợp.\\
 Phát hiện sớm các vấn đề và rủi ro: Mục tiêu là phát triển các thuật toán và phương pháp giám sát pin để phát hiện sớm các vấn đề và rủi ro tiềm ẩn. Điều này bao gồm việc xây dựng các mô hình dự đoán và cảnh báo để nhận biết các tình huống nguy hiểm như quá nhiệt, quá dòng, hao mòn pin nhanh chóng và các lỗi khác. Mục tiêu là nâng cao mức độ an toàn và độ tin cậy của hệ thống pin trên xe điện.\\
@@ -386,7 +400,7 @@ Bagging (Bootstrap Aggregating) there một meta-algorithm trong học máy đư
 
 \section{KẾ HOẠCH TRIỂN KHAI}
 Trong thời gian sắp tới của luận văn, tôi dự định triển khai các công việc như sau:\\
--  Chuẩn bị dữ liệu, chuẩn hóa bao gồm tiền xử lý nếu có\\
+- Chuẩn bị dữ liệu, chuẩn hóa bao gồm tiền xử lý nếu có\\
 - Sử dụng các mô hình học máy để hỗ trợ đánh giá SOH, SOL\\
 - Tối ưu lượng thông tin lưu trữ dữ liệu và đẩy lên cloud \\
 - Sử dụng các phương pháp và hiện thực mô hình \\
