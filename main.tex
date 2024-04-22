@@ -318,7 +318,7 @@ Tình trạng sạc (SoC - State of Charge) được coi là một trong những
 
 SOC (State of Charge) còn là một yếu tố quan trọng nhưng không thể đo được dựa trên các công nghệ cảm biến hiện tại trên xe. Tỷ lệ giữa dung lượng hiện tại có sẵn và dung lượng tối đa có thể được biểu diễn dưới dạng SOC [11], được tính bằng Công thức (1):\\
 \[SOC = 1 - \frac{\int(idt)}{Cn}\]
-
+\[Z := (\sum_{j=1}^{m} 2^{-M^{(j)}})^{-1}.\]
 với i là dòng điện, còn Cn là dung lượng tối đa mà pin có thể chứa. \\
 
 SOC (Trạng thái sạc) phản ánh lượng điện còn lại có sẵn cho pin. Nó được sử dụng để xác định quãng đường lái còn lại trong xe điện (EVs) và chỉ ra khi nào động cơ đốt trong xe hybrid (HEVs) nên được bật hoặc tắt [12]. Do các phản ứng hóa học tự nhiên trong pin và các tải trọng ngoại vi khác nhau, dung lượng tối đa của pin giảm dần theo thời gian. Sự không chắc chắn liên quan đến những yếu tố này sẽ dẫn đến đặc tính suy giảm của pin không tuyến tính, không ổn định. Phương pháp tiếp cận đơn giản nhất để ước lượng SOC là Coulomb counting (đếm Coulomb), phản ánh năng lượng trong pin dưới dạng Coulomb. Phương pháp này tính toán dung lượng pin bằng cách tích phân dòng điện vào và ra khỏi pin theo thời gian. SOC có thể được xác định bằng cách tham khảo điểm hiệu chuẩn ở chế độ sạc đầy. Tuy nhiên, điểm tham chiếu này (tức điểm khởi đầu) sẽ thay đổi do quá trình lão hóa pin và hiệu suất Coulomb. Do đó, điểm tham chiếu phải được bù đắp khi hoạt động trong điều kiện thực tế, và ước lượng SOC phải được cập nhật dưới các điện áp đo được khác nhau.

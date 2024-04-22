@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.12)  22 APR 2024 15:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.12)  22 APR 2024 17:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1012,7 +1012,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 319--320
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
+Underfull \hbox (badness 10000) in paragraph at lines 321--323
 
  []
 
@@ -1063,7 +1063,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 349--352
 
  []
 
-<bms.png, id=153, 326.4195pt x 235.47975pt>
+<bms.png, id=158, 326.4195pt x 235.47975pt>
 File: bms.png Graphic file (type png)
 <use bms.png>
 Package pdftex.def Info: bms.png  used on input line 365.
@@ -1093,7 +1093,7 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [8 <./bms.png>]
-<fog-computing.png, id=168, 462.528pt x 305.34074pt>
+<fog-computing.png, id=170, 462.528pt x 305.34074pt>
 File: fog-computing.png Graphic file (type png)
 <use fog-computing.png>
 Package pdftex.def Info: fog-computing.png  used on input line 376.
@@ -1128,7 +1128,7 @@ Package fancyhdr Warning: \headheight is too small (20.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.19998pt}.
 
 [10 <./fog-computing.png>]
-<plan.png, id=179, 462.528pt x 262.581pt>
+<plan.png, id=181, 462.528pt x 262.581pt>
 File: plan.png Graphic file (type png)
 <use plan.png>
 Package pdftex.def Info: plan.png  used on input line 413.
@@ -1241,11 +1241,11 @@ Here is how much of TeX's memory you used:
  530858 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,25n,80p,2850b,564s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnb10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (16 pages, 409700 bytes).
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnb10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt8.pfb>
+Output written on main.pdf (16 pages, 427234 bytes).
 PDF statistics:
- 275 PDF objects out of 1000 (max. 8388607)
- 220 compressed objects within 3 object streams
+ 285 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
  48 named destinations out of 1000 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 
