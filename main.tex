@@ -1,7 +1,9 @@
 %% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
 
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,13pt]{article}
 
+\usepackage[linesnumbered,algoruled,boxed,lined]{algorithm2e}
+\usepackage{multirow}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -16,7 +18,15 @@
 \usepackage[utf8]{vietnam}
 \usepackage[unicode]{hyperref}
 \usepackage{mathtools}
+\usepackage[]{mdframed}
 
+% draw a frame around given text
+\newcommand{\framedtext}[1]{%
+\par%
+\noindent\fbox{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{#1}%
+}%
+}
 \newcommand\Myperm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
 \newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
 \usepackage{geometry}
@@ -82,8 +92,26 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \renewcommand{\footrulewidth}{0.2pt}
 %
 
+\usepackage{xcolor}
+\definecolor{block-gray}{gray}{0.85}
 
+\usepackage{environ}
 
+\NewEnviron{myblock}
+{
+    \colorbox{block-gray}
+    {
+        \parbox{\dimexpr\linewidth-2\fboxsep\relax}
+        {
+            \bigbreak
+            \addtolength{\leftskip}{4mm}
+            \addtolength{\rightskip}{4mm}
+            \BODY
+        }
+    }
+}
+\renewcommand{\quote}{\myblock}
+\renewcommand{\endquote}{\endmyblock}
 % code listing settings
 \usepackage{listings}
 \lstset{
@@ -308,7 +336,248 @@ Quản lý dữ liệu: Việc giám sát pin trên xe điện có thể tạo r
 
 - \textbf{Intelligent Battery Management and Control for Electric Vehicles} – [5] Công trình này tập trung vào nghiên cứu về quản lý và điều khiển pin thông minh cho xe điện. Nó đề xuất một hệ thống BMS thông minh sử dụng công nghệ trí tuệ nhân tạo và học máy để giám sát và dự đoán trạng thái pin, tối ưu hóa sử dụng năng lượng và quản lý tuổi thọ của pin.\\
 
+\section{HyperLogLog}
+The \textit{cardinality} estimation problem is a task to find the number of distinct
+elements in a dataset where duplicates are present. Traditionally, to
+determine the exact cardinality of a set, classical methods build a list
+of all elements and use sorting and search to avoid listing elements
+multiple times. Counting the number of elements in that list gives the accurate
+number of the unique elements, but it has a time complexity of O(N.logN), where
+N is the number of all elements including duplicates, and requires auxiliary 
+linear memory, that is unlikely to be feasible for Big Data applications that
+operate huge datasets of large cardinalities.
+\begin{mdframed}
+   \textbf{Example 3.1: Unique visitors}\\
+   One of the valuable KPIs for any website is the number of unique visitors
+   that have visited it over a specified period of time. For simplicity, we
+   assume that unique visitors use different IP addresses, therefore we need
+   to calculate the number of unique IPs which according to IPv6 Internet Protocol
+   version are represented by 128-bit string. Is this an easy task?
+   Can we just use the classical methods to count the number exactly? That
+   depends on the populatity of the website.\\
+   Consider traffic statistics for March 2017 of the top three most popular
+   retail websites in the United States: \textit{amazon.dot, ebay.com} and
+   \textit{walmart.com}. According to SimilarWeb, the average number of visit to
+   those websites was about 1.44 billion and the average number of pages
+   viewed per visit was 8.24. Therefore, the statistics for March 2017 include
+   about 12 billion IP addresses at 128-bit each, meaning a total size of
+   192 GB.\\
+   If we assume that every 10th of those visitors was unique, we can expect
+   cardinality of such a set at about 144 million and the memory required to
+   store the list of nuique elements is 23GB.
+\end{mdframed}
+\break
+Another example illustrates the challenge of cardinality estimation for\\
+scientific researchers.
+\begin{mdframed}
+    \textbf{Example 3.2: DNA analysis (Giroire, 2016)}\\
+    One of the long-standing tasks in human genome research is to study
+    correlation in DNA sequences. DNA molecules include two paired strands,
+    each made up of four chemical DNA-base units, marked A (adenine),
+    G (guanine), C (cytosine), and T (thymine). The human genome contains
+    about 3 billion such base pairs. Sequenceing means determining the exact
+    order of the base pairs in a segment of DNA.\\
+    From a mathematical point of view, a DNA sequence can be considered
+    a string of symbols A, G, C, T which can be as long as you want, and we
+    can consider them as an example of a potentially infinite dataset.\\
+    The correlation measuring problem can be formulated as a task of
+    determining the number of distinct substrings of some fixed size in a piece
+    of DNA. The idea is that a sequence with a few distinct substrings is 
+    more correlated than a sequence of the same size but with more distinct
+    substrings.\\
+    Such experiments demand multiple runs on many huge files and to speed
+    up the research they require only limited or even constant memory and
+    small execution time, which is unfeasible with exact counting algorithms.
+\end{mdframed}
+Thus, the possible gains of the accurate cardinality estimation are
+neglected by large time processing and memory requirements. Big Data
+applications shell use more practical approaches, mostly based on various
+probabilistic algorithms, even if they can provide only approzimated answers.\\
+\vspace{0.5cm}
+\begin{quote}
+    While processing data, it is important to understand the size of the dataset
+    and the number of possible distinct elements.\\
+    Consider the potentially infinite sequence of 1-letter string a, d, s, ...,
+    which is based on letters from the English alphabet. The cardinality can be
+    easily estimated and it is upper bounded by the number of letters, which
+    is 26 in the modern English language. Obviously, in this case, there is
+    no need to apply any probabilistic approach and a naive dictionary-based
+    solution of exact cardinality calculation works very well.\\
+\end{quote}
+\indent To approach the cardinality problem, many of the popular probabilistic
+methods are influenced by the ideas of the Bloom filter algorithm, they
+operate hash values of elements, then observe common patterns in their
+distribution, and make reasoned \textquotedblleft\textit{guesses}\textquotedblright 
+\space about the number of unique elements without the need to store all of them.
+\subsection{Linear Counting}
+As a first probabilistic approach to the cardinality problem, we consider
+the linear-time probabilistic counting algorithm, the \textit{Linear Counting}
+algorithm. The original ideas were proposed by Morton Astrahan, Mario Schkolnick,
+and Kyu-Young Whang in 1987 [As87] and the practical algorithm was published
+by Kyu-Young Whang, Brad Vander-Zanden, and Howard Taylor in 1990 [Wh90].\\
+\indent The immediate improvement to the classical exact methods was to
+hash elements with some hash function \textit{h}, which out-of-the-box can
+eliminate duplicates without the need to sort elements with a payout of
+introducing some probability of error due to possible hash collisions
+(we cannot distinguish duplicates and \textquotedblleft accidental duplicates\textquotedblright).
+Thus, using such a hash table, only a proper scan procedure is required to implement
+a simple algorithm that already outperforms the classical approach.\\
+\indent However, for datasets with huge cardinalities, such hash tables could
+be quite large and require memory that grows linearly with the number
+of distinct elements in the set. For systems with limited memory, it
+will require disk or distributed storage at some point, which drastically
+reduces the benefits of hash tables due to slow disk or network access.\\
+\indent Similar to the Bloom filter idea, to work-around such an issue,
+the Linear Counting algorithm doesn't store the hash values themselves,
+but instead their corresponding bits, replacing the hash table with a bit
+array LINEARCOUNTER of the length \textit{m}. It is assumed that \textit{m} still is
+proportional to the expected number of distinct elements \textit{n}, but requires
+only 1 bit per element which is feasible for most cases.\\
+\indent In the beginning, all bits in LINEARCOUNTER are equal to zero. To
+add a new element \textit{x} into such a data structure, we compute its hash
+value \textit{h(x)} and set the corresponding bit to one in the counter.\\\\
+\vspace{0.5cm}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Adding element to the Linear counter}
+    \KwIn{Element $x \in D$}
+    \KwIn{Linear counter with hash function $h$}
+    $j \gets h(x)$\;
+    \If{$LINEARCOUNTER[j] == 5$}
+    {
+        $LINEARCOUNTER[j]\gets 1$
+    }
+\end{algorithm}
+\indent Since only one hash function \textit{h} is used, we can expect many additional
+hard collisions when two different hash values set the same bit in the array.
+Thus, the exact (or even near-exact) number of distinct elements can no
+longer be directly obtained from such a sketch.\\
+\indent The idea of the algorithm leads to distributing elements into buckets
+(bits indexed by hash values) and keeps a LINEARCOUNTER bit array 
+indicating which buckets are hit. Observing the number of hits in the array
+leads to the estimate of the cardinality.\\
+\indent In the first step of the Linear Counting algorithm, we build our
+LINEARCOUNTER data structure as is shown in Algorighm 1. Having
+such a sketch, the cardinality can be estimated using the observed
+fraction of empty bits \textbf{V} by the formula:\\
+\begin{equation}
+    n \approx -m\cdot\ln V \tag{$3.1$}
+\end{equation}
+\indent We see clearly now how collisions impact on the cardinality estimation
+in the Linear Counting algorithm -- each collision reduces the number
+of bits that have to bet set, making the observed fraction of unset bits
+bigger than the real value. If there were no hash collisions, the final
+count of set bits would be the desired cardinality. However, collisions
+are unvoidable and the formula (3.1) actually gives an overestimation
+of the exact cardinality and, since the cardinality is an integer value, we
+prefer to round its result to the nearest smaller integer.\\
+\indent Thus, we can formulate the complete counting algorithm as bellow.\\
+\vspace{0.5cm}
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Estimating cardinality with Linear Counting}
+    \KwIn{Dataset $ D $}
+    \KwOut{Cardinality estimation}
+    LINEARCOUNTER[j] $\gets 0$, $i = 0$ ... m $- $ 1\;
+    \For{x $\in $ D} { LINEARCOUNTER.Add(e) }
+    Z $\gets count_{i=1...m-1} (LINEARCOUNTER[i] = 0 $)\;
+    \Return{$-m \cdot \ln(\frac{Z}{m})$}
+\end{algorithm}
+\begin{mdframed}
+    \textbf{Example 3.3: Linear Counting algorithm}\\
+    Consider a dataset that contains 20 names of capital cities extracted
+    from recent news articles: \textbf{Berlin,} Berlin, \textbf{Paris,} Berlin,
+    \textbf{Lisbon, Kiev,} Paris, \textbf{London, Rome, Athens, Madrid, Vienna,}
+    Rome, Rome, Lisbon, Berlin, Paris, London, Kiev, \textbf{Washington.}\\
+    For such small cardinalities (actual cardinality is 10) to have a standard
+    error about 10\% we need to choose the length of the LINEARCOUNTER
+    data structure at least as the expected number of unique elements, thus
+    let's choose m$ = 2^4$. As the hash function $h$ with values in ${0,1,...,2^4-1}$
+    we use a function based on 32-bit MurmurHash3 defined as
+    \begin{equation}
+        h(x) := MurmurHash3(x)\mod m,
+      \end{equation}
+    and cities hash values can be found in the table below.
+\begin{center}
+    \begin{tabular}{ |c|c| }
+        \multicolumn{2}{}{} \\ \hline
+        \textbf{City} & \textbf{h(City)} \\ \hline
+        Athens & 12 \\
+        Berlin & 7 \\
+        Kiev & 13 \\
+        Lisbon & 15 \\
+        London & 14 \\
+        \cline{1-2}
+    \end{tabular}
+    \hspace{0.5cm}
+    \begin{tabular}{ |c|c| }
+        \multicolumn{2}{}{}\\ \hline
+        \textbf{City} & \textbf{h(City)} \\ \hline
+        Madrid & 14 \\
+        Paris & 8 \\
+        Rome & 1 \\
+        Vienna & 6 \\
+        Washington & 11 \\
+        \cline{1-2}
+    \end{tabular}
+\end{center}
+As we can see, the cities \textbf{London} and \textbf{Madrid} share the same value, but
+such colisions are expected and completely natural. The LINEARCOUNTER
+data structure has the following view:
+\begin{center}
+    \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+    \end{tabular}
+    \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+        \hline
+        0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 1 & 1 \\ \cline{1-16} % Add bottom border to all rows
+    \end{tabular}
+\end{center}
+\vspace{0.2cm}
+According to the Linear Counting algorithm, we calculate the fraction \textbf{V}
+of empty bits in the LINEARCOUNTER:
+\begin{equation}
+    V = \frac{9}{16} = 0.5625
+\end{equation}
+and the estimated cardinality is
+\begin{equation}
+    n \approx -16\cdot \ln 0.5625 \approx 9.206,
+\end{equation}
+which is pretty close to th exact number 10.
+\end{mdframed}
+\subsection*{Properties}
+If the hash function $h$ can be computed in a constant time (which is true
+for the most popular hash function), the time to process every element is
+a fixed constant O(N), where N is the total number of elements, including
+duplicates. Thus, the algorithm has O(N) time complexity.\\
+\indent As for many other probabilistic algorithm, there is a number of
+parameters that can be runed to influence its performance.\\
+\indent The expected accuracy of the estimation depends on the bit array
+size $m$ and its ratio to the number of distinct elements $\alpha$ = $\frac{m}{n}$, called
+the \textit{load factor}. Unless $\alpha$ $\geq$ $1$ ($m$ > $n$ is not practically interesting case),
+there is non-zero probability $P_{full}$ that LINEARCOUNTER bit array
+becomes full, called the $fill-up probability$, that fatally distorts
+the algorithm and blows up the expression (3.1). The probability $P_{full}$
+depends on the load factor and, consequently, on the size $m$ that should
+be selected big enough to have the fill-up probability negligible.\\
+\indent The standard error $\sigma$ is a measure of the variability of the estimate
+provided by Linear Counting and there is a trade-off between it and
+the bit array zise $m$. Descreasing the standard error results in more
+precies estimates, but increase the require memory.\\
+\begin{quote}
+    \textbf{Table 3.1:} Trade-off between accuracy and bit array size
+    \begin{tabular}{|*{3}{c|}}
+        \hline
+        \multirow{2}{*}{n} & \multicolumn{2}{c|}{\text{m}} \\ \cline{2-3} 
+                & $\sigma = 1\%$ & $\sigma = 10\%$ \\ \hline
+        1000 & 5329 & 268 \\ \hline
+    \end{tabular}
+\end{quote}
 
+\newline\\
+\pagebreak
 \section{CÁC PHƯƠNG PHÁP TỐI ƯU }
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
 
