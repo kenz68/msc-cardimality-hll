@@ -1,7 +1,6 @@
 %% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
 
 \documentclass[a4paper,13pt]{article}
-
 \usepackage[linesnumbered,algoruled,boxed,lined]{algorithm2e}
 \usepackage{multirow}
 \usepackage[T1]{fontenc}
@@ -138,7 +137,6 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
     captionpos=t,
     escapeinside={\%*}{*)}
 }
-
 %%%----------%%%----------%%%----------%%%----------%%%
 
 \begin{document}
@@ -565,20 +563,581 @@ be selected big enough to have the fill-up probability negligible.\\
 \indent The standard error $\sigma$ is a measure of the variability of the estimate
 provided by Linear Counting and there is a trade-off between it and
 the bit array zise $m$. Descreasing the standard error results in more
-precies estimates, but increase the require memory.\\
+precies estimates, but increase the require memory.\\\\
 \begin{quote}
-    \textbf{Table 3.1:} Trade-off between accuracy and bit array size
-    \begin{tabular}{|*{3}{c|}}
-        \hline
-        \multirow{2}{*}{n} & \multicolumn{2}{c|}{\text{m}} \\ \cline{2-3} 
-                & $\sigma = 1\%$ & $\sigma = 10\%$ \\ \hline
-        1000 & 5329 & 268 \\ \hline
-    \end{tabular}
-\end{quote}
+    \begin{center}
+        \textbf{Table 3.1:} Trade-off between accuracy and bit array size\\
+        \begin{tabular}{|*{3}{c|}}
+            \hline
+            \multirow{2}{*}{n} & \multicolumn{2}{c|}{\text{m}} \\ \cline{2-3} 
+                    & $\sigma = 1\%$ & $\sigma = 10\%$ \\ \hline
+            1000 & 5329 & 268 \\ \hline
+            10000 & 7960 & 1709 \\ \hline
+            100000 & 26729 & 12744 \\ \hline
+            10000000 & 154171 & 100880 \\ \hline
+            10000000 & 1096582 & 831809 \\ \hline
+            100000000 & 8571013 & 7061760 \\ \hline
+        \end{tabular}
+    \end{center}
+\end{quote}\\
 
-\newline\\
-\pagebreak
-\section{CÁC PHƯƠNG PHÁP TỐI ƯU }
+The dependence on choosing $m$ is quite complex and has no analysis
+solution. However, for a widely acceptable fill-up probabilistic $P_full = 0.7\%$
+the algorithm authors have provided precomputed values that are given in Table 3.1
+and can be used as references.
+
+Since the fill-up probability is never zero, the bit array very rarely
+becomes full and distorts Algorithm 3.2. When working with small
+datasets, we can re-index all elements with a different hahs function or 
+increase the size LINEARCOUNTER. Unfortunately, such solutions
+won't work for huge datasets and, together with quite high time
+complexity, require a search for alternatives.
+
+However, Linear Counting performs very well when the cardinality
+of the dataset being measured is not extreamly big and can be used to
+improve other algorithm, developed to provide the best possible behavior
+for huge cardinalities.
+
+In the Linear Counting algorithm, the estimation of the cardinality
+is approximately proportional to the exact value, this is why the term
+\textquotedblleft linear\textquotedblright\space is used. In the next section, we consider an alternative algorithm
+that could be classified as \textquotedblleft logarithmi\textquotedblright\space counting since it is based on
+estimations that logarithms of the true cardinality.
+\subsection{Probabilistic Counting}
+One of the counting algorithms that is based on the idea of observing
+commom patterns in hashed representations of indexed elements is a class
+of \textit{Probabilistic Counting} algorithm is invented by Philippe Flajolet and
+G. Nigel Martin in 1985 [Fl85].
+
+As asual, every element is pre-processed by applying a hash function $h$
+that transforms elements into integers sufficiently uniformaly distributed
+over a scala range ${0, 1,...,2^M - 1}$ or, quivalently, over the set of
+binary $strings^2$ of length M:
+
+\[h(x) = i = \sum_{k=0}^{M-1} i_k\cdot 2^k := (i_0i_1...i_{M-1})_2, i_k \in \{0,1\}.\]
+
+Flajolet and Martin noticed that patterns:
+\[0^k1 := \overbrace{00...0}^{\text{k times}}1\]
+should appear in such binary strings with probability $2^{-(k+1)}$ and, if
+recorded for each indexed element, can play the role of a cardinality
+estimator.
+
+Every pettern can be associated with its index, called $rank$, that is
+calculated by the formula:
+\[
+    rank(i)=\left\{
+                \begin{array}{ll}
+                    \min\limits_{i_k\neq 0}, \indent\text{for } i > 0,\\
+                    M\indent\indent\text{for } i = 0
+                \end{array}
+            \right.
+\]
+and simply equivalent to the left-most position of 1, known as the least
+significant 1-bit position.
+\begin{mdframed}
+    \textbf{Example 3.4: Rank calculation}\\
+    Consider an 8-bit long integer number 42 that has the following binary
+    representation using the \textquotedblleft LSB 0\textquotedblright numbering scheme:
+    \[
+        42 = 0\cdot2^0+1\cdot2^1+0\cdot2^2+1\cdot2^3+0\cdot2^4+1\cdot2^5+0\cdot2^6+0\cdot2^7 = (0\textbf{1}010100)_2 .
+    \]
+    Thus, the ones appear at positions 1, 3, and 5, therefore, accroding to
+    the definition (3.2), the rank(42) is equal to:
+    \[rank(42) = \min(1,3,5) = 1.\]
+\end{mdframed}
+The accurences of the $0^k 1$ pattern, or simply $rank(\cdot) = k$, in binary
+representations of hash values of each indexed element, can be compactly
+stored in a simple data structure COUNTER, also known as a FM Sketch,
+that is represented as a bit array of length M.
+
+At the start, all bits in COUNTER are equal to zero. When we need to
+add a new element $x$ into the data structure, we compute its hash value
+using the hash function $h$, then calculate rank(x) and set
+the corresponding bit to one in the array, as stated in the algorithm
+below.\\
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Adding element to simple counter}
+    \KwIn{Element $x \in D$}
+    \KwIn{Simple counter with hash function $h$}
+    $j \gets rank(h(x))$\;
+    \If{$LINEARCOUNTER[j] == 0$}
+    {
+        $LINEARCOUNTER[j]\gets 1$
+    }
+\end{algorithm}
+\vspace{0.4cm}
+In this way, the one in the COUNTER at some position $j$ means that
+the pattern $0^i 1$ has been observed at least once amongst the hashed
+values of all indexed elements.
+\begin{mdframed}
+    \textbf{Example 3.5: Build a simple counter}\\
+    Consider the same datasets as in Example 3.3 that contains 20 names
+    of capital cities extracted from recent news articales: \textbf{Berlin,} Berlin, \textbf{Paris,} Berlin,
+    \textbf{Lisbon, Kiev,} Paris, \textbf{London, Rome, Athens, Madrid, Vienna,}
+    Rome, Rome, Lisbon, Berlin, Paris, London, Kiev, \textbf{Washington.}\\
+    As the hash function $h$ we can use 32-bit MurmurHash3, that maps elements
+    to values from ${0,1,...,2^{32} - 1}$, therefore we can use simple counter
+    COUNTER of length M = 32. Using the hash values already computed in 
+    Example 3.3 and the definition (3.2), we calculate ranks for each element:
+    \begin{center}
+        \begin{tabular}{ |c|c|c| }
+            \multicolumn{3}{}{} \\ \hline
+            \textbf{City} & \textbf{h(City)} & \textbf{rank} \\ \hline
+            Athens & 4161497820 & 2 \\
+            Berlin & 3680793991 & 0 \\
+            Kiev & 3491299693 & 0 \\
+            Lisbon & 629555247 & 0 \\
+            London & 3450927422 & 1 \\
+            Rome & 50122705 & 0 \\
+            Vienna & 3271070806 & 1 \\
+            Washington & 4039747979 & 0\\
+            \cline{1-3}
+        \end{tabular}
+    \end{center}
+    Thus, the COUNTER has following form:
+    \begin{center}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+    \end{center}
+\end{mdframed}
+
+Let's stress a very interesting theoretical observation. Based on
+the uniform distribution of the values, if $n$ is the exact number of the distinct elements
+indexed so far, then we can expect that one in the first position can appear in about
+$\frac{n}{2}$ cases, in the second position in about $\frac{n}{2^2}$ cases, and so on. Thus,
+if $j\gg log_2n$, then the probability of
+discovering one in the $j-th$ position is close to zero, hence
+the COUNTER[$j$] will almost certainly be zero. Similarly, for $j\ll log_2n$
+the COUNTER[$j$] will almost certainly be one. If value $j$ is around
+the $log_2n$, then the probability to observe one or zero in that position is
+about the same.
+
+Thus, the left-most position $R$ of zero in the COUNTER after inserting
+all elements from the dataset can be used as an indicator of $\log_2n$. In
+fact, a correction factor $\varphi$ is required and the cardinality estimation can
+be done by the formula:
+\[
+    n \approx \frac{1}{\varphi}2^R,
+\]
+\vspace{0.4cm}
+where $\varphi\approx0.77351.$\\
+\vspace{0.4cm}
+\begin{quote}
+    Flajolet and Martin have chosen to use the least significant 0-bit position
+    (the left-most position of 0) as the estimation of cardinality and built their
+    algorithm based on it. However, from the observation above we can see,
+    that the most significant 1-bit position (the right-most position of 1) can
+    be used for the same purpose; however, it has a flatter distribution that leads to
+    bigger standard error.\\
+\end{quote}
+\indent The algorithm to compute the left-most postion of zero in a simple
+counter can be formulated as follows.\\\\
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Computing the left-most zero postion}
+    \KwIn{Simple counter of length M}
+    \KwOut{The left-most postion of zero}
+    \For{$j \gets 0 \textbf{ to } M-1$}{
+        \If{$COUNTER[j] == 0$}
+        {
+            \Return{j}
+        }
+    }
+    \Return{M}
+    \newline
+\end{algorithm}
+\vspace{0.4cm}
+\begin{mdframed}
+    \vspace{0.25cm}
+    \textbf{Example 3.6: Cardinality estimate with simple counter}\\
+    Consider the COUNTER from Example 3.5 and compute the estimated
+    number of distinct elements.
+    \begin{center}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            0 & 1 & 2 & 3 & \textbf{4} & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            1 & 1 & 1 & 1 & \textbf{0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+    \end{center}
+    Using Algorithm 3.4, in the COUNTER the left-most value 0 appears in
+    position R = 4, therefore, accroding to the formula (3.3), the cardinality
+    estimation is
+    \[
+        n \approx \frac{1}{0.77351}2^4 \approx 20.68.
+    \]
+    The exact cardinality of the set it 10, meaning the computed estimation
+    has a huge error due to the fact that values of $R$ are integers and for
+    very close ranks we can obtain results that differ in some binary orders
+    of magnitude. For instance, in out example, $R = 3$ would give an almost
+    perfect estimation of 10.34.
+    \vspace{0.25cm}
+\end{mdframed}
+\begin{quote}
+    Theoretically, the cardinality estimation based on a single simple counter
+    can provide very close expected values, but it has quite a high variance that
+    usually correcponds, as we abserved in Example 3.6, to the unpractical
+    standard error $\delta$ of one binary order of magnitude.
+    \vspace{0.25cm}
+\end{quote}
+\\
+
+Obviously, the weakness of the one-counter approach is that there is
+a lack of highly confident estimations for the cardinality (in fact, it makes
+its prediction based on a single estimation only).\
+
+Thereby, the natural extension of the algorithm is to have many simple
+counters and, consequently, increase the number of estimations. The final
+prediction $n$ can be obtained by averaging the predictions $R_k$ from those
+counters $\{COUNTER_k\}_{k=0}^{m-1}$.
+
+Thus, the modified formula (3.3) of the Probabilistic Counting
+algorithm has the form:
+\[
+    n \approx \frac{1}{\varphi}2^{\bar{R}} = \frac{1}{\varphi}2^{\frac{1}{m}{\sum\limits_{k=0}^{m-1}R_k}},
+\]
+and the cardinlity $n$ will have the same-quality estimated value, but
+with a much smaller variance.
+
+The obvious practical disadvantage to building $m$ independent simple
+counters is the requirement to compute values of $m$ different hash
+functions that, given that a single hash function can be computed in
+O(1), has O(m) time complexity and quite high CPU costs.
+
+The solution to optimizing the Probabilistic Counting algorithm is to
+apply a special procedure, called \textit{stochastic averaging}, when $m$ hash
+functions are replaced by only one but its value split by quotient and
+remainder, which are used to update a single counter per element.\\
+The remainder $r$ is used to choose one out of $m$ counters and quotient $q$
+to calculate the rank and find the appropriate index to be updated in
+that counter.\\
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Using stochastic averaging to update counters}
+    \KwIn{\text{Element} $x \in $D}
+    \KwIn{Array of $m$ simple counters with hash function $h$}
+    $r\gets$h(x)$\mod$m\\
+    $q \gets $h(x) \text{div m := } $\frac{h(x)}{m}$\\ % missing abs
+    $j \gets $rank(q)\\
+    \If{$COUNTER_r[j] == $0}{$COUNTER_r[j] \gets $1}
+\end{algorithm}
+
+Applying the stochastic averaging Algorighm 3.5 to the Probabilistic Counting,
+under the assumption that quotient-based distributed of elements is fair enough,
+we may expect that $\frac{n}{m}$ elements have been indexed
+by each simple counter $\{COUNTER_k\}_{k=0}^{m-1}$, therefore the formula (3.4) is a
+good estimation for $\frac{n}{m}$ (not $n$ directly):
+\[n \approx \frac{1}{\varphi}2^{\bar{R}} = \frac{1}{\varphi}2^{\frac{1}{m}{\sum\limits_{k=0}^{m-1}R_k}},\]
+\begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Flajolet-Martin algorithm (PCSA)}
+    \KwIn{Dataset D}
+    \KwIn{Array of $m$ simple counters with hash function $h$}
+    \KwOut{Cardinality estimation}
+    \For{$x \in D$}{
+        $r\gets$h(x)$\mod$m\\
+        $q \gets $h(x) \text{div m}\\ % missing abs
+        $j \gets $rank(q)\\
+        \If{$COUNTER_r[j] == $0}{$COUNTER_r[j] \gets $1}
+    }
+    $S \gets $0
+    \For{$r \gets $0 \text{to} m-1}{
+        $R \gets $LeftMostZero($COUNTER_r)$\\
+        $S \gets $S+R
+    }
+    \Return{$\frac{m}{\varphi}\cdot2^{\frac{1}{m}S}$}
+\end{algorithm}
+\vspace{0.25cm}
+The corresponding Algorighm 3.6 is called the Probabilistic Counting
+algorithm with stochastic averaging (PCSA) and is also known as
+the Flajolet-Martin algorithm. In comparision to its version with $m$ hash
+function, it reduces the time complexity for each element to about O(1).
+\newpage
+% \vspace{0.4cm}
+\begin{mdframed}
+    \vspace{0.25cm}
+    \textbf{Example 3.7: Cardinality estimate with stochastic averaging}\\
+    Consider the dataset and the hash values computed in Example 3.5 and
+    apply a stochastic averaging technique simulating $m = 3$ hash functions.
+    We use the remainder $r$ to choose one out of three counters and the quotient
+    $q$ to calculate the rank.
+    \begin{center}
+        \begin{tabular}{ |c|c|c|c|c| }
+            \multicolumn{5}{}{} \\ \hline
+            \textbf{City} & \textbf{h(City)} & r & q & \textbf{rank} \\ \hline
+            Athens & 4161497820 & 0 & 1378165940 & 2 \\
+            Berlin & 3680793991 & 1 & 1226931339 & 1 \\
+            Kiev & 3491299693 & 1 & 1163766564 & 2 \\
+            Lisbon & 629555247 & 0 & 209851749 & 0 \\
+            London & 3450927422 & 2 & 1150309140 & 2 \\
+            Madrid & 2970154142 & 2 & 990051380 & 2 \\
+            Paris & 2673248856 & 0 & 891082952 & 3 \\
+            Rome & 50122705 & 1 & 16707568 & 4 \\
+            Vienna & 3271070806 & 1 & 1090356935 & 0\\
+            Washington & 4039747979 & 2 & 1346582659 & 0\\
+            \cline{1-5}
+        \end{tabular}
+    \end{center}
+    Every counter handles information for about one-third of the cities,
+    thereforce, the distribution is fair enough. After indexing all elements and
+    setting the appropriate bits in the corresponding counters, our counters
+    have the following forms.\\
+
+    \vspace{0.25cm}
+    $COUNTER_0$
+    \begin{center}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            0 & \textbf{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            1 & \textbf{0} & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+    \end{center}
+
+    \vspace{0.25cm}
+    $COUNTER_1$
+    \begin{center}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            0 & 1 & 2 & \textbf{3} & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            1 & 1 & 1 & \textbf{0} & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+    \end{center}
+    
+    \vspace{0.25cm}
+    $COUNTER_2$
+    \begin{center}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            0 & \textbf{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            1 & \textbf{0} & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
+            16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 % Add bottom border to all rows
+        \end{tabular}
+        \begin{tabular}{|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
+        \end{tabular}
+    \end{center}
+
+    The left-most positions of zero for each counter (highlighted above) are\\
+    $R_0 = 1, R_1 = 3 \text{ and } R_2 = 1$. Thus, the estimation of the cardinality
+    according to formula (3.5) is
+    \[
+        n \approx \frac{3}{\varphi}2^{\frac{1}{3}\sum\limits_{k=0}^{2}R_k} \approx \frac{3}{0.77351}2^{\frac{1+3+1}{3}} \approx 12.31.
+    \]
+    The computed estimation is very close to the true cardinality value of
+    10, and even without using too many counters, it notably outperforms
+    the estimation from Example 3.6.
+    \vspace{0.25cm}
+\end{mdframed}
+\subsection*{Properties}
+The Flajolet-Martin algorithm works well for datasets with large
+cardinalities and produces good approximations when $\frac{n}{m} > 20$. However,
+additional non-linearities can appear in the algorithm for small
+cardinalities that usually require special corrections.
+
+One position correction to the algorithm was proposed by Bjorn
+Scheuermann and Martin Mauve in 2007 [Sc07] which adjusted
+the formula (3.5) by adding a term that corrects it for small
+cardinalities and quickly converges to zero for large cardinalities:
+\[
+    n \approx \frac{m}{\varphi}\left(2^{\bar{R}} - 2^{-\varkappa\cdot\bar{R}}\right),
+\]
+where $\varkappa \approx 1.75$.
+The standard error $\delta$ of the Flajolet-Martin algorithm is inversely
+related to the number of used counters and can be approximated as
+\[\delta \approx \frac{0.78}{\sqrt{m}}.\]
+\indent The reference values of the standard error for the widely used number
+of counters can be found in Table 3.2.\\
+\indent The length M of each counter COUNTER can be selected in a way that:
+\[M > \log_2\left(\frac{n}{m}\right) + 4\]
+thus, practicaly used M = 32 is enough to count cardinalities well beyond
+$10^9$ using 64 counters.
+\begin{center}
+    \textbf{Table 3.1:} Trade-off between accuracy and storage (M = 32)\\
+    \begin{tabular}{ |c|c|c| }
+        \multicolumn{3}{}{} \\ \hline
+        m & Storage & $\delta$ \\ \hline
+        64 & 256 bytes & 9.7\% \\
+        256 & 1.024 KB & 4.8\% \\
+        1024 & 4.1 KB & 2.4\% \\
+        \cline{1-3}
+    \end{tabular}
+\end{center}
+\indent The simple counters that have been built for different datasets can be
+easily merged together, that results in a COUNTER for union of those
+datasets. Such merging is trivial and can be done by applying a bitwise
+OR operation.\\
+\indent Like the Bloom filter, the Probabilistic Counting algorithms do not
+support deletions. But, following the approach used in the Counting Bloom filter,
+their inner bit arrays can be extended by counters and they will support probabilistically
+correct deletions. However, the increased storage requirements have to be taken
+into account.
+\subsection{LogLog and HyperLogLog}
+The most popular probabilistic algorithms to estimate cardinality used
+in practice are the LogLog family of algorithms that includes the \textit{LogLog}
+algorithm, proposed by Marianne Durand and Philippe Flajolet in
+2003 [Du03], and its successors \textit{HyperLogLog} and \textit{HyperLogLog++.}\\
+\indent The algorithms use an approach that is similar to the Probabilistic
+Counting algorithm in a way that estimation of the cardinality $n$ is done
+by observing the maximum number of leading zeros in the binary representation of values.
+They all require an auxiliary memory and perform a single pass over the data to
+produce an estimate of the cardinality.\\
+\indent As usual, every element in the dataset is pre-processed by applying
+a hash function $h$ that transforms elements into integers sufficiently
+uniformly distributed over a scalar range $\{0,1,...,2^M-1\}$ or, equivalently,
+over the set of binary $strings^3$ of length M:
+\[
+    h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}.    
+\]
+\indent The steps of the algorithms are similar to PCSA, which we reproduce
+here once again. First, it splits the initial dataset or input stream into
+some number of subsets, each of these is indexed by one of $m$ simple
+counters. Then, according to the stochastic averaging, because there is
+a single hash function, we choose the counter for the particular element $x$
+using one part of its hash value $h(x)$, while another part is used to update
+the corresponding counter.\\
+\indent All algorithms discussed here based on the observation of
+the patterns $0^k1$ that occur at the beginning of the values for
+the particular counter, and associate each pattern with its index, called
+rank. The rank is equivalent to the least significant 1-bit position in
+the binary representation of the hash value of indexed element and can
+be calculated by the formula (3.2). Each simple counter builds its own
+cardinality observation based on the seen ranks, the final estimation of
+the cardinality is produced from observation using an evaluation function.\\
+\indent In regards to storage, the counters in the Probabilistic Counting
+algorithm are relatively costly to maintain, but the \textit{LogLog} algorithm
+suggests a more storage-efficient solution together with a better
+evaluation function and bias correction approach.
+\subsection*{LogLog algorithm}
+The basic idea of the \textit{LogLog} algorithm starts with the conputation of
+ranks for each input element based on a single hash function $h$. Since we
+can expect that $\frac{n}{2^k}$ elements can have $rank(\cdot) = k$, where $n$ is the total
+number of elements indexed into a counter, the maximal observed rank can provide a good
+indication of the value of $log_2n$:
+\[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+\indent However, such estimation has an error of about $\pm1.87$ binary orders of
+magnitude, which is unpractical. To reduce the error, the \textit{LogLog}
+algorithm uses a bucketing technique based on the stochastic averaging
+and splits the dataset into $m = 2^p$ subsets $S_0,S_1,...,S_{m-1}$, where
+the precision parameter $p$ defines the number of bits used in navigation.\\
+\indent Thus, for every element $x$ from the dataset, the fisrt $p$ bits of the M-bit
+hash value $h(x)$ can be taken to find out the index $j$ of the appropriate subset.
+\[j = \left(i_0i_1...i_{p-1}\right)_2,\]
+and the rest (M-p) bits are indexed into the corresponding counter
+COUNTER[j] to compute the rank and get the observation $R_j$ according
+to formula (3.9).\\
+\indent Under fair distribution, every subset receives $\frac{n}{m}$ elements, therefore
+observation $R_j$ from the counters $\{COUNTER[j]\}_{j=0}^{m-1}$ can provide
+an indication of the value of $\log_2{\frac{n}{m}}$, and using their arithmetic mean
+with some bias correction, we can reduce a single observation variance:
+\[
+    n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
+\]
+where $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ is the gamma function. However,
+for most practical cases $m \ge 64$ it is enough to just use $\alpha_m \approx 0.39701$.\\
+
+\begin{algorithm}[H]
+    \vspace{0.25cm}
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Estimatin cardinality with \textit{LogLog}}
+    \KwIn{Dataset D}
+    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+    \KwOut{Cardinality estimation}
+    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+    \For{$x \in D$}{
+        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+        $i \gets $($i_0i_1...i_{M-1})_2$\\
+        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+        $COUNTER[j] \gets \max($COUNTER[j],r)
+    }
+    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+    \Return{$\alpha_m \cdot m \cdot 2^R$}
+    \vspace{0.25cm}
+\end{algorithm}
+\vspace{0.25cm}
+\subsection*{Properties}
+The standard error $\delta$ of the \textit{LogLog} algorithm is inversely related to
+the number of used counters $m$ and can be closely approximated as
+\[\delta \approx \frac{1.3}{\sqrt{m}}\]
+\vspace{0.25cm}
+\begin{quote}
+    Hence, for $m = 256$ the standard error is about 8\% and for $m = 1024$ it
+    decreases to about 4\%.
+    \vspace{0.25cm}
+\end{quote}
+\vspace{0.25cm}
+\indent The storage requirements of the \textit{LogLog} algorithm can be estimated as
+$O(log_2log_2n)$ bits of storage if counts till $n$ are needed. More precisely,
+the total space required by the algorithm in order to count to $n$ is
+$m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
+\indent In comparison to the Probabilistic Counting algorithm where each
+counter requires 16 or 32 bits, the \textit{LogLog} algorithm requires much
+smaller counters $\{COUNTER[j]\}_{j=0}^{m-1}$, usually of 5 bits each. However,
+while the \textit{LogLog} algorithm provides better storage-efficiency than
+the Probabilistic Counting algorithm, it is slightly less accurate.\\
+
+\begin{quote}
+    Assume that we need to count cardinalities till $2^30$, that is about 1 billion,
+    with an accuracy of about 4\%. As already mentioned, for such standard
+    error, $m = 1024$ buckets are required, each of which will receive roughly
+    $\frac{n}{m} = 2^{20}$ elements.\\
+    The $log_2\left(log_{2}2^{20}\right) \approx 4.32$, therefore, it is enough to allocate about 5 bits
+    per bucket (i.e., a value less than 32). Hence, to estimate cardinalities up
+    to about $10^9$ with the standard error or 4\%, the algorithm requires 1024
+    buckets of 5 bits, which is 640 bytes in total.
+    \vspace{0.25cm}
+\end{quote}
+\vspace{0.25cm}
+\subsection*{HyperLogLog algorithm}
+\section{PHƯƠNG PHÁP THỰC HIỆN }
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
 
 
