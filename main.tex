@@ -1094,7 +1094,7 @@ for most practical cases $m \ge 64$ it is enough to just use $\alpha_m \approx 0
     $COUNTER[j] \gets $0, $j = 0...m - 1$\\
     \For{$x \in D$}{
         $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
-        $i \gets $($i_0i_1...i_{M-1})_2$\\
+        $j \gets $($i_0i_1...i_{M-1})_2$\\
         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
         $COUNTER[j] \gets \max($COUNTER[j],r)
     }
@@ -1137,6 +1137,120 @@ the Probabilistic Counting algorithm, it is slightly less accurate.\\
 \end{quote}
 \vspace{0.25cm}
 \subsection*{HyperLogLog algorithm}
+An improvement of the \textit{LogLog} algorithm, called \textit{HyperLogLog}, was
+proposed by Philippe Flajolet, Eric Fusy, Olivier Gandouet, and Frederic Meunier in
+2027 [Fl07]. The \textit{HyperLogLog} algorithm uses 32-bit hash
+function, a different eveluation function, and various bias corrections.\\
+\indent Similar to the \textit{LogLog} algorithm, \textit{HyperLogLog} uses randomization to
+approximate the cardinality of a dataset and has been designed to handle
+cardinalities up to $10^9$ with a single 32-bit hash function $h$ splitting
+the dataset into $m = 2^p$ subsets, with precision $p \in 4...16$.\\
+\indent Additionally, the evaluation function differentiates the \textit{HyperLogLog}
+algorithm from the standard \textit{LogLog}. The original \textit{LogLog} algorithm
+uses the geometric mean while the \textit{HyperLogLog} uses a function that is
+based on a normalized version of the harmonic mean:
+\[
+    \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
+\]
+where
+\[
+    \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
+\]
+\indent The approximate values of $alpha_m$ can be found in Table 3.3.\\
+\indent The intuition behind using the harmonic mean is that it reduces
+the variance due to its property to tame skewed probability distributions.\\
+\begin{center}
+    \textbf{Table 3.3:} $\alpha_m$ for most used values of $m$\\
+    \begin{tabular}{ |c|c| }
+        \multicolumn{2}{}{} \\ \hline
+        m & $\alpha_m$ \\ \hline
+        64 &  0.673 \\ \hline
+        256 & 0.697 \\ \hline
+        1024 & 0.709 \\ \hline
+        $\ge 2^7$ & $\frac{0.7213 \cdot m}{m + 1.079}$ \\ \hline
+    \end{tabular}
+\end{center}
+
+\indent However, the estimation (3.12), requires a correction for small and large
+ranges due to non-linear errors. Flajolet et al. empirically found that for
+small cardinalities $n < \frac{5}{2}m$ to archieve better estimates the \textit{HyperLogLog}
+algorithm can be corrected with Linear Counting using a number of
+non-zero COUNTER[j] counters (if a counter has a zero value, we can say
+with certainty that the particular subset is empty).\\
+\indent Thus, for different ranges of cardinality, expressed as intervals on
+the estimate $\hat{n}$ computed by formula (3.12), the algorithm provides
+the following corrections:
+\[
+    n = \left\{ \begin{array}{lcl}
+        \text{LINEARCOUNTER,} & \hat{n} \leq \frac{5}{2}m \mbox{ and } \exists_j : COUNTER[j] \neq 0 \\ 
+        -2^{32}\log\left(1-\frac{\hat{n}}{2^{32}}\right), & \hat{n}>\frac{1}{30}2^{32} & \mbox{\hspace{2cm}(3.13)} \\
+        \hat{n}, & \textit{otherwise.}
+        \end{array}\right.    
+\]
+\indent However, for $n = 0$ the correction it seems is not enough and
+the algorithm always returns roughly $0.7m$.\\
+\indent Since the \textit{HyperLogLog} algorithm uses a 32-bit hash function, when
+cardinality approaches $2^{32}\approx 4 \cdot 10^9$ the hash function almost reaches its
+limit and the probability of collisions increases. For such large ranges,
+the \textit{HyperLogLog} algorithm estimates the number of different hash values
+and uses it to approximate the cardinality. However, in practice, there is
+a danger that a higher number just cannot be represented and will be
+lost, impacting the accuracy.\\
+\vspace{0.25cm}
+\begin{quote}
+    Consider a hash function that maps the universe to values of M bits.
+    At most such a function can encode $2^M$ diffirent values and if the estimated
+    cardinality $n$ approaches such a limit, the hash collision become more and more probable.
+    \vspace{0.25cm}
+\end{quote}
+
+\indent There is no evidence that some popular hash functions (e.g., MurmurHash3,
+MD5, SHA-1, SHA-256) perform significantly better than others in \textit{HyperLogLog} algorithms
+or its modifications.\\
+\indent The complete \textit{HyperLogLog} algorithm is shown below.\\
+\begin{algorithm}[H]
+    \vspace{0.25cm}
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
+    \KwIn{Dataset D}
+    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+    \KwOut{Cardinality estimation}
+    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+    \For{$x \in D$}{
+        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+        $j \gets $($i_0i_1...i_{M-1})_2$\\
+        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+        $COUNTER[j] \gets \max($COUNTER[j],r)
+    }
+    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+    $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
+    $n \gets \hat{n}$ \\
+    \If{$\hat{n} \le \frac{5}{2}m$}
+    {
+        $Z \gets \underset{j=0...m-1}{count}\left(COUNTER[j] == 0\right)$\\
+        \If{$Z \ne 0$}{$n \gets m \cdot \log\left(\frac{m}{Z}\right)$}
+    }
+    \ElseIf{$\hat{n} > \frac{1}{30}2^{32}$}
+    {
+        $n \gets -2^{32}\cdot\log\left(1-\frac{n}{2^{32}}\right)$
+    }
+    \Return{$n$}
+    \vspace{0.25cm}
+\end{algorithm}
+\vspace{0.25cm}
+\subsection*{Properties}
+Similar to the \textit{LogLog} algorithm, there is a clear trade-off between
+the standard error $\delta$ and the number of counters $m$:
+\[\delta \approx \frac{1.04}{\sqrt{m}}.\]
+\indent The memory requirement does not grow linearly with the number of
+elements (unlike, e.g., the Linear Counting algorithm), allocating $(M=p$)
+bits for the hash values and having $m = 2^p$ counters in total, the required
+memory is
+\[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits , \indent (3.14)}\]
+moreover, since the algorithm uses only 32-bit hash function and
+the precision $p \in 4...16$, the memory requirements for
+the \textit{HyperLogLog} data structure is $5\cdot 2^p$ bits.
 \section{PHƯƠNG PHÁP THỰC HIỆN }
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
 
