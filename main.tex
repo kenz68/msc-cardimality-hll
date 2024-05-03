@@ -168,7 +168,6 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 
 \begin{center}
 \begin{tabular}{c}
-%\multicolumn{1}{c}{\textbf{{\Large BÁO CÁO BÀI TẬP LỚN}}}
 \multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
 \vspace{2cm}
 \\
@@ -203,8 +202,6 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 {\footnotesize HỒ CHÍ MINH CITY}
 \end{center}
 \end{titlepage}
-%%%----------%%%----------%%%----------%%%----------%%%
-%\begin{document}
 
 \begin{titlepage}
 \begin{center} {\textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}
@@ -233,7 +230,6 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 
 \begin{center}
 \begin{tabular}{c}
-%\multicolumn{1}{c}{\textbf{{\Large BÁO CÁO BÀI TẬP LỚN}}}
 \multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
 \vspace{2cm}
 \\
@@ -1493,35 +1489,8 @@ that follows this chapter.\\
 \indent In the next chapter we consider streaming applications and study
 the afficient probabilistic algorithms to estimate frequencies of elements,
 find heavy hitters and trending elements in data streams.\\
-\section{PHƯƠNG PHÁP THỰC HIỆN }
+\section{PHƯƠNG PHÁP THỰC HIỆN}
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
-
-
-\subsection{Trạng thái sạc (SOC)}
-Tình trạng sạc (SoC - State of Charge) được coi là một trong những lĩnh vực nghiên cứu cốt lõi trong hệ thống quản lý năng lượng pin. Hầu hết các bài báo được chọn giới thiệu những phương pháp và tiếp cận mới để ước lượng SoC. Sai số trung bình bình phương là nhỏ hơn 3,146 và 2,315 cho các pin đã lão hóa và các loại pin khác nhau. Chiến lược cân bằng SoC dựa trên chia sẻ năng lượng dựa trên một kiến trúc BESS (Battery Energy Storage System) phân tán trong đó hệ thống cân bằng các ô pin và điều chỉnh điện áp DC bus được hợp nhất thành một hệ thống duy nhất. Các bộ chuyển đổi công suất nhỏ được sử dụng để cung cấp cân bằng SoC giữa các ô pin và quản lý điện áp DC bus. Các tác giả cho biết hiệu suất tổng thể của hệ thống hoàn chỉnh là 95-97. Dựa trên dòng điện và điện áp đo được, đã thiết kế một mô hình pin dựa trên mạng nơ-ron (ANN) để ước lượng SoC. Việc ước lượng SoC dựa trên mạng nơ-ron đã được cải thiện bằng cách sử dụng bộ lọc Kalman không mùi. Mô hình đề xuất được xác nhận bằng các chu kỳ lái xe EV (Electric Vehicle) trong các điều kiện nhiệt độ khác nhau. Một kỹ thuật SoC dựa trên mô hình điện hóa toàn diện của pin lithium-ion được trình bày bởi Klein. Các tác giả trình bày một bộ quan sát phạm vi lỗi đầu ra dựa trên một tập hợp giảm của phương trình đại số-giải phương trình vi phân. Các tác giả cho biết sai số SoC là nhỏ hơn 10.\\
-
-SOC (State of Charge) còn là một yếu tố quan trọng nhưng không thể đo được dựa trên các công nghệ cảm biến hiện tại trên xe. Tỷ lệ giữa dung lượng hiện tại có sẵn và dung lượng tối đa có thể được biểu diễn dưới dạng SOC [11], được tính bằng Công thức (1):\\
-\[SOC = 1 - \frac{\int(idt)}{Cn}\]
-\[Z := (\sum_{j=1}^{m} 2^{-M^{(j)}})^{-1}.\]
-với i là dòng điện, còn Cn là dung lượng tối đa mà pin có thể chứa. \\
-
-SOC (Trạng thái sạc) phản ánh lượng điện còn lại có sẵn cho pin. Nó được sử dụng để xác định quãng đường lái còn lại trong xe điện (EVs) và chỉ ra khi nào động cơ đốt trong xe hybrid (HEVs) nên được bật hoặc tắt [12]. Do các phản ứng hóa học tự nhiên trong pin và các tải trọng ngoại vi khác nhau, dung lượng tối đa của pin giảm dần theo thời gian. Sự không chắc chắn liên quan đến những yếu tố này sẽ dẫn đến đặc tính suy giảm của pin không tuyến tính, không ổn định. Phương pháp tiếp cận đơn giản nhất để ước lượng SOC là Coulomb counting (đếm Coulomb), phản ánh năng lượng trong pin dưới dạng Coulomb. Phương pháp này tính toán dung lượng pin bằng cách tích phân dòng điện vào và ra khỏi pin theo thời gian. SOC có thể được xác định bằng cách tham khảo điểm hiệu chuẩn ở chế độ sạc đầy. Tuy nhiên, điểm tham chiếu này (tức điểm khởi đầu) sẽ thay đổi do quá trình lão hóa pin và hiệu suất Coulomb. Do đó, điểm tham chiếu phải được bù đắp khi hoạt động trong điều kiện thực tế, và ước lượng SOC phải được cập nhật dưới các điện áp đo được khác nhau.
-
-\subsection{Trạng thái sức khỏe (SOH)}
-Trạng thái hoạt động của pin (SOH - State of Health) liên quan đến việc đánh giá hiệu suất của pin hiện tại hoặc trong tương lai có thể dự đoán được. Thông thường, hiệu suất của pin được đo bằng dung lượng Ah hoặc tuổi thọ chu kỳ sạc và xả trong ứng dụng ô tô điện. Việc giữ lại 80 dung lượng ban đầu được xem là tuổi thọ hoạt động hữu ích cho một pin. Trong thập kỷ qua, đã có nhiều nỗ lực lớn để đạt được ước lượng chính xác về SOH của pin và đã có những tiến bộ đáng kể. Ví dụ, các kỹ thuật học máy được thiết kế tốt đã được phát triển để ước lượng SOH của pin bằng cách sử dụng các thuật toán tham số và phi tham số [7]. Để khám phá không gian tham số, một tập dữ liệu toàn diện gồm 179 ô pin được sạc và xả dưới các điều kiện khác nhau từ các tập dữ liệu được chia sẻ công khai đã được sử dụng để huấn luyện, xác thực và kiểm tra các mô hình học máy. Mô hình này đã đạt được sai số trung bình bình phương căn theo phần trăm là 0,45 trong việc dự đoán dung lượng (Ah), nhờ sự áp dụng các kỹ thuật quản lý không chắc chắn, hiệu chỉnh sai số và đo lường độ chính xác. Ước lượng thời gian sử dụng còn lại (RUL - Remaining Useful Life) là một tham số thường được sử dụng để đo lường SOH. Tham số này thường là số chu kỳ sạc và xả hoàn chỉnh trước khi pin hỏng. Một ví dụ đại diện sử dụng các công cụ dựa trên dữ liệu để dự đoán và phân loại các ô pin theo tuổi thọ chu kỳ trong một tập dữ liệu gồm 124 pin lithium-ion được trình bày trong [8]. Trong trường hợp này, mô hình học máy đã đạt được sai số thử nghiệm là 9,1 khi sử dụng 100 chu kỳ đầu tiên để dự đoán tuổi thọ chu kỳ của các ô pin trong điều kiện sạc nhanh. Mô hình dự đoán sớm và kỹ thuật học máy sử dụng tối ưu hóa Bayesian đã cho thấy sự thành công trong việc dự đoán chính xác tuổi thọ chu kỳ cuối cùng và tối ưu hóa không gian tham số của giao thức sạc [9]. Phát sinh từ khung Bayesian, hồi quy quy trình Gaussian (GPR) là một kỹ thuật học máy xác suất thông thường được sử dụng để chẩn đoán và tiên lượng pin. Ví dụ, các hình vi mòn phức tạp của pin lithium-ion đã được phù hợp thông qua việc lựa chọn hàm kernel cho mô hình GPR [10].\\
-
-Sự giảm dung lượng pin trên xe điện là một vấn đề quan trọng, do đó, định nghĩa về trạng thái sức khỏe (State of Health - SOH) dưới điều kiện phòng thí nghiệm thường được xác định là tỷ lệ giữa dung lượng sử dụng được ở giai đoạn hiện tại của tuổi thọ pin và dung lượng của một pin mới được sản xuất, được biểu thị bằng Công thức (2).\\
-\[SOH = \frac{Qi}{Qo}\]
-Trong định nghĩa SOH, Q0 đại diện cho dung lượng danh định ban đầu của pin (nominal capacity), còn Qi đại diện cho dung lượng hiện có của pin (capacity currently available).
-Dung lượng danh định ban đầu (Q0) thường được xác định dựa trên thông số kỹ thuật của pin khi nó mới được sản xuất. Đây là dung lượng tối đa mà pin có thể lưu trữ và cung cấp năng lượng.
-Dung lượng hiện có (Qi) đại diện cho dung lượng thực tế của pin tại giai đoạn hiện tại sau khi đã trải qua một thời gian sử dụng. Điều này thường được xác định bằng cách đo và tính toán dung lượng sử dụng được thực tế của pin qua các phương pháp kiểm tra và đánh giá.
-Tỷ lệ SOH được tính bằng cách chia dung lượng hiện có (Qi) cho dung lượng danh định ban đầu (Q0) phần trăm. Nếu tỷ lệ SOH là 80, điều đó có nghĩa là pin hiện chỉ còn 80 dung lượng so với khi nó mới được sản xuất.
-Định nghĩa này giúp đánh giá mức độ giảm dung lượng pin và sức khỏe tổng thể của pin trong quá trình sử dụng.\\
-Sau đây là 2 công thức biểu diễn Power fade và Capacity fade. 
-
-\[Power Fade = 1 - \frac{Power(k)}{Power(o)} = 1 - \frac{R(o)}{R(k)}\]
-
-\[Capacity Fade(\%) = 1 - (1 - \frac{Power(k)}{Power(o)})*100 \%\]
 
 \subsection{Trạng thái vòng đời (SOL)}
 
@@ -1625,7 +1594,6 @@ Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có
 
 Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin và xe điện hiệu quả và bền vững.\\
 
-%\include{bibliography}
 \begin{thebibliography}{19}
 
 \bibitem{H. Truong:Rahman:Shenoy:2018} 
