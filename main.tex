@@ -1250,7 +1250,164 @@ memory is
 \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits , \indent (3.14)}\]
 moreover, since the algorithm uses only 32-bit hash function and
 the precision $p \in 4...16$, the memory requirements for
-the \textit{HyperLogLog} data structure is $5\cdot 2^p$ bits.
+the \textit{HyperLogLog} data structure is $5\cdot 2^p$ bits.\\
+\vspace{0.4cm}
+\begin{quote}
+    Therefore, the \textit{HyperLogLog} algorithm makes it possible to estimate
+    cardinalities well beyond $10^9$ with a typical accuracy of $2\%$ while using
+    a memory of only 1.5 KB.\\
+    For instance, the well-know in-memory database Redis maintains
+    \textit{HyperLogLog} data structure of 12 KB that approximate cardinalities
+    with a standard error of 0.81\%.
+    \vspace{0.25cm}
+\end{quote}
+
+While \textit{HyperLogLog}, in comparision to \textit{LogLog}, improved
+the cardinality estimation for small datasets, it still overestimates
+the real cardinalities in such cases.\\
+\indent The variants of the $HyperLogLog$ algorithm are implemented in well-known
+databases such as Amazon Redshift, Redis, Apache CouchDB, Riak, and others.
+\subsection*{HyperLogLog++ algorithm}
+After some time, in 2013 [He13], an improved version of $HyperLogLog$ was
+developed, the $HyperLogLog++$ algorithm, published by Stefan Heule,
+Marc Nunkesser, and Alexander Hall and focussed on large cardinalities and better 
+bias correction.\\
+\indent The most noticeable improvement of the $HyperLogLog++$ algorithm
+is the usage of a 64-bit hash function. Clearly, the longer the output
+values of the hash function, the more different elements can be encoded.
+Such improvement allows to estimate cardinalites far larger than $10^9$,
+unique elements, but when the cardinality approaches $2^64 \approx 1.8\cdot 10^{19}$,
+hash collisions become a problem for the $HyperLogLog++$ as well.\\
+\indent The $HyperLogLog++$ algorithm uses exactly the same evaluation
+function given by (3.12). However, it improves the bias correction.
+The authors of the algorithm performed a series of experiments to measure
+the bias and found that for $n \le 5m$ the bias of the original $HyperLogLog$ 
+algorithm could be further corrected using empirical data collected over
+the experiments.\\
+\indent Additional to the origin article, Heule et al. provided empirically
+determined values to improve the bias correction in the algorithm-arrays
+of raw cardinality estimates $RAWESTIMATEDATA$ and related
+biases $BIASDATA$. Of course, it is not feasible to cover every possible case,
+so the $RAWESTIMATEDATA$ provides an array of 200 imterpolation
+points, storing the average raw estimate measured at this point over 5000
+different datasets. $BIASDATA$ contains about 200 measured biases that
+correspond with the $RAWESTIMATEDATA$. Both arrays are zero-indexed
+and contain precomputed values for all supported precisions $p \in 4...18$,
+where the zero index in the arrays corresponds to the precision values 4.
+As an example, for $m = 2^{10} and p = 10$ the needed data can be found in
+$RAWESTIMATEDATA[6]$ and $BIASDATA[6]$.\\
+\indent The bias correction procedure in the $HyperLogLog++$ algorithm can
+be formalized as follows.\\
+\begin{algorithm}[H]
+    \vspace{0.25cm}
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Correcting bias in \textit{HyperLogLog++}}
+    \KwIn{Estimate $\hat{n}$ with precicion $p$}
+    \KwOut{Bias-corrected cardinality estimate}
+    $n_{low} \gets 0, n_{up} \gets 0, j_{low} \gets 0, j_{up} \gets 0 $\\
+    \For{$j \gets 0 to length(RAWESTIMATEDATA[p-4])$}{
+        \If{$RAWESTIMATEDATA[p-4][j] \ge \hat{n}$}
+        {
+            $j_{low} \gets j - 1, j_{up} \gets j$\\
+            $n_{low} \gets RAWESTIMATEDATA[p-4][j_{low}]$\\
+            $n_{up} \gets RAWESTIMATEDATA[p-4][j_{up}]$\\
+            break
+        }
+    }
+    $b_{low} \gets BIASDATA[p-4][j_{low}]$\\
+    $b_{up} \gets BIASDATA[p-4][j_{up}]$\\
+    $y = interpolate\left(\left(n_{low}, n_{low} - b_{low}\right), \left(n_{up}, n_{up} - b_{up
+    }\right)\right)$\\
+    \Return{$y(\hat{n})$}
+    \vspace{0.25cm}
+\end{algorithm}
+\begin{mdframed}
+    \vspace{0.25cm}
+    \textbf{Example 3.8: Bias correction using empirical values}\\
+    As an example, assume that we have computed the cardinality estimation
+    $\hat{n} = 2018.34$ using the formula (3.12) and want to correct it for the precison
+    $p = 10 (m = 2^{10})$.\\
+    First, we check the RAWESTIMATEDATA[6] array and determine that such
+    a value $\hat{n}$ falls in the interval between values with indices 73 and 74 of
+    that array, where RAWESTIMATEDATA[6][73] = 2003.1804 and
+    RAWESTIMATEDATA[6][74] = 2026.071.
+    \[2003.1804 \le \hat{n} \le 2026.071.\]
+    The correct estimation is in the interval:
+    \[\left[2023.1804 - 134.1804, 2026.071 - 131.071\right] = \left[1869.0, 1895.0\right]\]
+    and to compute the corrected approximatation, we can interpolate that
+    values, e.g., using k-nearest neighbor search or just by a linear interpolation\\
+    $y(x) = a \cdot x + b, where y(2003.1804) = 1869.0 and y(2026.071) = 1895.0.$\\
+    Thus, using simple calculations, the interpolation line is
+    \[y = 1.135837 \cdot x - 406.28725,\]
+    and the interpolated value for our cardinality estimation is
+    \[n = y(\hat{n}) = y(2018.34) \approx 1886.218.\]
+    
+\end{mdframed}
+\indent According to experiments performed by the authors of
+the $HyperLogLog++$, the estimate $n_{lin}$ built according to the
+Linear Counting algorithm is still better for small cardinalities even comparing
+to the bias-corrected value $n$. Therefore, if at least one empty counter
+exists, the algorithm additionallu computes the linear estimate and uses
+a list of empirical thresholds, that can be found in Table 3.4, to choose
+which evaluation should be preferred. In such a case, the bias-corrected
+value $n$ is used only when the linear estimate $n_{lin}$ falls above
+the threshold $\varkappa_m$ for the current $m$.
+\subsection*{Properties}
+The accuracy of HyperLogLog++ is better than HyperLogLog for a large
+range of cardinalities and equally good for the rest. For cardinalities
+between 12000 and 61000, the bias correction allows for a lower error
+and avoids a spike in the error when switching between sub-algorithns.\\
+\indent However, since HyperLogLog++ doesn't need to store hash values, just
+one plus the maximum size of the number of leading zeros, the memory
+requirements don't grow significantly compared to HyperLogLog and,
+according to (3.14), it requires only $6\cdot2^p$ bits.\\
+
+\begin{quote}
+    The HyperLogLog++ algorithm can be used to estimate cardinalities of\\
+    about $7.9\cdot10^9$ elements with a typical error rate of 1.625\%, using
+    2.56 KB\\ of memory.
+    \vspace{0.25cm}
+\end{quote}
+\\\\
+\indent As mentioned earlier, the algorithm uses the stochastic averaging
+approach and splits the dataset into $m = 2^p$ subsets $\left\{COUNTER[j]\right\}_{j=0}^{m-1}$, every counter handles
+information about $\frac{n}{m}$ elements. Heule et al. noticed that for $n \ll m$
+most counters are never used and don't need to be stored, therefore
+the storage can benefit from a sparse representation. If the cardinality
+$n$ is much smaller than $m$, then HyperLogLog++ requires significantly
+less memory than its predecessors.\\
+\indent The HyperLogLog++ algorithm in a sparse version stores only pairs
+$(j, COUNTER[j])$, representing them as a single integer by concatenating
+their bit patterns. All such pairs are stored in a single sorted list of
+integers. Since we always compute the maximal rank, we don't need
+to store different pairs with the same index, instead only the pair with
+the maximal index has to be stored. In practice, to provide a better
+experience one can maintain onother unsorted list for fast insertions that
+have to be periodically sorted and merged into the primary list. If such
+a list requires more memory than the dense representation of the counters,
+it can be easily converted to the dense form. Additionally, to make
+the sparse representation even more space friendly, the HyperLogLog++
+algorithm proposes different compression techniques using variable length
+encoding and difference encoding for the integers, therefore storing only
+the first pair and diffrences from its value.\\
+\indent Currently, the HyperLogLog++ algorithm is widely used in many
+popular applications, including Google BigQuery and Elasticsearch.
+\subsection*{Conclusion}
+In this chapter we covered various probabilistic approaches to computing
+unique elements in huge datasets. We have discussed the difficulties
+that appear in cardinality estimation tasks and learned a simple solution
+that could approzimate the small cardinalites quite well. Further, we
+have studied the family of algorithms based on an observation of certain
+patterns in the hashed representations of elements from the dataset which
+is followed by many improvements and modifications that have become
+industry standard today for estimating cardinalities of almost any range.\\
+\indent If you are interested in more infomation about the material covered
+here or want to read the origin papers, please take a look at the list of references
+that follows this chapter.\\
+\indent In the next chapter we consider streaming applications and study
+the afficient probabilistic algorithms to estimate frequencies of elements,
+find heavy hitters and trending elements in data streams.\\
 \section{PHƯƠNG PHÁP THỰC HIỆN }
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
 
