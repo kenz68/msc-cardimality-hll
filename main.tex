@@ -1353,6 +1353,91 @@ a list of empirical thresholds, that can be found in Table 3.4, to choose
 which evaluation should be preferred. In such a case, the bias-corrected
 value $n$ is used only when the linear estimate $n_{lin}$ falls above
 the threshold $\varkappa_m$ for the current $m$.
+\begin{mdframed}
+    \vspace{0.25cm}
+    \textbf{Example 3.9: Bias correction with the threshold}\\
+    Consider Example 3.8, where for $m = 2^{10}$ we computed the bias-corrected
+    value $n \approx 1886.218$. In order to determine whether or not we should
+    perfer this value to the estimation by Linear Counting, we need to find
+    out the number of empty counters Z in HyperLogLog++ data structure.
+    Because we do not have value in our example, assume it is Z = 73.\\
+    Thus, the linear estimation according to the formula (3.1) is
+    \[n_{lin} = 2^{10}\cdot\log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
+    Next, we compare the $n_{lin}$ to the threshold $\varkappa_m = 900$ from Table 3.4, which
+    is far below the computed value, therfore, we prefer the bias-corrected
+    estimate n to the Linear Counting estimate $n_{lin}$.
+    
+\end{mdframed}
+    
+\begin{center}
+    \textbf{Table 3.4: } Empirical threshold $\varkappa_m$ for the supported precision values \\
+    \begin{tabular}{ |c|c|c| }
+        \multicolumn{3}{}{} \\ \hline
+        p & m & $\varkappa_m$ \\ \hline
+        4 & $2^4$ & 10 \\ \hline
+        5 & $2^5$ & 20 \\ \hline
+        6 & $2^6$ & 40 \\ \hline
+        7 & $2^7$ & 80 \\ \hline
+        8 & $2^8$ & 220 \\ \hline
+    \end{tabular}
+    \hspace{0.5cm}
+    \begin{tabular}{ |c|c|c| }
+        \multicolumn{3}{}{} \\ \hline
+        p & m & $\varkappa_m$ \\ \hline
+        9 & $2^9$ & 400 \\ \hline
+        10 & $2^10$ & 900 \\ \hline
+        11 & $2^11$ & 1800 \\ \hline
+        12 & $2^12$ & 3100 \\ \hline
+        13 & $2^13$ & 6500 \\ \hline
+    \end{tabular}
+    \hspace{0.5cm}
+    \begin{tabular}{ |c|c|c| }
+        \multicolumn{3}{}{} \\ \hline
+        p & m & $\varkappa_m$ \\ \hline
+        14 & $2^14$ & 11500 \\ \hline
+        15 & $2^15$ & 20000 \\ \hline
+        16 & $2^16$ & 50000 \\ \hline
+        17 & $2^17$ & 120000 \\ \hline
+        18 & $2^18$ & 350000 \\ \hline
+    \end{tabular}
+    \hspace{0.5cm}
+\end{center}
+
+\indent The complete HyperLogLog++ algorithm is shown below.\\
+
+\begin{algorithm}[H]
+    \vspace{0.25cm}
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Estimating cardinality with \textit{HyperLogLog++}}
+    \KwIn{Dataset D}
+    \KwIn{Array of $m$ $LogLog$ counters with hash function $h$}
+    \KwOut{Cardinality estimation}
+    $COUNTER[j] \gets 0, j = 0 ... m-1$\\
+    \For{$x \in D$}{
+        $i \gets h(x) := (i_0i_1...i_{63})_2, i_k \in \left\{0, 1\right\}$\\
+        $j \gets (i_0i_1...i_{p-1})_2$ \\
+        $r \gets COUNTER[j] \gets \max(COUNTER[j], r)$
+    }
+    $\textbf{R} \gets \sum\limits_{k=0}^{m-1}2^{-COUNTER[j]}$\\
+    $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$\\
+    $n \gets \hat{n}$\\
+    \If{$\hat{n} \le 5m$}
+    {
+        $n \gets \textbf{CorrectBias}(\hat{n})$
+    }
+    $Z \gets \underset{j=0...m-1}{\textbf{count}}(COUNTER[j] = 0)$\\
+    \If{$Z \ne 0$}
+    {
+        $n_{lin} \gets m \cdot \log\frac{m}{Z}$\\
+        \If{$n_{lin} \le \varkappa_m then$}
+        {
+            $n \gets n_{lin}$
+        }
+    }
+    \Return{n}
+    \vspace{0.25cm}
+\end{algorithm}
 \subsection*{Properties}
 The accuracy of HyperLogLog++ is better than HyperLogLog for a large
 range of cardinalities and equally good for the rest. For cardinalities
