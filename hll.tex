@@ -288,51 +288,58 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \hspace{2em}Ngày nay, các ứng dụng và dịch vụ trực tuyến đóng vai trò ngày càng quan trọng trong cuộc sống của con người. 
 Chúng ta sử dụng mạng xã hội để kết nối với bạn bè và chia sẻ thông tin, mua sắm trực tuyến để tiết kiệm thời gian và tiền bạc, 
 hay xem phim và chơi game trực tuyến để giải trí. Để đánh giá hiệu quả hoạt động của các ứng dụng và dịch vụ này, 
-một trọng những chỉ số quan trọng nhất là số lượng người dùng hoạt động Distinct Active Users (DAU).
+một trọng những chỉ số quan trọng nhất là số lượng người dùng hoạt động.
 
 Việc theo dõi số lượng người dùng hoạt động trong một khoảng thời gian nhất định trên một dòng dữ liệu (data stream) 
 là một yêu cầu quan trọng đối với nhiều ứng dụng và dịch vụ trực tuyến, hiệu quả của các chiến dịch marketing, 
-và hỗ trợ ra quyết định kinh doanh. Ví dụ, trong các ứng dụng mạng xã hội, số lượng người dùng hoạt động cho thấy mức độ tương tác 
+và hỗ trợ ra quyết định kinh doanh.\\
+Ví dụ, trong các ứng dụng mạng xã hội, số lượng người dùng hoạt động cho thấy mức độ tương tác 
 và sự quan tâm của người dùng đối với nền tảng. Trong các dịch vụ thương mại điện tử, số lượng người dùng hoạt động cho thấy hiệu quả 
-và các chiến dịch quảng cáo và khuyến mãi. Tuy nhiên, việc đếm số lượng DAU không phải là một nhiệm vụ đơn giản, đặc biệt là khi dữ liệu lớn 
+và các chiến dịch quảng cáo và khuyến mãi. \\
+Tuy nhiên, việc đếm số lượng người dùng không phải là một nhiệm vụ đơn giản, đặc biệt là khi dữ liệu lớn 
 và tốc độ truy cập cao. Các phương pháp truyền thống như lưu trữ và truy vấn trực tiếp vào cơ sở dữ liệu có thể gặp nhiều hạn chế về hiệu suất 
-và khả năng mở rộng.
+và khả năng mở rộng.\\
 
-Trong nhiều trường hợp, cần phải tổng hợp số lượng DAU trên nhiều streams hoặc services khác nhau. Việc này giúp có được bức tranh toàn cảnh về hoạt động của người dùng trên toàn hệ thống, từ đó đưa ra các phân tích và đánh giá chính xác hơn. Ví dụ, trong hệ thống thương mại điện tử, cần tổng hợp số lượng DAU từ các trang web, ứng dụng di động và API khác nhau để có được số lượng người dùng hoạt động thực tế trên toàn hệ thống. Tuy nhiên, việc tổng hợp dữ liệu từ nhiều nguồn khác nhau có thể gặp thách thức về đồng bộ hóa dữ liệu, xử lý dữ liệu bị thiếu hoặc lỗi, và đảm bảo tính nhất quán của kết quả. 
+Trong nhiều trường hợp, cần phải tổng hợp số lượng người dùng trên nhiều dòng dữ liệu khác nhau. Việc này giúp có được bức tranh toàn cảnh về hoạt động 
+của người dùng trên toàn hệ thống, từ đó đưa ra các phân tích và đánh giá chính xác hơn.\\
+Ví dụ, trong hệ thống thương mại điện tử, cần tổng hợp số lượng người dùng từ các trang web, ứng dụng di động và API khác nhau để có được số lượng 
+người dùng hoạt động thực tế trên toàn hệ thống. 
+Tuy nhiên, việc tổng hợp dữ liệu từ nhiều nguồn khác nhau có thể gặp thách thức về đồng bộ hóa dữ liệu, xử lý dữ liệu bị thiếu hoặc lỗi, 
+và đảm bảo tính nhất quán của kết quả. 
 
-Ngoài ra, có thể cần phải đếm DAU trên nhiều đoạn khác nhau trong một stream, hoặc nhiều streams khác nhau. Việc này giúp phân tích chi tiết hơn hoạt động của người dùng theo thời gian, theo khu vực hoặc theo tiêu chí khác. Ví dụ, trong một ứng dụng phát trực tiếp, cần đếm số lượng người dùng hoạt động theo từng giờ hoặc từng phân đoạn chương trình để đánh giá mức độ quan tâm của người xem. Tuy nhiên, việc phân chia và xử lý dữ liệu theo nhiều đoạn có thể làm tăng độ phức tạp của thuật toán và ảnh hưởng đến hiệu suất của hệ thống. Do đó, cần phải có một giải pháp đếm số lượng phần tử trên dòng dữ liệu đạt hiệu suất cao và tin cậy, từ đó có thể ứng dụng rộng rãi trong các hệ thống khác nhau như mạng xã hội, thương mại điện tử, chương trình phát trực tiếp, hệ thống giám sát và hệ thống giao thông thông minh.
+Ngoài ra, có thể cần phải đếm số lượng người dùng trên nhiều khoảng thời gian khác nhau trên một hoặc nhiều dòng dữ liệu khác nhau. 
+Việc này giúp phân tích chi tiết hơn hoạt động của người dùng theo thời gian, theo khu vực hoặc theo tiêu chí khác.\\
+Ví dụ, trong một ứng dụng phát trực tiếp, cần đếm số lượng người dùng hoạt động theo giờ hoặc từng phân đoạn chương trình 
+để đánh giá mức độ quan tâm của người xem. Tuy nhiên, việc phân chia và xử lý dữ liệu theo nhiều đoạn có thể làm 
+tăng độ phức tạp của thuật toán và ảnh hưởng đến hiệu suất của hệ thống. Do đó, cần phải có một giải pháp 
+đếm số lượng phần tử trên dòng dữ liệu đạt hiệu suất cao và tin cậy, từ đó có thể ứng dụng rộng rãi trong các 
+hệ thống khác nhau như mạng xã hội, thương mại điện tử, chương trình phát trực tiếp, hệ thống giám sát 
+và hệ thống giao thông thông minh.
 
-\subsection{Mục tiêu nghiên cứu }
-\subsubsection{Phát triển thuật toán để đếm DAU trên một dòng dữ liệu (data stream):}
-Thiết kế thuật toán sử dụng HyperLogLog để đếm DAU trên một khung thời gian trên một stream với độ chính xác cao và hiệu quả tốt. Ví dụ, đếm số lượng users đăng nhập vào hệ thống trong 5 phút trước, 1 giờ trước, 1 ngày trước hay 1 tháng trước.
-\subsubsection{Mở rộng thuật toán để đếm DAU trong một khoảng thời gian trên nhiều streams:}
-\subsubsection{Phát triển một thuật toán để đếm DAU trên nhiều khung thời gian và trên nhiều streams hoặc services khác nhau:}
-Phát triển phương pháp và công cụ giám sát: Mục tiêu chính là thiết kế và phát triển các phương pháp và công cụ giám sát pin hiệu quả trên xe điện. Điều này bao gồm việc xác định các thông số quan trọng cần được giám sát như trạng thái sạc, nhiệt độ, dòng điện và điện áp của pin. Công cụ giám sát cần có khả năng thu thập, xử lý và hiển thị dữ liệu pin một cách dễ dàng và đáng tin cậy.\\
-Phân tích và đánh giá hiệu suất hoạt động của pin: Mục tiêu là phân tích và đánh giá hiệu suất hoạt động của pin trên xe điện. Điều này có thể bao gồm việc theo dõi và ghi nhận các thông số pin trong quá trình vận hành, phân tích các dữ liệu thu thập được để đánh giá hiệu suất sạc, xả và tổn thất năng lượng. Mục tiêu cuối cùng là tối ưu hóa sử dụng năng lượng và kéo dài tuổi thọ pin thông qua các biện pháp quản lý phù hợp.\\
-Phát hiện sớm các vấn đề và rủi ro: Mục tiêu là phát triển các thuật toán và phương pháp giám sát pin để phát hiện sớm các vấn đề và rủi ro tiềm ẩn. Điều này bao gồm việc xây dựng các mô hình dự đoán và cảnh báo để nhận biết các tình huống nguy hiểm như quá nhiệt, quá dòng, hao mòn pin nhanh chóng và các lỗi khác. Mục tiêu là nâng cao mức độ an toàn và độ tin cậy của hệ thống pin trên xe điện.\\
-Nghiên cứu và ứng dụng công nghệ mới: Mục tiêu cuối cùng là nghiên cứu và áp dụng các công nghệ mới để cải thiện giám sát pin trên xe điện. Điều này có thể bao gồm việc sử dụng các cảm biến tiên tiến, hệ thống ghi dữ liệu thông minh, trí tuệ nhân tạo và học máy để tăng cường khả năng giám sát và dự đoán của hệ thống. Mục tiêu là tạo ra một hệ thống giám sát pin tiên tiến, đáng tin cậy và hiệu quả cho xe điện.
+\section{Mục tiêu nghiên cứu}
+\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trên một dòng dữ liệu (data stream):}
+\subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều streams:}
+\subsubsection{Phát triển một thuật toán để ước lượng số lượng phần tử trên nhiều khung thời gian tỏng hợp từ nhiều dòng dữ liệu}
 
-\subsection{Giới hạn và đối tượng nghiên cứu }
+\section{Giới hạn và đối tượng nghiên cứu }
 \subsubsection{Giới hạn}
-Độ chính xác và độ tin cậy: Một trong những thách thức chính là đảm bảo độ chính xác và độ tin cậy của hệ thống giám sát pin trên xe điện. Các thông số pin cần được đo lường và giám sát một cách chính xác để đưa ra các quyết định đúng đắn và đảm bảo an toàn. Đồng thời, hệ thống giám sát phải đảm bảo tính tin cậy trong môi trường hoạt động khắc nghiệt và đảm bảo hoạt động liên tục của xe điện.\\
-Quản lý dữ liệu: Việc giám sát pin trên xe điện có thể tạo ra lượng lớn dữ liệu, và việc quản lý và xử lý dữ liệu một cách hiệu quả là một thách thức. Cần phải xây dựng các phương pháp, công nghệ và hệ thống để thu thập, lưu trữ, xử lý và phân tích dữ liệu pin một cách hiệu quả và đáng tin cậy.
 \subsubsection{Đối tượng nghiên cứu }
-Đối tượng nghiên cứu của đề tài "Giám sát pin trên xe điện" là các yếu tố liên quan đến pin và hệ thống giám sát pin trên xe điện, nhằm tối ưu hóa hiệu suất, tuổi thọ và an toàn của pin trong hoạt động của xe điện.
+Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"
 
 \section{CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN }
-- \textbf{Battery Management Systems in Electric and Hybrid Vehicles} – [1] Công trình này tập trung vào khái niệm và chức năng của hệ thống quản lý pin (BMS) trong xe điện và hybrid. Nó giới thiệu các yếu tố quan trọng trong việc giám sát pin như trạng thái sạc, nhiệt độ, điện áp và dòng điện, cũng như các chiến lược quản lý pin để tăng hiệu suất và tuổi thọ của pin.\\
+- \textbf{LogLog} – [1] \\
 
-- \textbf{State of Charge Estimation of Lithium-Ion Batteries in Electric Vehicles: A Review} – [2] Công trình này tập trung vào việc ước lượng trạng thái sạc của pin Lithium-Ion trong xe điện. Nó xem xét các phương pháp và thuật toán được sử dụng để ước lượng trạng thái sạc và đánh giá hiệu suất của chúng.\\
+- \textbf{HyperLogLog} – [2]\\
 
-- \textbf{Real-Time State of Health Estimation for Lithium-Ion Batteries in Electric Vehicles} – [3] Công trình này tập trung vào ước lượng trạng thái sức khỏe (SOH) của pin Lithium-Ion trong xe điện. Nó đề xuất một phương pháp ước lượng SOH dựa trên phân tích dữ liệu pin thời gian thực và sử dụng mô hình dự đoán để đánh giá tuổi thọ còn lại của pin.\\
+- \textbf{HyperLogLog++} - [3] \\
 
-- \textbf{Data-Driven Fault Diagnosis and Prognosis of Lithium-Ion Batteries in Electric Vehicles} – [4] Công trình này tập trung vào việc chẩn đoán và tiên đoán lỗi cho pin Lithium-Ion trong xe điện. Nó sử dụng phương pháp dựa trên dữ liệu để phân tích và phát hiện các lỗi potentiostatic, impedance và voltage của pin, cung cấp thông tin quan trọng để dự đoán tuổi thọ và hiệu suất của pin.\\
+- \textbf{Sliding HyperLogLog} - [4]\\
 
-- \textbf{Intelligent Battery Management and Control for Electric Vehicles} – [5] Công trình này tập trung vào nghiên cứu về quản lý và điều khiển pin thông minh cho xe điện. Nó đề xuất một hệ thống BMS thông minh sử dụng công nghệ trí tuệ nhân tạo và học máy để giám sát và dự đoán trạng thái pin, tối ưu hóa sử dụng năng lượng và quản lý tuổi thọ của pin.\\
+- \textbf{ExaLogLog} - [5] \\
 
 \section{HyperLogLog}
 Vấn đề ước lượng số lượng phần tử (\textit{cardinality estimation problem}) là một nhiệm vụ để tìm số lượng phần tử phân biệt 
-trong một tập dữ liệu trong đó có sự xuất hiện của các bản sao. Truyền thống, 
+trong một tập dữ liệu trong đó có sự xuất hiện của các bản sao (duplicates). Truyền thống, 
 để xác định số lượng chính xác của một tập hợp, các phương pháp cổ điển xây dựng 
 một danh sách của tất cả các phần tử và sử dụng sắp xếp và tìm kiếm để tránh liệt kê 
 các phần tử nhiều lần. Đếm số lượng phần tử trong danh sách đó cho phép tính chính xác 
@@ -1418,66 +1425,12 @@ các tập hợp có số lượng phần tử nhỏ khá tốt. Hơn nữa, ch�
 các biểu diễn băm của các phần tử từ tập dữ liệu, theo sau bởi nhiều cải tiến và sửa đổi đã trở thành tiêu chuẩn ngành công nghiệp ngày nay để 
 ước lượng số lượng phần tử của hầu hết các loại.\\
 \section{PHƯƠNG PHÁP THỰC HIỆN}
-Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
-
-\subsection{Trạng thái vòng đời (SOL)}
-
-SOL (State of Life), còn được gọi là Remaining Useful Life (RUL), là thời gian sử dụng còn lại của một pin. Việc dự đoán SOL chính xác sẽ giúp ngăn chặn sự cố và bảo trì để kéo dài tuổi thọ của pin.\\
-Tuy nhiên, việc dự đoán SOL chính xác là một thách thức. Do sự phức tạp của quá trình suy giảm pin và ảnh hưởng của các yếu tố ngoại vi, SOL thường không tuân theo một mô hình tuyến tính hoặc ổn định. Để dự đoán SOL, các phương pháp học máy và kỹ thuật dự báo thống kê đã được áp dụng. Các mô hình học máy có thể sử dụng dữ liệu lịch sử về hoạt động của pin để dự đoán SOL dựa trên các biến đầu vào như dung lượng, nhiệt độ, dòng điện và các thông số khác.\\
-Mục tiêu của việc dự đoán SOL là giúp người dùng và nhà sản xuất pin có thể định kỳ bảo trì và thay thế pin trước khi nó hỏng hoặc không còn đủ dung lượng để đáp ứng yêu cầu. Điều này giúp tăng tuổi thọ của pin và giảm chi phí bảo trì và thay thế.\\
-
-Dự đoán tuổi thọ còn lại (Remaining Useful Life - RUL) của một pin sử dụng mô hình trung bình trượt SVR cho các ngưỡng khác nhau của hiện tượng suy giảm dung lượng (capacity fade) Ci() và suy giảm công suất (power fade) Pi(), như được hiển thị trong Công thức (3) và (4) tương ứng:\\
-\[RUL = h(P[i],\Mycomb[k]{i=1}[i]) \]
-trong đó k là tuần thứ k. Tuổi thọ còn lại (Remaining Useful Life - RUL) cho một tiêu chí cuối đời được xác định xấp xỉ là 23 suy giảm công suất (power fade) và 30 suy giảm dung lượng (capacity fade).
-RVM có thể cung cấp định nghĩa xác suất của các đầu ra của nó. Nó được sử dụng RVM regression để dự đoán SOH trong hiện tượng suy giảm dung lượng. Kết quả cho thấy RVM tạo ra dự đoán chính xác hơn so với mô hình SVM. Xác suất của một tập dữ liệu có thể được viết dưới dạng Công thức (6).\\
-
-\[p(t|\omega, \sigma^2) = (2\pi\sigma^2)^{N-2} exp{- \frac{1}{2\sigma^2}||t -\phi\omega||^2}  \]
-% trong đó Φ là ma trận thiết kế kích thước N x (N+1) với i chạy từ 1 đến N, 
-% Φ = [1, K(x, x1), K(x, x2), ... ,K(xi, xN)]; N là số lượng vector đầu vào; ω = [ω1, ω2, ..., ωN] với vector hệ số hồi quy; ω0 là hệ số điều chỉnh (bias); K(x,xi) là hàm lõi (kernel function).
-% Một mô hình hồi quy RVM (Relevance Vector Machine) được xây dựng sử dụng các thông số nội bộ của pin từ dữ liệu EIS (Electrochemical Impedance Spectroscopy). Phương pháp này kết hợp các thông số của một mô hình ngoại tuyến với quá trình trạng thái trực tuyến. Hồi quy RVM được sử dụng để phù hợp với các thông số liên quan của các mô hình mũ với đầu ra xác suất.
-% Ở đây, x̂ there giá trị dự đoán của mô hình. Trong trường hợp này, x bao gồm trở kháng chuyển giao, RCT, và trở kháng điện phân, RE. Các tham số đã phù hợp (RCT ,RE  ) được đưa vào quá trình lọc hạt (particle filter - PF) trực tuyến. Dựa trên sự kết hợp của PF và RVM, điểm kết thúc tuổi thọ (end of life point) có thể được xác định với một hàm mật độ xác suất ( probability density function - pdf) hẹp hơn. Tuy nhiên, phương pháp này vẫn phụ thuộc vào việc đo trở kháng, việc thực hiện khó khăn do ràng buộc về chi phí và không gian.
-% Một mô hình suy giảm cho pin lithium-ion dựa trên một mô hình mũ mới. Kết quả này gợi ý một mô hình mới có dạng:
-% Trong mô hình này, Q là dung lượng của pin; k there số chu kỳ hoạt động; a và b là trở kháng điện phân và trở kháng chuyển giao tương ứng; c và d đại diện cho tốc độ lão hóa. Ưu điểm của mô hình này là việc cập nhật Bayesian Monte Carlo (BMC) được thực hiện thông qua phân tích hồi quy. Các giá trị ban đầu của a, b, c và d được xác định bằng tổng có trọng số của các tham số mô hình thu được từ dữ liệu huấn luyện. Mô hình Dempster-Shafer được sử dụng để nhận được một điểm ban đầu cho việc cập nhật BMC. Các tham số của mô hình được cập nhật bằng BMC để theo dõi xu hướng suy giảm của pin thử nghiệm.
-\subsection{Hệ thống quản lý pin đề xuất trong LV(Proposed BMSs)}
-Hiện tại, các hệ thống Quản lý Pin (Battery Management Systems - BMSs) toàn diện và trưởng thành thường được sử dụng trong các thiết bị di động như máy tính xách tay và điện thoại di động, nhưng chưa được triển khai hoàn toàn trong các xe điện (EVs) và xe hybrid (HEVs). Điều này bởi vì số lượng tế bào trong pin của một chiếc xe là hàng trăm lần lớn hơn so với các thiết bị di động. Hơn nữa, pin của một chiếc xe được thiết kế không chỉ để là một hệ thống năng lượng lâu dài, mà còn để là một hệ thống công suất cao. Nói cách khác, pin cho các xe điện và xe hybrid phải cung cấp điện áp cao và dòng điện lớn. Điều này làm cho BMSs cho các xe điện phức tạp hơn rất nhiều so với các thiết bị di động.\\ 
-\vspace{7cm}
-\begin{figure}
-    \centering
-    \includegraphics{bms.png}
-    \caption{Sự mô tả về một hệ thống quản lý pin }
-    \label{fig:enter-label}
-\end{figure}
-
-\vspace{7cm}
-\subsection{Các phương pháp tối ưu và mô hình fog computing}
-Như đã nói ở phần trước, thì sau khi đã đặc tả một số tính chất của hệ thống giám sát pin xe điện gồm: trạng thái sạc - SOC, trạng thái sức khỏe - SOH, vv… Cho nên phần sau đây sẽ mô tả thiết mở rộng với mô hình fog- computing và đưa ra một số phương án tối ưu cho các bài toán ở trên. 
-\vspace{10cm}
-\begin{figure}
-    \centering
-    \includegraphics{fog-computing.png}
-    \label{fig:enter-label}
-\end{figure}
-\vspace{5cm}
-
-\textbf{Sử dụng phương pháp chọn khoảng thích hợp để giải quyết bài toán lưu trữ dữ liệu cho State of Charge(SOC) }
-\begin{itemize}
-    \item[--] Dữ liệu thu thập được về trạng thái sạc: Được biết công thức của State of Charge chứa đại lượng biến thiên theo thời gian t, cho nên nếu phải lưu trữ toàn bộ dữ liệu sẽ làm tốn bộ nhớ lưu trữ và quá trình truy xuất cũng trở nên chậm chạp hơn. 
-
-    Cho nên thay vì ta phải lưu trữ toàn bộ dữ liệu bắn về liên tục (real-time), thì luận văn này đề xuất phương án lưu theo khoảng delta và ngưỡng chọn e, sao cho delta không vượt quá e, thì ta sẽ nhóm lại thành một cụm dữ liệu (cluster) để tối ưu việc lưu trữ.
-    
-\end{itemize}
-
-\textbf{Sử dụng các mô hình học máy cho các bài toán về state of health và state of life}
-\begin{itemize}
-    \item [--] Support Vector Machine (SVM)(based model)
-Máy vector hỗ trợ (Support Vector Machine - SVM) there một kỹ thuật tính toán mềm phổ biến và được sử dụng rộng rãi trong nhiều lĩnh vực. Nguyên tắc cơ bản của SVM là sử dụng ánh xạ phi tuyến cho việc ánh xạ dữ liệu trong một số lĩnh vực và áp dụng thuật toán tuyến tính trong không gian hàm.
-    \item[--] Linear Regression (LR):
-Các thuật toán hồi quy tuyến tính sẽ được áp dụng nếu đầu ra là một biến liên tục. Ngược lại, các thuật toán phân loại được áp dụng khi đầu ra được chia thành các phần như đạt/không đạt, tốt/trung bình/kém, vv. Chúng ta có các thuật toán hồi quy khác nhau hoặc phân loại hành vi, trong đó thuật toán hồi quy tuyến tính (Linear Regression - LR) là thuật toán hồi quy cơ bản. 
-    \item[--] Ensemble Bagging (EBa):
-Bagging (Bootstrap Aggregating) there một meta-algorithm trong học máy được thiết kế để tăng cường độ chính xác và độ chính xác của các thuật toán học máy trong phân loại thống kê và hồi quy. Nó cũng giảm phương sai và giúp tránh hiện tượng quá khớp. Bagging là một cách để giảm bớt sự không chắc chắn của ước lượng bằng cách tạo ra các dữ liệu bổ sung cho việc kiểm tra tập dữ liệu bằng cách tạo ra các biến thể sao chép để tạo ra các tập dữ liệu ban đầu khác nhau . Boosting là một chiến lược lặp lại dựa trên mô tả trước đó để điều chỉnh trọng số của quan sát.
-
- 
-\end{itemize}
+\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trên một dòng dữ liệu (data stream):}
+TODO:
+\subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều streams:}
+TODO:
+\subsubsection{Phát triển một thuật toán để ước lượng số lượng phần tử trên nhiều khung thời gian tỏng hợp từ nhiều dòng dữ liệu}
+TODO:
 
 \section{KẾ HOẠCH TRIỂN KHAI}
 Trong thời gian sắp tới của luận văn, tôi dự định triển khai các công việc như sau:\\
