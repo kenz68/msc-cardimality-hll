@@ -331,15 +331,15 @@ Quản lý dữ liệu: Việc giám sát pin trên xe điện có thể tạo r
 - \textbf{Intelligent Battery Management and Control for Electric Vehicles} – [5] Công trình này tập trung vào nghiên cứu về quản lý và điều khiển pin thông minh cho xe điện. Nó đề xuất một hệ thống BMS thông minh sử dụng công nghệ trí tuệ nhân tạo và học máy để giám sát và dự đoán trạng thái pin, tối ưu hóa sử dụng năng lượng và quản lý tuổi thọ của pin.\\
 
 \section{HyperLogLog}
-The \textit{cardinality} estimation problem is a task to find the number of distinct
-elements in a dataset where duplicates are present. Traditionally, to
-determine the exact cardinality of a set, classical methods build a list
-of all elements and use sorting and search to avoid listing elements
-multiple times. Counting the number of elements in that list gives the accurate
-number of the unique elements, but it has a time complexity of O(N.logN), where
-N is the number of all elements including duplicates, and requires auxiliary 
-linear memory, that is unlikely to be feasible for Big Data applications that
-operate huge datasets of large cardinalities.
+Vấn đề ước lượng số lượng phần tử (\textit{cardinality estimation problem}) là một nhiệm vụ để tìm số lượng phần tử phân biệt 
+trong một tập dữ liệu trong đó có sự xuất hiện của các bản sao. Truyền thống, 
+để xác định số lượng chính xác của một tập hợp, các phương pháp cổ điển xây dựng 
+một danh sách của tất cả các phần tử và sử dụng sắp xếp và tìm kiếm để tránh liệt kê 
+các phần tử nhiều lần. Đếm số lượng phần tử trong danh sách đó cho phép tính chính xác 
+số lượng các phần tử duy nhất, nhưng nó có độ phức tạp thời gian là $O(N\cdot logN)$, 
+trong đó N là số lượng tất cả các phần tử bao gồm cả các bản sao, và yêu cầu 
+bộ nhớ phụ tuyến tính, điều này không thể thực hiện được đối với các ứng dụng 
+Big Data với tập dữ liệu lớn có độ phức tạp lớn.
 \begin{mdframed}
    \textbf{Ví dụ 3.1: Số lượng khách truy cập}\\
     Một trong những chỉ số KPI quý giá cho bất kỳ trang web nào là số lượng khách truy cập duy nhất đã ghé thăm trong một khoảng thời gian cụ thể. 
@@ -354,75 +354,50 @@ operate huge datasets of large cardinalities.
     trong tập hợp đó là khoảng 144 triệu và bộ nhớ cần thiết để lưu trữ danh sách các phần tử duy nhất là 23 GB.
 \end{mdframed}
 \break
-Another example illustrates the challenge of cardinality estimation for\\
-scientific researchers.
+Một ví dụ khác minh họa thách thức của việc ước lượng số lượng phần tử 
+cho các nhà nghiên cứu khoa học.
 \begin{mdframed}
     \textbf{Example 3.2: DNA analysis (Giroire, 2016)}\\
-    One of the long-standing tasks in human genome research is to study
-    correlation in DNA sequences. DNA molecules include two paired strands,
-    each made up of four chemical DNA-base units, marked A (adenine),
-    G (guanine), C (cytosine), and T (thymine). The human genome contains
-    about 3 billion such base pairs. Sequenceing means determining the exact
-    order of the base pairs in a segment of DNA.\\
-    From a mathematical point of view, a DNA sequence can be considered
-    a string of symbols A, G, C, T which can be as long as you want, and we
-    can consider them as an example of a potentially infinite dataset.\\
-    The correlation measuring problem can be formulated as a task of
-    determining the number of distinct substrings of some fixed size in a piece
-    of DNA. The idea is that a sequence with a few distinct substrings is 
-    more correlated than a sequence of the same size but with more distinct
-    substrings.\\
-    Such experiments demand multiple runs on many huge files and to speed
-    up the research they require only limited or even constant memory and
-    small execution time, which is unfeasible with exact counting algorithms.
+    Một trong những nhiệm vụ lâu dài trong nghiên cứu gen con người là nghiên cứu sự tương quan trong các chuỗi DNA. Các phân tử DNA 
+    bao gồm hai chuỗi kết hợp, mỗi chuỗi được tạo thành từ bốn đơn vị cơ bản của DNA, được đánh dấu là A (adenine), G (guanine), C (cytosine), và T (thymine). Gen con người chứa khoảng 3 tỷ cặp cơ sở DNA như vậy. Việc xác định chuỗi DNA có nghĩa là xác định thứ tự chính xác của các cặp cơ sở trong một đoạn DNA.\
+    Từ quan điểm toán học, một chuỗi DNA có thể được coi là một chuỗi các biểu tượng A, G, C, T có thể dài bất kỳ, và chúng ta có thể coi chúng như 
+    một ví dụ của một tập dữ liệu có thể vô hạn.\\
+    Vấn đề đo lường tương quan có thể được sử dụng làm một nhiệm vụ xác định số lượng các chuỗi con phân biệt có kích thước cố định trong một phần của DNA. 
+    Ý tưởng là một chuỗi với một số lượng chuỗi con phân biệt ít hơn sẽ có sự tương quan cao hơn so với một chuỗi cùng kích thước nhưng có nhiều chuỗi con 
+    phân biệt hơn.\\
+    Các thí nghiệm như vậy đòi hỏi nhiều lần chạy trên nhiều tập tin lớn và để tăng tốc cho nghiên cứu, họ yêu cầu chỉ có bộ nhớ giới hạn hoặc thậm chí 
+    là bộ nhớ không đổi và thời gian thực thi nhỏ, điều này không thể thực hiện được với các thuật toán đếm chính xác.
 \end{mdframed}
-Thus, the possible gains of the accurate cardinality estimation are
-neglected by large time processing and memory requirements. Big Data
-applications shell use more practical approaches, mostly based on various
-probabilistic algorithms, even if they can provide only approzimated answers.\\
+Do đó, những lợi ích có thể đạt được từ việc ước lượng số lượng phần tử chính xác được bỏ qua do yêu cầu xử lý thời gian lớn và bộ nhớ lớn. 
+Các ứng dụng Big Data sẽ sử dụng các phương pháp thực tế hơn, chủ yếu dựa trên các thuật toán xác suất khác nhau, ngay cả khi chúng chỉ cung cấp 
+các câu trả lời xấp xỉ.\\
 \vspace{0.5cm}
 \begin{quote}
-    While processing data, it is important to understand the size of the dataset
-    and the number of possible distinct elements.\\
-    Consider the potentially infinite sequence of 1-letter string a, d, s, ...,
-    which is based on letters from the English alphabet. The cardinality can be
-    easily estimated and it is upper bounded by the number of letters, which
-    is 26 in the modern English language. Obviously, in this case, there is
-    no need to apply any probabilistic approach and a naive dictionary-based
-    solution of exact cardinality calculation works very well.\\
+    Trong quá trình xử lý dữ liệu, việc hiểu về kích thước của tập dữ liệu và số lượng các phần tử phân biệt có thể xuất hiện là rất quan trọng.\\
+    Hãy xem xét chuỗi tiềm năng vô hạn các ký tự đơn a, d, s, ..., dựa trên các chữ cái từ bảng chữ cái tiếng Anh. 
+    Số lượng các phần tử có thể ước lượng dễ dàng và nó được chặn trên bởi số lượng chữ cái, là 26 trong ngôn ngữ tiếng Anh hiện đại. 
+    Rõ ràng, trong trường hợp này, không cần áp dụng bất kỳ phương pháp xác suất nào và một giải pháp đơn giản dựa trên từ điển để tính toán chính xác 
+    số lượng phần tử hoạt động rất tốt.\\
 \end{quote}
-\indent To approach the cardinality problem, many of the popular probabilistic
-methods are influenced by the ideas of the Bloom filter algorithm, they
-operate hash values of elements, then observe common patterns in their
-distribution, and make reasoned \textquotedblleft\textit{guesses}\textquotedblright 
-\space about the number of unique elements without the need to store all of them.
+\indent Để tiếp cận vấn đề về số lượng phần tử, nhiều trong số các phương pháp xác suất phổ biến được ảnh hưởng bởi các ý tưởng của thuật toán Bloom filter, 
+chúng hoạt động trên các giá trị băm của các phần tử, sau đó quan sát các mẫu phân phối phổ biến và đưa ra các \textquotedblleft\textit{phỏng đoán}\textquotedblright có lý về số lượng 
+phần tử duy nhất mà không cần phải lưu trữ tất cả chúng.
 \subsection{Linear Counting}
-As a first probabilistic approach to the cardinality problem, we consider
-the linear-time probabilistic counting algorithm, the \textit{Linear Counting}
-algorithm. The original ideas were proposed by Morton Astrahan, Mario Schkolnick,
-and Kyu-Young Whang in 1987 [As87] and the practical algorithm was published
-by Kyu-Young Whang, Brad Vander-Zanden, and Howard Taylor in 1990 [Wh90].\\
-\indent The immediate improvement to the classical exact methods was to
-hash elements with some hash function \textit{h}, which out-of-the-box can
-eliminate duplicates without the need to sort elements with a payout of
-introducing some probability of error due to possible hash collisions
-(we cannot distinguish duplicates and \textquotedblleft accidental duplicates\textquotedblright).
-Thus, using such a hash table, only a proper scan procedure is required to implement
-a simple algorithm that already outperforms the classical approach.\\
-\indent However, for datasets with huge cardinalities, such hash tables could
-be quite large and require memory that grows linearly with the number
-of distinct elements in the set. For systems with limited memory, it
-will require disk or distributed storage at some point, which drastically
-reduces the benefits of hash tables due to slow disk or network access.\\
-\indent Similar to the Bloom filter idea, to work-around such an issue,
-the Linear Counting algorithm doesn't store the hash values themselves,
-but instead their corresponding bits, replacing the hash table with a bit
-array LINEARCOUNTER of the length \textit{m}. It is assumed that \textit{m} still is
-proportional to the expected number of distinct elements \textit{n}, but requires
-only 1 bit per element which is feasible for most cases.\\
-\indent In the beginning, all bits in LINEARCOUNTER are equal to zero. To
-add a new element \textit{x} into such a data structure, we compute its hash
-value \textit{h(x)} and set the corresponding bit to one in the counter.\\\\
+\indent Như một phương pháp xác suất đầu tiên cho vấn đề về số lượng phần tử, chúng ta xem xét thuật toán đếm xác suất có thời gian tuyến tính, 
+gọi là thuật toán \textit{Linear Counting}. Các ý tưởng gốc của thuật toán này đã được đề xuất bởi Morton Astrahan, Mario Schkolnick và Kyu-Young Whang 
+vào năm 1987 [As87], và thuật toán thực tế đã được công bố bởi Kyu-Young Whang, Brad Vander-Zanden và Howard Taylor vào năm 1990 [Wh90].\\
+Cải tiến ngay lập tức đối với các phương pháp chính xác cổ điển là băm các phần tử bằng một hàm băm \textit{h}, mà có thể loại bỏ các bản sao mà 
+không cần sắp xếp các phần tử với chi phí của việc giới thiệu một số lượng xác suất sai sót do các va chạm băm có thể 
+xảy ra (chúng ta không thể phân biệt giữa các bản sao và "bản sao ngẫu nhiên"). Do đó, việc sử dụng một bảng băm như vậy chỉ yêu cầu một 
+quy trình quét thích hợp để thực hiện một thuật toán đơn giản mà đã vượt trội hơn phương pháp cổ điển.\\
+\indent Tuy nhiên, đối với các tập dữ liệu có số lượng phần tử lớn, các bảng băm như vậy có thể khá lớn và yêu cầu bộ nhớ tăng lên tuyến tính với 
+số lượng phần tử phân biệt trong tập hợp. Đối với các hệ thống có bộ nhớ hạn chế, điều này sẽ đòi hỏi bộ nhớ đĩa hoặc lưu trữ phân tán ở một số 
+điểm nào đó, điều này giảm đáng kể các lợi ích của bảng băm do truy cập đĩa chậm hoặc mạng.\\
+\indent Tương tự như ý tưởng của bộ lọc Bloom, để giải quyết vấn đề này, thuật toán Linear Counting không lưu trữ các giá trị băm chính mà chỉ 
+các bit tương ứng của chúng, thay thế bảng băm bằng một mảng bit LINEARCOUNTER có độ dài \textit{m}. Giả sử rằng \textit{m} vẫn tỷ lệ với 
+số lượng dự kiến các phần tử phân biệt \textit{n}, nhưng chỉ yêu cầu 1 bit cho mỗi phần tử, điều này khả thi cho hầu hết các trường hợp.\\
+\indent Ban đầu, tất cả các bit trong LINEARCOUNTER đều bằng không. Để thêm một phần tử mới \textit{x} vào cấu trúc dữ liệu như vậy, 
+chúng ta tính toán giá trị băm của nó là \textit{h(x)} và đặt bit tương ứng thành một trong bộ đếm.\\\\
 \vspace{0.5cm}
 \begin{algorithm}[H]
     \DontPrintSemicolon
@@ -436,30 +411,22 @@ value \textit{h(x)} and set the corresponding bit to one in the counter.\\\\
         $LINEARCOUNTER[j]\gets 1$
     }
 \end{algorithm}
-\indent Since only one hash function \textit{h} is used, we can expect many additional
-hard collisions when two different hash values set the same bit in the array.
-Thus, the exact (or even near-exact) number of distinct elements can no
-longer be directly obtained from such a sketch.\\
-\indent The idea of the algorithm leads to distributing elements into buckets
-(bits indexed by hash values) and keeps a LINEARCOUNTER bit array 
-indicating which buckets are hit. Observing the number of hits in the array
-leads to the estimate of the cardinality.\\
-\indent In the first step of the Linear Counting algorithm, we build our
-LINEARCOUNTER data structure as is shown in Algorighm 1. Having
-such a sketch, the cardinality can be estimated using the observed
-fraction of empty bits \textbf{V} by the formula:\\
+\indent Vì chỉ sử dụng một hàm băm \textit{h}, chúng ta có thể dự kiến rất nhiều va chạm cứng bổ sung khi hai giá trị băm khác nhau đặt cùng một bit 
+trong mảng. Do đó, số lượng chính xác (hoặc gần chính xác) các phần tử phân biệt không thể nữa được trực tiếp lấy từ một bản phác họa như vậy.\\
+\indent Ý tưởng của thuật toán dẫn đến việc phân phối các phần tử vào các ngăn (bit được chỉ mục bằng các giá trị băm) và duy trì một mảng 
+bit LINEARCOUNTER chỉ ra những ngăn nào bị ảnh hưởng. Quan sát số lần ảnh hưởng trong mảng dẫn đến ước lượng về số lượng phần tử.\\
+\indent Trong bước đầu tiên của thuật toán Linear Counting, chúng ta xây dựng cấu trúc dữ liệu LINEARCOUNTER của chúng ta như được hiển thị trong 
+Thuật toán 1. Sau khi có bản phác họa như vậy, số lượng có thể được ước tính bằng cách sử dụng tỷ lệ quan sát được của các bit trống \textbf{V} 
+theo công thức:\\
 \begin{equation}
     n \approx -m\cdot\ln V \tag{$3.1$}
 \end{equation}
-\indent We see clearly now how collisions impact on the cardinality estimation
-in the Linear Counting algorithm -- each collision reduces the number
-of bits that have to bet set, making the observed fraction of unset bits
-bigger than the real value. If there were no hash collisions, the final
-count of set bits would be the desired cardinality. However, collisions
-are unvoidable and the formula (3.1) actually gives an overestimation
-of the exact cardinality and, since the cardinality is an integer value, we
-prefer to round its result to the nearest smaller integer.\\
-\indent Thus, we can formulate the complete counting algorithm as bellow.\\
+\indent Bây giờ chúng ta thấy rõ làm thế nào các va chạm ảnh hưởng đến ước lượng về số lượng phần tử trong thuật toán Linear Counting - mỗi đụng độ 
+làm giảm số lượng bit phải được đặt, làm cho tỷ lệ quan sát được của các bit chưa được đặt lớn hơn so với giá trị thực tế. Nếu không có đụng độ băm, 
+số lượng cuối cùng các bit được đặt sẽ là số lượng phần tử mong muốn. Tuy nhiên, đụng độ là không tránh khỏi và công thức (3.1) thực tế đưa ra một 
+ước lượng vượt quá số lượng chính xác và, vì số lượng phần tử là một giá trị số nguyên, chúng ta ưu tiên làm tròn kết quả của nó đến số nguyên nhỏ nhất 
+gần nhất.\\
+\indent Do đó, chúng ta có thể công thức hóa thuật toán đếm hoàn chỉnh như sau.\\
 \vspace{0.5cm}
 \begin{algorithm}[H]
     \DontPrintSemicolon
@@ -474,19 +441,16 @@ prefer to round its result to the nearest smaller integer.\\
 \end{algorithm}
 \begin{mdframed}
     \textbf{Example 3.3: Linear Counting algorithm}\\
-    Consider a dataset that contains 20 names of capital cities extracted
-    from recent news articles: \textbf{Berlin,} Berlin, \textbf{Paris,} Berlin,
+    Xem xét một tập dữ liệu chứa 20 tên của các thành phố thủ đô được trích xuất từ các bài báo tin tức gần đây: \textbf{Berlin,} Berlin, \textbf{Paris,} Berlin,
     \textbf{Lisbon, Kiev,} Paris, \textbf{London, Rome, Athens, Madrid, Vienna,}
     Rome, Rome, Lisbon, Berlin, Paris, London, Kiev, \textbf{Washington.}\\
-    For such small cardinalities (actual cardinality is 10) to have a standard
-    error about 10\% we need to choose the length of the LINEARCOUNTER
-    data structure at least as the expected number of unique elements, thus
-    let's choose m$ = 2^4$. As the hash function $h$ with values in ${0,1,...,2^4-1}$
-    we use a function based on 32-bit MurmurHash3 defined as
+    Đối với các số lượng phần tử nhỏ như vậy (số lượng thực sự là 10), để có một sai số tiêu chuẩn khoảng 10\%, chúng ta cần chọn độ dài của 
+    cấu trúc dữ liệu LINEARCOUNTER ít nhất bằng số lượng dự kiến của các phần tử duy nhất, do đó hãy chọn $m = 2^4$. Với hàm băm $h$ có giá trị 
+    trong ${0,1,...,2^4-1}$, chúng ta sử dụng một hàm dựa trên MurmurHash3 32-bit được định nghĩa như sau:
     \begin{equation}
         h(x) := MurmurHash3(x)\mod m,
       \end{equation}
-    and cities hash values can be found in the table below.
+    và giá trị băm của các thành phố thủ đô có thể được tìm thấy trong bảng dưới đây.
 \begin{center}
     \begin{tabular}{ |c|c| }
         \multicolumn{2}{}{} \\ \hline
@@ -510,9 +474,8 @@ prefer to round its result to the nearest smaller integer.\\
         \cline{1-2}
     \end{tabular}
 \end{center}
-As we can see, the cities \textbf{London} and \textbf{Madrid} share the same value, but
-such colisions are expected and completely natural. The LINEARCOUNTER
-data structure has the following view:
+Như chúng ta có thể thấy, các thành phố \textbf{London} và \textbf{Madrid} có cùng một giá trị, nhưng các đụng độ như vậy là điều dễ hiểu 
+và hoàn toàn tự nhiên. Cấu trúc dữ liệu LINEARCOUNTER có dạng như sau:
 \begin{center}
     \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
         0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
@@ -1333,28 +1296,21 @@ be formalized as follows.\\
     \[n = y(\hat{n}) = y(2018.34) \approx 1886.218.\]
     
 \end{mdframed}
-\indent According to experiments performed by the authors of
-the $HyperLogLog++$, the estimate $n_{lin}$ built according to the
-Linear Counting algorithm is still better for small cardinalities even comparing
-to the bias-corrected value $n$. Therefore, if at least one empty counter
-exists, the algorithm additionallu computes the linear estimate and uses
-a list of empirical thresholds, that can be found in Table 3.4, to choose
-which evaluation should be preferred. In such a case, the bias-corrected
-value $n$ is used only when the linear estimate $n_{lin}$ falls above
-the threshold $\varkappa_m$ for the current $m$.
+\indent Theo các thí nghiệm thực hiện bởi các tác giả của HyperLogLog++, ước lượng $n_{lin}$ được tính theo thuật toán 
+Linear Counting vẫn tốt hơn cho các số lượng phần tử nhỏ so với giá trị được hiệu chỉnh sai số $n$. Do đó, nếu ít nhất một bộ đếm trống tồn tại, 
+thuật toán sẽ tính toán thêm ước lượng tuyến tính và sử dụng một danh sách các ngưỡng thực nghiệm, có thể tìm thấy trong Bảng 3.4, để chọn xem ước lượng 
+nào nên được ưu tiên. Trong trường hợp như vậy, giá trị được hiệu chỉnh sai số $n$ chỉ được sử dụng khi ước lượng tuyến tính $n_{lin}$ 
+vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
 \begin{mdframed}
     \vspace{0.25cm}
     \textbf{Example 3.9: Bias correction with the threshold}\\
-    Consider Example 3.8, where for $m = 2^{10}$ we computed the bias-corrected
-    value $n \approx 1886.218$. In order to determine whether or not we should
-    perfer this value to the estimation by Linear Counting, we need to find
-    out the number of empty counters Z in HyperLogLog++ data structure.
-    Because we do not have value in our example, assume it is Z = 73.\\
-    Thus, the linear estimation according to the formula (3.1) is
-    \[n_{lin} = 2^{10}\cdot\log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
-    Next, we compare the $n_{lin}$ to the threshold $\varkappa_m = 900$ from Table 3.4, which
-    is far below the computed value, therfore, we prefer the bias-corrected
-    estimate n to the Linear Counting estimate $n_{lin}$.
+    Trong ví dụ 3.8, khi $m = 2^{10}$, chúng ta tính được giá trị được hiệu chỉnh sai số $n \approx 1886.218$. Để xác định xem chúng ta có nên 
+    ưu tiên giá trị này so với ước lượng bằng Linear Counting hay không, chúng ta cần tìm ra số lượng bộ đếm trống $Z$ trong cấu trúc dữ liệu của 
+    HyperLogLog++. Vì chúng ta không có giá trị trong ví dụ của chúng ta, hãy giả định rằng $Z = 73$.\\
+    Do đó, ước lượng tuyến tính theo công thức (3.1) là
+    \[n_{lin} = 2^{10} \cdot \log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
+    Tiếp theo, chúng ta so sánh $n_{lin}$ với ngưỡng $\varkappa_m = 900$ từ Bảng 3.4, mà là rất thấp so với giá trị tính toán, do đó, 
+    chúng ta ưu tiên ước lượng được hiệu chỉnh sai số $n$ so với ước lượng của Linear Counting $n_{lin}$.
     
 \end{mdframed}
     
@@ -1428,60 +1384,39 @@ the threshold $\varkappa_m$ for the current $m$.
     \vspace{0.25cm}
 \end{algorithm}
 \subsection*{Properties}
-The accuracy of HyperLogLog++ is better than HyperLogLog for a large
-range of cardinalities and equally good for the rest. For cardinalities
-between 12000 and 61000, the bias correction allows for a lower error
-and avoids a spike in the error when switching between sub-algorithns.\\
-\indent However, since HyperLogLog++ doesn't need to store hash values, just
-one plus the maximum size of the number of leading zeros, the memory
-requirements don't grow significantly compared to HyperLogLog and,
-according to (3.14), it requires only $6\cdot2^p$ bits.\\
+Độ chính xác của HyperLogLog++ tốt hơn so với HyperLogLog cho một phạm vi lớn của các số lượng phần tử và tương đương tốt cho phần còn lại. 
+Đối với các số lượng phần tử từ 12000 đến 61000, việc hiệu chỉnh sai số cho phép giảm thiểu sai số và tránh một đỉnh sai số khi chuyển đổi 
+giữa các phụ thuộc (sub-algorithns).\\
+Tuy nhiên, vì HyperLogLog++ không cần lưu trữ giá trị băm, chỉ cần một cộng với kích thước tối đa của số lượng số không đầu tiên, yêu cầu bộ nhớ 
+không tăng đáng kể so với HyperLogLog và, theo (3.14), chỉ yêu cầu $6 \cdot 2^p$ bit.\\
 
 \begin{quote}
-    The HyperLogLog++ algorithm can be used to estimate cardinalities of\\
-    about $7.9\cdot10^9$ elements with a typical error rate of 1.625\%, using
-    2.56 KB\\ of memory.
+    Thuật toán HyperLogLog++ có thể được sử dụng để ước lượng số lượng phần tử \\
+    khoảng $7.9 \cdot 10^9$ với một tỷ lệ lỗi điển hình là 1.625\%, \\
+    sử dụng 2.56 KB bộ nhớ.
     \vspace{0.25cm}
 \end{quote}
 \\\\
-\indent As mentioned earlier, the algorithm uses the stochastic averaging
-approach and splits the dataset into $m = 2^p$ subsets $\left\{COUNTER[j]\right\}_{j=0}^{m-1}$, every counter handles
-information about $\frac{n}{m}$ elements. Heule et al. noticed that for $n \ll m$
-most counters are never used and don't need to be stored, therefore
-the storage can benefit from a sparse representation. If the cardinality
-$n$ is much smaller than $m$, then HyperLogLog++ requires significantly
-less memory than its predecessors.\\
-\indent The HyperLogLog++ algorithm in a sparse version stores only pairs
-$(j, COUNTER[j])$, representing them as a single integer by concatenating
-their bit patterns. All such pairs are stored in a single sorted list of
-integers. Since we always compute the maximal rank, we don't need
-to store different pairs with the same index, instead only the pair with
-the maximal index has to be stored. In practice, to provide a better
-experience one can maintain onother unsorted list for fast insertions that
-have to be periodically sorted and merged into the primary list. If such
-a list requires more memory than the dense representation of the counters,
-it can be easily converted to the dense form. Additionally, to make
-the sparse representation even more space friendly, the HyperLogLog++
-algorithm proposes different compression techniques using variable length
-encoding and difference encoding for the integers, therefore storing only
-the first pair and diffrences from its value.\\
-\indent Currently, the HyperLogLog++ algorithm is widely used in many
-popular applications, including Google BigQuery and Elasticsearch.
+\indent Như đã đề cập trước đó, thuật toán sử dụng phương pháp lấy trung bình ngẫu nhiên và chia tập dữ liệu thành $m = 2^p$ tập con $\left\{COUNTER[j]\right\}_{j=0}^{m-1}$, 
+mỗi bộ đếm xử lý thông tin về $\frac{n}{m}$ phần tử. Heule và đồng nghiệp đã nhận thấy rằng đối với $n \ll m$, hầu hết các bộ đếm không bao giờ được 
+sử dụng và không cần phải được lưu trữ, do đó lưu trữ có thể được hưởng lợi từ một biểu diễn thưa thớt. Nếu số lượng phần tử $n$ nhỏ hơn rất nhiều 
+so với $m$, thì HyperLogLog++ yêu cầu bộ nhớ đáng kể ít hơn so với các phiên bản trước đó.\\
+\indent Thuật toán HyperLogLog++ trong phiên bản thưa thớt chỉ lưu trữ các cặp $(j, COUNTER[j])$, biểu diễn chúng dưới dạng một số nguyên duy nhất 
+bằng cách nối các mẫu bit của chúng. Tất cả các cặp như vậy được lưu trữ trong một danh sách đã sắp xếp duy nhất của các số nguyên. 
+Vì chúng ta luôn tính toán hạng cực đại, nên chúng ta không cần phải lưu trữ các cặp khác nhau có cùng chỉ số, thay vào đó chỉ cần lưu trữ cặp 
+có chỉ số cực đại.
+Trong thực tế, để cung cấp trải nghiệm tốt hơn, người ta có thể duy trì một danh sách không được sắp xếp khác để thực hiện các thêm nhanh 
+cần phải được sắp xếp và hợp nhất định kỳ vào danh sách chính. Nếu một danh sách như vậy yêu cầu nhiều bộ nhớ hơn so với biểu diễn dày đặc 
+của các bộ đếm, nó có thể dễ dàng chuyển đổi thành dạng dày đặc. Ngoài ra, để làm cho biểu diễn thưa thớt thậm chí còn thân thiện với không gian hơn, 
+thuật toán HyperLogLog++ đề xuất các kỹ thuật nén khác nhau bằng cách sử dụng mã hóa độ dài biến và mã hóa sự khác biệt cho các số nguyên, 
+do đó chỉ lưu trữ cặp đầu tiên và sự khác biệt từ giá trị đó.\\
+\indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
 \subsection*{Conclusion}
-In this chapter we covered various probabilistic approaches to computing
-unique elements in huge datasets. We have discussed the difficulties
-that appear in cardinality estimation tasks and learned a simple solution
-that could approzimate the small cardinalites quite well. Further, we
-have studied the family of algorithms based on an observation of certain
-patterns in the hashed representations of elements from the dataset which
-is followed by many improvements and modifications that have become
-industry standard today for estimating cardinalities of almost any range.\\
-\indent If you are interested in more infomation about the material covered
-here or want to read the origin papers, please take a look at the list of references
-that follows this chapter.\\
-\indent In the next chapter we consider streaming applications and study
-the afficient probabilistic algorithms to estimate frequencies of elements,
-find heavy hitters and trending elements in data streams.\\
+Trong chương này, chúng ta đã đi qua các phương pháp xác suất khác nhau để tính toán các phần tử duy nhất trong các tập dữ liệu lớn. 
+Chúng ta đã thảo luận về những khó khăn xuất hiện trong các nhiệm vụ ước lượng số lượng phần tử và tìm hiểu về một giải pháp đơn giản có thể ước lượng 
+các tập hợp có số lượng phần tử nhỏ khá tốt. Hơn nữa, chúng ta đã nghiên cứu về họ các thuật toán dựa trên việc quan sát các mẫu nhất định trong 
+các biểu diễn băm của các phần tử từ tập dữ liệu, theo sau bởi nhiều cải tiến và sửa đổi đã trở thành tiêu chuẩn ngành công nghiệp ngày nay để 
+ước lượng số lượng phần tử của hầu hết các loại.\\
 \section{PHƯƠNG PHÁP THỰC HIỆN}
 Similar to the sensor, the implement of the gateway is presented in this part. However, instead of the whole source code (in java), some main parts are required to presented only.
 
@@ -1588,60 +1523,39 @@ Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có
 Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin và xe điện hiệu quả và bền vững.\\
 
 \begin{thebibliography}{19}
-
-\bibitem{H. Truong:Rahman:Shenoy:2018} 
-H. Truong, S. Rahman, và P. S. Shenoy (2018),
-Battery Management Systems in Electric and Hybrid Vehicles.
-
-\bibitem{Benmouiza}
-A. Benmouiza và A. Chandra,
-State of Charge Estimation of Lithium-Ion Batteries in Electric Vehicles: A Review
-
-\bibitem{Y. Hu}
-Y. Hu, L. Wang, và H. Gao,
-Real-Time State of Health Estimation for Lithium-Ion Batteries in Electric Vehicles
-
-\bibitem{Y. Li}
-Y. Li và C. Mi.,
-Data-Driven Fault Diagnosis and Prognosis of Lithium-Ion Batteries in Electric Vehicles
-
-\bibitem{X. Hu}
-X. Hu, Y. Li, và C. Mi.,
-Intelligent Battery Management and Control for Electric Vehicles
-
-\bibitem{Rui Xiong}
-Rui Xiong, Kui Zhang,
-Design and implementation of a Battery Big Data Platform Through Intelligent Connected Electric Vehicles
-
-\bibitem{Cheng:2011}
-Cheng, K.W.E.; Divakar, B.P.; Wu, H.J.; Ding, K.; Ho, H.F,
-Battery-Management System (BMS) and SOC development for electrical vehicles,
-\textbf{IEEE Trans. Veh. Technol}, 60, 76--88, 2011
-
-\bibitem{Tipping:2000}
-Tipping, M.E,
-The Relevance Vector Machine. Advances in Neural Information Processing Systems,
-\textbf{MIT Press: Cambridge, MA, USA}, 12, 287--289, 2000
-
-\bibitem{Widodo:2011}
-Widodo, A.; Shim, M.C.; Caesarendra, W.; Yang, B.-S,
-Intelligent prognostics for battery health monitoring based on sample entropy,
-\textbf{Expert Syst. Appl}, 38, 11763--11769, 2011
-
-\bibitem{Chao:2011}
-Chao, K.H.; Chen, J.W,
-State-of-health estimator based on extension theory with a learning mechanism for lead-acid batteries,
-\textbf{Expert Syst. Appl}, 38, 15183--15193, 2011
-
-\bibitem{Moo:2009}
-Ng, K.S.; Moo, C.S.; Chen, Y.P.; Hsieh, Y.C,
-Enhanced coulomb counting method for estimating state-of-charge and state-of-health of lithium-ion batteries,
-\textbf{Appl. Energy}, 86, 1506--1511, 2009
-
-\bibitem{}
-State of Charge (SOC) Determination,
-\textbf{http://www.mpoweruk.com/soc.htm},
-232, 2011
-
+    \bibitem
+    [As87] Astrahan, M.M., Schkolnick, M., Whang, K.-Y. (1987)
+    “Approximating the number of unique values of an attribute without
+    sorting”, Journal Information Systems, Vol. 12 (1), pp. 11-15,
+    Oxford, UK.
+    
+    \bibitem[Du03] Durand, M., Flajolet, P. (2003) “Loglog Counting of Large
+    Cardinalities (Extended Abstract)”, In: G. Di Battista and U.
+    Zwick (Eds.) - ESA 2003. Lecture Notes in Computer Science, Vol.
+    2832, pp. 605-617, Springer, Heidelberg.
+    
+    \bibitem[Fl85] Flajolet, P., Martin, G.N. (1985) “Probabilistic Counting
+    Algorithms for Data Base Applications”, Journal of Computer and
+    System Sciences, Vol. 31 (2), pp. 182-209.
+    
+    \bibitem[Fl07] Flajolet, P., et al. (2007) “HyperLogLog: the analysis of a nearoptimal cardinality estimation algorithm”, Proceedings of the 2007
+    International Conference on Analysis of Algorithms, Juan les Pins,
+    France - June 17-22, 2007, pp. 127-146.
+    
+    \bibitem[He13] Heule, S., et al. (2013) “HyperLogLog in Practice: Algorithmic
+    Engineering of a State of The Art Cardinality Estimation Algorithm”, Proceedings of the 16th International Conference on Extending
+    Database Technology, Genoa, Italy —- March 18-22, 2013, pp. 683-
+    692, ACM New York, NY.
+    
+    \bibitem[Sc07] Scheuermann, B., Mauve, M. (2007) “Near-optimal compression
+    of probabilistic counting sketches for networking applications”,
+    Proceedings of the 4th ACM SIGACT-SIGOPS International
+    Workshop on Foundation of Mobile Computing (DIAL M-POMC),
+    Portland, Oregon, USA. - August 16, 2007.
+    
+    \bibitem[Wh90] Whang, K.-Y., Vander-Zanden, B.T., Taylor H.M. (1990)
+    “A Linear-Time Probabilistic Counting Algorithm for Database
+    Applications”, Journal ACM Transactions on Database Systems,
+    Vol. 15 (2), pp. 208-229.
 \end{thebibliography}
 \end{document}
