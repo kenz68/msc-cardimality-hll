@@ -341,24 +341,17 @@ N is the number of all elements including duplicates, and requires auxiliary
 linear memory, that is unlikely to be feasible for Big Data applications that
 operate huge datasets of large cardinalities.
 \begin{mdframed}
-   \textbf{Example 3.1: Unique visitors}\\
-   One of the valuable KPIs for any website is the number of unique visitors
-   that have visited it over a specified period of time. For simplicity, we
-   assume that unique visitors use different IP addresses, therefore we need
-   to calculate the number of unique IPs which according to IPv6 Internet Protocol
-   version are represented by 128-bit string. Is this an easy task?
-   Can we just use the classical methods to count the number exactly? That
-   depends on the populatity of the website.\\
-   Consider traffic statistics for March 2017 of the top three most popular
-   retail websites in the United States: \textit{amazon.dot, ebay.com} and
-   \textit{walmart.com}. According to SimilarWeb, the average number of visit to
-   those websites was about 1.44 billion and the average number of pages
-   viewed per visit was 8.24. Therefore, the statistics for March 2017 include
-   about 12 billion IP addresses at 128-bit each, meaning a total size of
-   192 GB.\\
-   If we assume that every 10th of those visitors was unique, we can expect
-   cardinality of such a set at about 144 million and the memory required to
-   store the list of nuique elements is 23GB.
+   \textbf{Ví dụ 3.1: Số lượng khách truy cập}\\
+    Một trong những chỉ số KPI quý giá cho bất kỳ trang web nào là số lượng khách truy cập duy nhất đã ghé thăm trong một khoảng thời gian cụ thể. 
+    Để đơn giản, chúng ta giả định rằng khách truy cập duy nhất sử dụng các địa chỉ IP khác nhau, do đó chúng ta cần tính toán số lượng địa chỉ IP 
+    duy nhất mà theo giao thức Internet IPv6 được biểu diễn bằng chuỗi 128-bit. Liệu đây có phải là một nhiệm vụ dễ dàng không? 
+    Chúng ta có thể chỉ sử dụng các phương pháp cổ điển để đếm số lượng một cách chính xác không? Điều này phụ thuộc vào sự phổ biến của trang web.\\
+    Xem xét thống kê lưu lượng cho tháng 3 năm 2017 của ba trang web bán lẻ phổ biến nhất tại Hoa Kỳ: \textit{amazon.dot, ebay.com} và 
+    \textit{walmart.com}. Theo SimilarWeb, số lần truy cập trung bình đến các trang web đó là khoảng 1,44 tỷ và số lượng trang xem trung bình 
+    mỗi lần truy cập là 8,24. Do đó, thống kê cho tháng 3 năm 2017 bao gồm khoảng 12 tỷ địa chỉ IP với mỗi địa chỉ có 128-bit, tức là tổng 
+    kích thước là 192 GB.\\
+    Nếu chúng ta giả định rằng mỗi 10 người trong số những khách truy cập đó là duy nhất, chúng ta có thể mong đợi số lượng phần tử 
+    trong tập hợp đó là khoảng 144 triệu và bộ nhớ cần thiết để lưu trữ danh sách các phần tử duy nhất là 23 GB.
 \end{mdframed}
 \break
 Another example illustrates the challenge of cardinality estimation for\\
@@ -1596,39 +1589,59 @@ Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực 
 
 \begin{thebibliography}{19}
 
-\bibitem
-[As87] Astrahan, M.M., Schkolnick, M., Whang, K.-Y. (1987)
-“Approximating the number of unique values of an attribute without
-sorting”, Journal Information Systems, Vol. 12 (1), pp. 11-15,
-Oxford, UK.
+\bibitem{H. Truong:Rahman:Shenoy:2018} 
+H. Truong, S. Rahman, và P. S. Shenoy (2018),
+Battery Management Systems in Electric and Hybrid Vehicles.
 
-\bibitem[Du03] Durand, M., Flajolet, P. (2003) “Loglog Counting of Large
-Cardinalities (Extended Abstract)”, In: G. Di Battista and U.
-Zwick (Eds.) - ESA 2003. Lecture Notes in Computer Science, Vol.
-2832, pp. 605-617, Springer, Heidelberg.
+\bibitem{Benmouiza}
+A. Benmouiza và A. Chandra,
+State of Charge Estimation of Lithium-Ion Batteries in Electric Vehicles: A Review
 
-\bibitem[Fl85] Flajolet, P., Martin, G.N. (1985) “Probabilistic Counting
-Algorithms for Data Base Applications”, Journal of Computer and
-System Sciences, Vol. 31 (2), pp. 182-209.
+\bibitem{Y. Hu}
+Y. Hu, L. Wang, và H. Gao,
+Real-Time State of Health Estimation for Lithium-Ion Batteries in Electric Vehicles
 
-\bibitem[Fl07] Flajolet, P., et al. (2007) “HyperLogLog: the analysis of a nearoptimal cardinality estimation algorithm”, Proceedings of the 2007
-International Conference on Analysis of Algorithms, Juan les Pins,
-France - June 17-22, 2007, pp. 127-146.
+\bibitem{Y. Li}
+Y. Li và C. Mi.,
+Data-Driven Fault Diagnosis and Prognosis of Lithium-Ion Batteries in Electric Vehicles
 
-\bibitem[He13] Heule, S., et al. (2013) “HyperLogLog in Practice: Algorithmic
-Engineering of a State of The Art Cardinality Estimation Algorithm”, Proceedings of the 16th International Conference on Extending
-Database Technology, Genoa, Italy —- March 18-22, 2013, pp. 683-
-692, ACM New York, NY.
+\bibitem{X. Hu}
+X. Hu, Y. Li, và C. Mi.,
+Intelligent Battery Management and Control for Electric Vehicles
 
-\bibitem[Sc07] Scheuermann, B., Mauve, M. (2007) “Near-optimal compression
-of probabilistic counting sketches for networking applications”,
-Proceedings of the 4th ACM SIGACT-SIGOPS International
-Workshop on Foundation of Mobile Computing (DIAL M-POMC),
-Portland, Oregon, USA. - August 16, 2007.
+\bibitem{Rui Xiong}
+Rui Xiong, Kui Zhang,
+Design and implementation of a Battery Big Data Platform Through Intelligent Connected Electric Vehicles
 
-\bibitem[Wh90] Whang, K.-Y., Vander-Zanden, B.T., Taylor H.M. (1990)
-“A Linear-Time Probabilistic Counting Algorithm for Database
-Applications”, Journal ACM Transactions on Database Systems,
-Vol. 15 (2), pp. 208-229.
+\bibitem{Cheng:2011}
+Cheng, K.W.E.; Divakar, B.P.; Wu, H.J.; Ding, K.; Ho, H.F,
+Battery-Management System (BMS) and SOC development for electrical vehicles,
+\textbf{IEEE Trans. Veh. Technol}, 60, 76--88, 2011
+
+\bibitem{Tipping:2000}
+Tipping, M.E,
+The Relevance Vector Machine. Advances in Neural Information Processing Systems,
+\textbf{MIT Press: Cambridge, MA, USA}, 12, 287--289, 2000
+
+\bibitem{Widodo:2011}
+Widodo, A.; Shim, M.C.; Caesarendra, W.; Yang, B.-S,
+Intelligent prognostics for battery health monitoring based on sample entropy,
+\textbf{Expert Syst. Appl}, 38, 11763--11769, 2011
+
+\bibitem{Chao:2011}
+Chao, K.H.; Chen, J.W,
+State-of-health estimator based on extension theory with a learning mechanism for lead-acid batteries,
+\textbf{Expert Syst. Appl}, 38, 15183--15193, 2011
+
+\bibitem{Moo:2009}
+Ng, K.S.; Moo, C.S.; Chen, Y.P.; Hsieh, Y.C,
+Enhanced coulomb counting method for estimating state-of-charge and state-of-health of lithium-ion batteries,
+\textbf{Appl. Energy}, 86, 1506--1511, 2009
+
+\bibitem{}
+State of Charge (SOC) Determination,
+\textbf{http://www.mpoweruk.com/soc.htm},
+232, 2011
+
 \end{thebibliography}
 \end{document}
