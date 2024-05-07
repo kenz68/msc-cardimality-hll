@@ -167,27 +167,13 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 
 
 \begin{center}
-\begin{tabular}{c}
-\multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
-\vspace{2cm}
+\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ \\TRÊN DÒNG DỮ LIỆU}
+\vspace{1.5cm}
 \\
-\multicolumn{1}{c}{\textbf{\Large LUẬN VĂN THẠC SĨ}}
-
-
-~~\\
-
-\\
-\multicolumn{1}{l}{\textbf{{\Large}}}\\
-\\
-\textbf{{\Large}}\\
-
-\\
-\\
-
-\end{tabular}
+\textbf{\Large LUẬN VĂN THẠC SĨ}
 \end{center}
 
-\vspace{1cm}
+\vspace{3cm}
 
 \begin{table}[h]
 \begin{tabular}{rrl}
@@ -229,32 +215,24 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 
 
 \begin{center}
-\begin{tabular}{c}
-\multicolumn{1}{c}{\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU}}
+\textbf{\Large NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ \\TRÊN DÒNG DỮ LIỆU}
 \vspace{2cm}
 \\
-\multicolumn{1}{c}{\textbf{\Large LUẬN VĂN THẠC SĨ}}
+\textbf{\Large LUẬN VĂN THẠC SĨ}
 
 \vspace{0.5cm}
-\\
-\multicolumn{1}{c}{\text{\small NGÀNH: KHOA HỌC MÁY TÍNH }}
+
+\text{\small NGÀNH: KHOA HỌC MÁY TÍNH }
 \vspace{0.5cm}
 \\
-\multicolumn{1}{c}{\text{\small MÃ NGÀNH: \textbf{8480101} }}
+\text{\small MÃ NGÀNH: \textbf{8480101} }
 \vspace{1cm}
 \\
-\multicolumn{1}{c}{\textbf{\small NGƯỜI HƯỚNG DẪN KHOA HỌC }}
+\textbf{\small NGƯỜI HƯỚNG DẪN KHOA HỌC }
 ~~\\
-\multicolumn{1}{c}{\textbf{\small PGS. TS. THOẠI NAM
- }}
+\textbf{\small PGS. TS. THOẠI NAM}
 
-\\
-\\
 
-\\
-\\
-
-\end{tabular}
 \end{center}
 
 \vspace{1cm}
@@ -328,13 +306,9 @@ và hệ thống giao thông thông minh.
 
 \section{CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN }
 - \textbf{LogLog} – [1] \\
-
 - \textbf{HyperLogLog} – [2]\\
-
 - \textbf{HyperLogLog++} - [3] \\
-
 - \textbf{Sliding HyperLogLog} - [4]\\
-
 - \textbf{ExaLogLog} - [5] \\
 
 \section{HyperLogLog}
@@ -493,36 +467,27 @@ và hoàn toàn tự nhiên. Cấu trúc dữ liệu LINEARCOUNTER có dạng nh
     \end{tabular}
 \end{center}
 \vspace{0.2cm}
-According to the Linear Counting algorithm, we calculate the fraction \textbf{V}
-of empty bits in the LINEARCOUNTER:
+Theo thuật toán Đếm Tuyến Tính, chúng ta tính toán tỷ lệ \textbf{V} của các bit trống trong LINEARCOUNTER:
 \begin{equation}
     V = \frac{9}{16} = 0.5625
 \end{equation}
-and the estimated cardinality is
+và ước lượng số phần tử là:
 \begin{equation}
     n \approx -16\cdot \ln 0.5625 \approx 9.206,
 \end{equation}
-which is pretty close to th exact number 10.
+điều này khá gần với con số chính xác là 10.
 \end{mdframed}
 \subsection*{Properties}
-If the hash function $h$ can be computed in a constant time (which is true
-for the most popular hash function), the time to process every element is
-a fixed constant O(N), where N is the total number of elements, including
-duplicates. Thus, the algorithm has O(N) time complexity.\\
-\indent As for many other probabilistic algorithm, there is a number of
-parameters that can be runed to influence its performance.\\
-\indent The expected accuracy of the estimation depends on the bit array
-size $m$ and its ratio to the number of distinct elements $\alpha$ = $\frac{m}{n}$, called
-the \textit{load factor}. Unless $\alpha$ $\geq$ $1$ ($m$ > $n$ is not practically interesting case),
-there is non-zero probability $P_{full}$ that LINEARCOUNTER bit array
-becomes full, called the $fill-up probability$, that fatally distorts
-the algorithm and blows up the expression (3.1). The probability $P_{full}$
-depends on the load factor and, consequently, on the size $m$ that should
-be selected big enough to have the fill-up probability negligible.\\
-\indent The standard error $\sigma$ is a measure of the variability of the estimate
-provided by Linear Counting and there is a trade-off between it and
-the bit array zise $m$. Descreasing the standard error results in more
-precies estimates, but increase the require memory.\\\\
+Nếu hàm băm $h$ có thể tính trong thời gian hằng số (điều này đúng cho hầu hết các hàm băm phổ biến nhất), 
+thời gian để xử lý mỗi phần tử là một hằng số cố định O(N), trong đó N là tổng số phần tử, bao gồm cả các phần tử trùng lặp. 
+Do đó, thuật toán có độ phức tạp thời gian là O(N)\\
+\indent Đối với nhiều thuật toán xác suất khác, có một số thông số có thể được điều chỉnh để ảnh hưởng đến hiệu suất của nó.\\
+\indent Độ chính xác dự kiến của ước lượng phụ thuộc vào kích thước mảng bit $m$ và tỉ lệ của nó so với số lượng phần tử phân biệt $\alpha = \frac{m}{n}$, 
+được gọi là \textit{hệ số tải}. Trừ khi $\alpha \geq 1$ ($m > n$ không phải là trường hợp thực tế quan trọng), có xác suất khác không $P_{full}$ 
+rằng mảng bit LINEARCOUNTER trở thành đầy, gọi là xác suất \textit{đầy}, gây nên sự biến dạng chết người cho thuật toán và làm phình to biểu thức (3.1). 
+Xác suất $P_{full}$ phụ thuộc vào hệ số tải và, do đó, vào kích thước $m$ cần được chọn đủ lớn để có xác suất đầy là không đáng kể.\\
+\indent Sai số tiêu chuẩn $\sigma$ là một đo lường của sự biến thiên của ước lượng được cung cấp bởi Đếm Tuyến Tính và có một sự đánh đổi giữa nó và 
+kích thước mảng bit $m$. Giảm sai số tiêu chuẩn dẫn đến ước lượng chính xác hơn, nhưng lại tăng yêu cầu về bộ nhớ.\\\\
 \begin{quote}
     \begin{center}
         \textbf{Table 3.1:} Trade-off between accuracy and bit array size\\
@@ -540,49 +505,34 @@ precies estimates, but increase the require memory.\\\\
     \end{center}
 \end{quote}\\
 
-The dependence on choosing $m$ is quite complex and has no analysis
-solution. However, for a widely acceptable fill-up probabilistic $P_full = 0.7\%$
-the algorithm authors have provided precomputed values that are given in Table 3.1
-and can be used as references.
+Sự phụ thuộc vào việc chọn $m$ khá phức tạp và không có giải pháp phân tích. Tuy nhiên, đối với một xác suất đầy chấp nhận được rộng rãi $P_{full} = 0.7\%$, 
+các tác giả thuật toán đã cung cấp các giá trị đã tính trước được hiển thị trong Bảng 3.1 và có thể được sử dụng như là các tham chiếu.
 
-Since the fill-up probability is never zero, the bit array very rarely
-becomes full and distorts Algorithm 3.2. When working with small
-datasets, we can re-index all elements with a different hahs function or 
-increase the size LINEARCOUNTER. Unfortunately, such solutions
-won't work for huge datasets and, together with quite high time
-complexity, require a search for alternatives.
+Vì xác suất đầy không bao giờ bằng không, mảng bit hiếm khi trở thành đầy và biến dạng thuật toán 3.2. Khi làm việc với các bộ dữ liệu nhỏ, chúng ta 
+có thể tái chỉ mục tất cả các phần tử bằng một hàm băm khác hoặc tăng kích thước LINEARCOUNTER. Thật không may, những giải pháp như vậy 
+sẽ không hoạt động cho các bộ dữ liệu lớn và, cùng với độ phức tạp thời gian khá cao, đòi hỏi tìm kiếm các phương án thay thế.
 
-However, Linear Counting performs very well when the cardinality
-of the dataset being measured is not extreamly big and can be used to
-improve other algorithm, developed to provide the best possible behavior
-for huge cardinalities.
+Tuy nhiên, Đếm Tuyến Tính hoạt động rất tốt khi định lượng của tập dữ liệu đang được đo không cực kỳ lớn và có thể được sử dụng để cải thiện các thuật toán 
+khác, được phát triển để cung cấp hành vi tốt nhất có thể cho các định lượng lớn.
 
-In the Linear Counting algorithm, the estimation of the cardinality
-is approximately proportional to the exact value, this is why the term
-\textquotedblleft linear\textquotedblright\space is used. In the next section, we consider an alternative algorithm
-that could be classified as \textquotedblleft logarithmi\textquotedblright\space counting since it is based on
-estimations that logarithms of the true cardinality.
-\subsection{Probabilistic Counting}
-One of the counting algorithms that is based on the idea of observing
-commom patterns in hashed representations of indexed elements is a class
-of \textit{Probabilistic Counting} algorithm is invented by Philippe Flajolet and
-G. Nigel Martin in 1985 [Fl85].
+Trong thuật toán Đếm Tuyến Tính, ước lượng của định lượng gần như tỷ lệ với giá trị chính xác, đây là lý do tại sao thuật ngữ "tuyến tính" được sử dụng. 
+Trong phần tiếp theo, chúng ta sẽ xem xét một thuật toán thay thế có thể được phân loại như là đếm \textquotedblleft logarithmi\textquotedblright\space 
+vì nó dựa trên các ước lượng của logarithm của định lượng thực sự.
+\subsection{Đếm Xác Suất}
+Một trong những thuật toán đếm dựa trên ý tưởng quan sát các mẫu phổ biến trong các biểu diễn băm của các phần tử được chỉ mục là một loại 
+thuật toán \textit{Đếm Xác Suất (Probabilistic Counting)} được phát minh bởi Philippe Flajolet và G. Nigel Martin vào năm 1985 [Fl85].
 
-As asual, every element is pre-processed by applying a hash function $h$
-that transforms elements into integers sufficiently uniformaly distributed
-over a scala range ${0, 1,...,2^M - 1}$ or, quivalently, over the set of
-binary $strings^2$ of length M:
+Như thường lệ, mỗi phần tử được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
+trên một phạm vi scala ${0, 1,...,2^M - 1}$ hoặc, tương đương, trên tập hợp các chuỗi nhị phân ($strings^2$) có độ dài M:
 
 \[h(x) = i = \sum_{k=0}^{M-1} i_k\cdot 2^k := (i_0i_1...i_{M-1})_2, i_k \in \{0,1\}.\]
 
-Flajolet and Martin noticed that patterns:
+Flajolet và Martin nhận thấy các mẫu:
 \[0^k1 := \overbrace{00...0}^{\text{k times}}1\]
-should appear in such binary strings with probability $2^{-(k+1)}$ and, if
-recorded for each indexed element, can play the role of a cardinality
-estimator.
+có thể xuất hiện trong các chuỗi nhị phân đó với xác suất $2^{-(k+1)}$ và, nếu được ghi lại cho mỗi phần tử được chỉ mục, có thể đóng vai trò 
+như một bộ ước lượng định lượng.
 
-Every pettern can be associated with its index, called $rank$, that is
-calculated by the formula:
+Mỗi mẫu có thể được kết hợp với chỉ số của nó, được gọi là $rank$, được tính bằng công thức:
 \[
     rank(i)=\left\{
                 \begin{array}{ll}
@@ -591,29 +541,23 @@ calculated by the formula:
                 \end{array}
             \right.
 \]
-and simply equivalent to the left-most position of 1, known as the least
-significant 1-bit position.
+và đơn giản tương đương với vị trí của bit 1 bên trái nhất, được biết đến là vị trí của bit 1 ít quan trọng nhất.
 \begin{mdframed}
     \textbf{Example 3.4: Rank calculation}\\
-    Consider an 8-bit long integer number 42 that has the following binary
-    representation using the \textquotedblleft LSB 0\textquotedblright numbering scheme:
+    Hãy xem xét một số nguyên có độ dài 8 bit là 42 có biểu diễn nhị phân sau sử dụng hệ số đánh số \textquotedblleft LSB 0\textquotedblright.
     \[
         42 = 0\cdot2^0+1\cdot2^1+0\cdot2^2+1\cdot2^3+0\cdot2^4+1\cdot2^5+0\cdot2^6+0\cdot2^7 = (0\textbf{1}010100)_2 .
     \]
-    Thus, the ones appear at positions 1, 3, and 5, therefore, accroding to
-    the definition (3.2), the rank(42) is equal to:
+    Do đó, các số 1 xuất hiện tại các vị trí 1, 3 và 5, do đó, theo định nghĩa (3.2), rank(42) bằng:
     \[rank(42) = \min(1,3,5) = 1.\]
 \end{mdframed}
-The accurences of the $0^k 1$ pattern, or simply $rank(\cdot) = k$, in binary
-representations of hash values of each indexed element, can be compactly
-stored in a simple data structure COUNTER, also known as a FM Sketch,
-that is represented as a bit array of length M.
+Sự xuất hiện của mẫu $0^k 1$, hoặc đơn giản là $rank(\cdot) = k$, trong các biểu diễn nhị phân của các giá trị băm của mỗi phần tử được chỉ mục, 
+có thể được lưu trữ một cách gọn gàng trong một cấu trúc dữ liệu đơn giản gọi là COUNTER, còn được biết đến với tên gọi FM Sketch, 
+được biểu diễn dưới dạng một mảng bit có độ dài M.
 
-At the start, all bits in COUNTER are equal to zero. When we need to
-add a new element $x$ into the data structure, we compute its hash value
-using the hash function $h$, then calculate rank(x) and set
-the corresponding bit to one in the array, as stated in the algorithm
-below.\\
+Ban đầu, tất cả các bit trong COUNTER đều bằng không. Khi chúng ta cần thêm một phần tử mới $x$ vào cấu trúc dữ liệu, chúng ta tính toán 
+giá trị băm của nó bằng cách sử dụng hàm băm $h$, sau đó tính toán rank(x) và đặt bit tương ứng thành một trong mảng, 
+như đã mô tả trong thuật toán dưới đây.\\
 \begin{algorithm}[H]
     \DontPrintSemicolon
     \LinesNumberedHidden
@@ -627,19 +571,16 @@ below.\\
     }
 \end{algorithm}
 \vspace{0.4cm}
-In this way, the one in the COUNTER at some position $j$ means that
-the pattern $0^i 1$ has been observed at least once amongst the hashed
-values of all indexed elements.
+Như vậy, sự hiện diện của một '1' trong COUNTER tại một vị trí cụ thể $j$ có nghĩa là mẫu $0^i 1$ đã được quan sát ít nhất một lần 
+trong số các giá trị được băm của tất cả các phần tử được chỉ mục.
 \begin{mdframed}
     \textbf{Example 3.5: Build a simple counter}\\
-    Consider the same datasets as in Example 3.3 that contains 20 names
-    of capital cities extracted from recent news articales: \textbf{Berlin,} Berlin, \textbf{Paris,} Berlin,
-    \textbf{Lisbon, Kiev,} Paris, \textbf{London, Rome, Athens, Madrid, Vienna,}
-    Rome, Rome, Lisbon, Berlin, Paris, London, Kiev, \textbf{Washington.}\\
-    As the hash function $h$ we can use 32-bit MurmurHash3, that maps elements
-    to values from ${0,1,...,2^{32} - 1}$, therefore we can use simple counter
-    COUNTER of length M = 32. Using the hash values already computed in 
-    Example 3.3 and the definition (3.2), we calculate ranks for each element:
+    Xem xét các bộ dữ liệu giống như trong Ví dụ 3.3 chứa 20 tên thủ đô được trích xuất từ các bài báo gần đây: \textbf{Berlin,} Berlin, \textbf{Paris,} 
+    Berlin, \textbf{Lisbon, Kiev,} Paris, \textbf{London, Rome, Athens, Madrid, Vienna,} Rome, Rome, Lisbon, Berlin, Paris, London, 
+    Kiev, \textbf{Washington.}\\
+    Là hàm băm $h$, chúng ta có thể sử dụng 32-bit MurmurHash3, ánh xạ các phần tử thành các giá trị từ ${0,1,...,2^{32} - 1}$, do đó chúng ta có thể 
+    sử dụng bộ đếm đơn giản COUNTER có độ dài M = 32. Sử dụng các giá trị băm đã tính toán trong Ví dụ 3.3 và định nghĩa (3.2), chúng ta tính toán 
+    các rank cho mỗi phần tử:
     \begin{center}
         \begin{tabular}{ |c|c|c| }
             \multicolumn{3}{}{} \\ \hline
@@ -655,7 +596,7 @@ values of all indexed elements.
             \cline{1-3}
         \end{tabular}
     \end{center}
-    Thus, the COUNTER has following form:
+    Do đó, COUNTER có dạng như sau:
     \begin{center}
         \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
             0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
@@ -674,21 +615,14 @@ values of all indexed elements.
     \end{center}
 \end{mdframed}
 
-Let's stress a very interesting theoretical observation. Based on
-the uniform distribution of the values, if $n$ is the exact number of the distinct elements
-indexed so far, then we can expect that one in the first position can appear in about
-$\frac{n}{2}$ cases, in the second position in about $\frac{n}{2^2}$ cases, and so on. Thus,
-if $j\gg log_2n$, then the probability of
-discovering one in the $j-th$ position is close to zero, hence
-the COUNTER[$j$] will almost certainly be zero. Similarly, for $j\ll log_2n$
-the COUNTER[$j$] will almost certainly be one. If value $j$ is around
-the $log_2n$, then the probability to observe one or zero in that position is
-about the same.
+Hãy nhấn mạnh một quan sát lý thuyết rất thú vị. Dựa trên phân phối đồng đều của các giá trị, nếu $n$ là số chính xác của các phần tử phân biệt 
+đã được chỉ mục cho đến nay, thì chúng ta có thể mong đợi rằng một trong số đầu tiên có thể xuất hiện trong khoảng $\frac{n}{2}$ trường hợp, 
+trong vị trí thứ hai khoảng $\frac{n}{2^2}$ trường hợp, và cứ tiếp tục như vậy. Do đó, nếu $j\gg log_2n$, thì xác suất của việc phát hiện một 
+ở vị trí thứ $j$ gần như bằng không, do đó COUNTER[$j$] gần như chắc chắn sẽ là không. Tương tự, với $j\ll log_2n$ thì COUNTER[$j$] gần như chắc chắn 
+sẽ là một. Nếu giá trị $j$ nằm xung quanh $log_2n$, thì xác suất để quan sát một hoặc không trong vị trí đó là gần như bằng nhau.
 
-Thus, the left-most position $R$ of zero in the COUNTER after inserting
-all elements from the dataset can be used as an indicator of $\log_2n$. In
-fact, a correction factor $\varphi$ is required and the cardinality estimation can
-be done by the formula:
+Do đó, vị trí trái nhất $R$ của số không trong COUNTER sau khi chèn tất cả các phần tử từ tập dữ liệu có thể được sử dụng như một chỉ báo của $\log_2n$. 
+Trong thực tế, một hệ số điều chỉnh $\varphi$ được yêu cầu và ước lượng định lượng có thể được thực hiện bằng công thức:
 \[
     n \approx \frac{1}{\varphi}2^R,
 \]
@@ -696,15 +630,11 @@ be done by the formula:
 where $\varphi\approx0.77351.$\\
 \vspace{0.4cm}
 \begin{quote}
-    Flajolet and Martin have chosen to use the least significant 0-bit position
-    (the left-most position of 0) as the estimation of cardinality and built their
-    algorithm based on it. However, from the observation above we can see,
-    that the most significant 1-bit position (the right-most position of 1) can
-    be used for the same purpose; however, it has a flatter distribution that leads to
-    bigger standard error.\\
+    Flajolet và Martin đã chọn sử dụng vị trí 0-bit ít quan trọng nhất (vị trí trái nhất của 0) như là ước lượng của định lượng và xây dựng thuật toán 
+    của họ dựa trên nó. Tuy nhiên, từ quan sát trên, chúng ta có thể thấy rằng vị trí 1-bit quan trọng nhất (vị trí phải nhất của 1) cũng có thể 
+    được sử dụng cho mục đích tương tự; tuy nhiên, nó có một phân phối phẳng hơn dẫn đến sai số tiêu chuẩn lớn hơn.\\
 \end{quote}
-\indent The algorithm to compute the left-most postion of zero in a simple
-counter can be formulated as follows.\\\\
+\indent Thuật toán để tính vị trí trái nhất của số không trong một bộ đếm đơn giản có thể được công thức hóa như sau:\\\\
 \begin{algorithm}[H]
     \DontPrintSemicolon
     \LinesNumberedHidden
@@ -724,8 +654,7 @@ counter can be formulated as follows.\\\\
 \begin{mdframed}
     \vspace{0.25cm}
     \textbf{Example 3.6: Cardinality estimate with simple counter}\\
-    Consider the COUNTER from Example 3.5 and compute the estimated
-    number of distinct elements.
+    Hãy xem xét COUNTER từ Ví dụ 3.5 và tính toán số ước lượng của các phần tử phân biệt.
     \begin{center}
         \begin{tabular}{p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}p{0.4cm}}
             0 & 1 & 2 & 3 & \textbf{4} & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 % Add bottom border to all rows
@@ -742,57 +671,40 @@ counter can be formulated as follows.\\\\
             0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \cline{1-16} % Add bottom border to all rows
         \end{tabular}
     \end{center}
-    Using Algorithm 3.4, in the COUNTER the left-most value 0 appears in
-    position R = 4, therefore, accroding to the formula (3.3), the cardinality
-    estimation is
+    Sử dụng Thuật toán 3.4, trong COUNTER, giá trị 0 xuất hiện ở vị trí R = 4, do đó, theo công thức (3.3), ước lượng định lượng là
     \[
         n \approx \frac{1}{0.77351}2^4 \approx 20.68.
     \]
-    The exact cardinality of the set it 10, meaning the computed estimation
-    has a huge error due to the fact that values of $R$ are integers and for
-    very close ranks we can obtain results that differ in some binary orders
-    of magnitude. For instance, in out example, $R = 3$ would give an almost
-    perfect estimation of 10.34.
+    Định lượng chính xác của tập hợp là 10, có nghĩa là ước lượng tính toán có một sai số lớn do các giá trị của $R$ là số nguyên và đối với các hạng 
+    gần nhau, chúng ta có thể nhận được kết quả khác nhau ở một số thứ tự nhị phân. Ví dụ, trong ví dụ của chúng ta, $R = 3$ sẽ cho một ước lượng 
+    gần như hoàn hảo là 10.34.
     \vspace{0.25cm}
 \end{mdframed}
 \begin{quote}
-    Theoretically, the cardinality estimation based on a single simple counter
-    can provide very close expected values, but it has quite a high variance that
-    usually correcponds, as we abserved in Example 3.6, to the unpractical
-    standard error $\delta$ of one binary order of magnitude.
+    Lý thuyết, ước lượng định lượng dựa trên một bộ đếm đơn giản có thể cung cấp các giá trị kỳ vọng rất gần nhau, nhưng nó có phương sai khá cao, 
+    thường tương ứng, như chúng ta đã quan sát trong Ví dụ 3.6, với sai số tiêu chuẩn không thực tế $\delta$ của một thứ tự nhị phân.
     \vspace{0.25cm}
 \end{quote}
 \\
 
-Obviously, the weakness of the one-counter approach is that there is
-a lack of highly confident estimations for the cardinality (in fact, it makes
-its prediction based on a single estimation only).\
+Rõ ràng, điểm yếu của phương pháp sử dụng một bộ đếm là thiếu sự tự tin cao độ trong ước lượng cho định lượng (thực tế, nó dự đoán dựa trên một ước lượng 
+duy nhất).
 
-Thereby, the natural extension of the algorithm is to have many simple
-counters and, consequently, increase the number of estimations. The final
-prediction $n$ can be obtained by averaging the predictions $R_k$ from those
-counters $\{COUNTER_k\}_{k=0}^{m-1}$.
+Do đó, sự mở rộng tự nhiên của thuật toán là có nhiều bộ đếm đơn giản và, do đó, tăng số lượng ước lượng. Dự đoán cuối cùng $n$ có thể được thu được 
+bằng cách lấy trung bình của các ước lượng $R_k$ từ những bộ đếm đó $\{COUNTER_k\}_{k=0}^{m-1}$.
 
-Thus, the modified formula (3.3) of the Probabilistic Counting
-algorithm has the form:
+Do đó, công thức sửa đổi (3.3) của thuật toán Đếm Xác suất có dạng:
 \[
     n \approx \frac{1}{\varphi}2^{\bar{R}} = \frac{1}{\varphi}2^{\frac{1}{m}{\sum\limits_{k=0}^{m-1}R_k}},
 \]
-and the cardinlity $n$ will have the same-quality estimated value, but
-with a much smaller variance.
+và định lượng $n$ sẽ có cùng một giá trị ước lượng chất lượng, nhưng với phương sai nhỏ hơn nhiều.
 
-The obvious practical disadvantage to building $m$ independent simple
-counters is the requirement to compute values of $m$ different hash
-functions that, given that a single hash function can be computed in
-O(1), has O(m) time complexity and quite high CPU costs.
+Một hạn chế thực tế rõ ràng của việc xây dựng $m$ bộ đếm đơn giản độc lập là yêu cầu tính toán giá trị của $m$ hàm băm khác nhau, mặc dù một 
+hàm băm đơn có thể được tính toán trong O(1), nhưng có độ phức tạp thời gian là O(m) và chi phí CPU khá cao.
 
-The solution to optimizing the Probabilistic Counting algorithm is to
-apply a special procedure, called \textit{stochastic averaging}, when $m$ hash
-functions are replaced by only one but its value split by quotient and
-remainder, which are used to update a single counter per element.\\
-The remainder $r$ is used to choose one out of $m$ counters and quotient $q$
-to calculate the rank and find the appropriate index to be updated in
-that counter.\\
+Giải pháp để tối ưu hóa thuật toán Đếm Xác suất là áp dụng một thủ tục đặc biệt, gọi là \textit{stochastic averaging}, khi $m$ hàm băm được thay thế 
+bằng chỉ một nhưng giá trị của nó được chia thành thương và phần dư, được sử dụng để cập nhật một bộ đếm duy nhất cho mỗi phần tử. \\
+Phần dư $r$ được sử dụng để chọn một trong $m$ bộ đếm và phần thương $q$ để tính toán hạng và tìm chỉ mục phù hợp để được cập nhật trong bộ đếm đó. \\
 \begin{algorithm}[H]
     \DontPrintSemicolon
     \LinesNumberedHidden
@@ -805,11 +717,9 @@ that counter.\\
     \If{$COUNTER_r[j] == $0}{$COUNTER_r[j] \gets $1}
 \end{algorithm}
 
-Applying the stochastic averaging Algorighm 3.5 to the Probabilistic Counting,
-under the assumption that quotient-based distributed of elements is fair enough,
-we may expect that $\frac{n}{m}$ elements have been indexed
-by each simple counter $\{COUNTER_k\}_{k=0}^{m-1}$, therefore the formula (3.4) is a
-good estimation for $\frac{n}{m}$ (not $n$ directly):
+Áp dụng thuật toán trung bình ngẫu nhiên (stochastic averaging) theo Thuật toán 3.5 cho Đếm Xác suất, 
+dưới giả định rằng phân phối dựa trên phần thương của các phần tử là công bằng đủ, chúng ta có thể kỳ vọng rằng $\frac{n}{m}$ phần tử đã được 
+chỉ mục bởi mỗi bộ đếm đơn giản $\{COUNTER_k\}_{k=0}^{m-1}$, do đó, công thức (3.4) là một ước lượng tốt cho $\frac{n}{m}$ (không phải trực tiếp là $n$):
 \[n \approx \frac{1}{\varphi}2^{\bar{R}} = \frac{1}{\varphi}2^{\frac{1}{m}{\sum\limits_{k=0}^{m-1}R_k}},\]
 \begin{algorithm}[H]
     \DontPrintSemicolon
@@ -832,19 +742,16 @@ good estimation for $\frac{n}{m}$ (not $n$ directly):
     \Return{$\frac{m}{\varphi}\cdot2^{\frac{1}{m}S}$}
 \end{algorithm}
 \vspace{0.25cm}
-The corresponding Algorighm 3.6 is called the Probabilistic Counting
-algorithm with stochastic averaging (PCSA) and is also known as
-the Flajolet-Martin algorithm. In comparision to its version with $m$ hash
-function, it reduces the time complexity for each element to about O(1).
+Thuật toán tương ứng 3.6 được gọi là thuật toán Đếm Xác suất với trung bình ngẫu nhiên (Probabilistic Counting algorithm with stochastic averaging PCSA) 
+và cũng được biết đến với tên gọi là thuật toán Flajolet-Martin. So với phiên bản của nó với $m$ hàm băm, nó giảm độ phức tạp thời gian cho 
+mỗi phần tử xuống khoảng O(1).
 \newpage
 % \vspace{0.4cm}
 \begin{mdframed}
     \vspace{0.25cm}
     \textbf{Example 3.7: Cardinality estimate with stochastic averaging}\\
-    Consider the dataset and the hash values computed in Example 3.5 and
-    apply a stochastic averaging technique simulating $m = 3$ hash functions.
-    We use the remainder $r$ to choose one out of three counters and the quotient
-    $q$ to calculate the rank.
+    Hãy xem xét tập dữ liệu và các giá trị băm được tính toán trong Ví dụ 3.5 và áp dụng một kỹ thuật trung bình ngẫu nhiên mô phỏng $m = 3$ hàm băm. 
+    Chúng ta sử dụng phần dư $r$ để chọn một trong ba bộ đếm và phần thương $q$ để tính toán hạng.
     \begin{center}
         \begin{tabular}{ |c|c|c|c|c| }
             \multicolumn{5}{}{} \\ \hline
@@ -862,10 +769,8 @@ function, it reduces the time complexity for each element to about O(1).
             \cline{1-5}
         \end{tabular}
     \end{center}
-    Every counter handles information for about one-third of the cities,
-    thereforce, the distribution is fair enough. After indexing all elements and
-    setting the appropriate bits in the corresponding counters, our counters
-    have the following forms.\\
+    Mỗi bộ đếm xử lý thông tin cho khoảng một phần ba các thành phố, do đó, phân phối là đủ công bằng. Sau khi chỉ mục tất cả các phần tử và thiết lập các bit thích hợp trong các bộ đếm tương ứng, 
+    các bộ đếm của chúng ta có các hình dạng sau.\\
 
     \vspace{0.25cm}
     $COUNTER_0$
@@ -924,42 +829,33 @@ function, it reduces the time complexity for each element to about O(1).
         \end{tabular}
     \end{center}
 
-    The left-most positions of zero for each counter (highlighted above) are\\
-    $R_0 = 1, R_1 = 3 \text{ and } R_2 = 1$. Thus, the estimation of the cardinality
-    according to formula (3.5) is
+    Các vị trí trái nhất của số không cho mỗi bộ đếm (được làm nổi bật ở trên) là\\
+    $R_0 = 1, R_1 = 3 \text{ và } R_2 = 1$. Do đó, ước lượng về định lượng theo công thức (3.5) là
     \[
         n \approx \frac{3}{\varphi}2^{\frac{1}{3}\sum\limits_{k=0}^{2}R_k} \approx \frac{3}{0.77351}2^{\frac{1+3+1}{3}} \approx 12.31.
     \]
-    The computed estimation is very close to the true cardinality value of
-    10, and even without using too many counters, it notably outperforms
-    the estimation from Example 3.6.
+    Giá trị ước lượng tính toán rất gần với giá trị định lượng thực tế là 10, và ngay cả khi không sử dụng quá nhiều bộ đếm, 
+    nó đáng chú ý vượt trội so với ước lượng từ Ví dụ 3.6.
     \vspace{0.25cm}
 \end{mdframed}
 \subsection*{Properties}
-The Flajolet-Martin algorithm works well for datasets with large
-cardinalities and produces good approximations when $\frac{n}{m} > 20$. However,
-additional non-linearities can appear in the algorithm for small
-cardinalities that usually require special corrections.
+Thuật toán Flajolet-Martin hoạt động tốt cho các tập dữ liệu có định lượng lớn và tạo ra các ước lượng tốt khi $\frac{n}{m} > 20$. Tuy nhiên, 
+các phi đạo hàm bổ sung có thể xuất hiện trong thuật toán cho các định lượng nhỏ thường yêu cầu các sự sửa đổi đặc biệt.
 
-One position correction to the algorithm was proposed by Bjorn
-Scheuermann and Martin Mauve in 2007 [Sc07] which adjusted
-the formula (3.5) by adding a term that corrects it for small
-cardinalities and quickly converges to zero for large cardinalities:
+Một sửa đổi cho thuật toán được đề xuất bởi Bjorn Scheuermann và Martin Mauve vào năm 2007 [Sc07] điều chỉnh công thức (3.5) bằng cách 
+thêm một thuật ngữ để điều chỉnh nó cho các định lượng nhỏ và nhanh chóng hội tụ về không cho các định lượng lớn:
 \[
     n \approx \frac{m}{\varphi}\left(2^{\bar{R}} - 2^{-\varkappa\cdot\bar{R}}\right),
 \]
-where $\varkappa \approx 1.75$.
-The standard error $\delta$ of the Flajolet-Martin algorithm is inversely
-related to the number of used counters and can be approximated as
+với $\varkappa \approx 1.75$.
+Độ lỗi tiêu chuẩn $\delta$ của thuật toán Flajolet-Martin có mối quan hệ nghịch với số lượng bộ đếm được sử dụng và có thể được xấp xỉ như sau:
 \[\delta \approx \frac{0.78}{\sqrt{m}}.\]
-\indent The reference values of the standard error for the widely used number
-of counters can be found in Table 3.2.\\
-\indent The length M of each counter COUNTER can be selected in a way that:
+\indent Các giá trị tham chiếu của độ lỗi tiêu chuẩn cho số lượng bộ đếm phổ biến có thể được tìm thấy trong Bảng 3.2.\\
+\indent Độ dài M của mỗi bộ đếm COUNTER có thể được chọn sao cho:
 \[M > \log_2\left(\frac{n}{m}\right) + 4\]
-thus, practicaly used M = 32 is enough to count cardinalities well beyond
-$10^9$ using 64 counters.
+do đó, việc chọn M = 32 trong thực tế là đủ để đếm các định lượng vượt quá $10^9$ bằng cách sử dụng 64 bộ đếm.
 \begin{center}
-    \textbf{Table 3.1:} Trade-off between accuracy and storage (M = 32)\\
+    \textbf{Table 3.1:} Sự đánh đổi giữa độ chính xác và lưu trữ (M = 32)\\
     \begin{tabular}{ |c|c|c| }
         \multicolumn{3}{}{} \\ \hline
         m & Storage & $\delta$ \\ \hline
@@ -969,78 +865,52 @@ $10^9$ using 64 counters.
         \cline{1-3}
     \end{tabular}
 \end{center}
-\indent The simple counters that have been built for different datasets can be
-easily merged together, that results in a COUNTER for union of those
-datasets. Such merging is trivial and can be done by applying a bitwise
-OR operation.\\
-\indent Like the Bloom filter, the Probabilistic Counting algorithms do not
-support deletions. But, following the approach used in the Counting Bloom filter,
-their inner bit arrays can be extended by counters and they will support probabilistically
-correct deletions. However, the increased storage requirements have to be taken
-into account.
+\indent Các bộ đếm đơn giản đã được xây dựng cho các tập dữ liệu khác nhau có thể dễ dàng được hợp nhất lại với nhau, kết quả là một COUNTER cho hợp 
+của các tập dữ liệu đó. Việc hợp nhất như vậy là trivival và có thể được thực hiện bằng cách áp dụng phép OR bit. 
+
+Tương tự như Bloom filter, các thuật toán Đếm Xác suất không hỗ trợ việc xóa. Nhưng, theo phương pháp được sử dụng trong Counting Bloom Filter, 
+các mảng bit bên trong của chúng có thể được mở rộng bằng các bộ đếm và chúng sẽ hỗ trợ xóa theo cách xác suất. Tuy nhiên, các yêu cầu lưu trữ tăng lên 
+phải được tính đến.
 \subsection{LogLog and HyperLogLog}
-The most popular probabilistic algorithms to estimate cardinality used
-in practice are the LogLog family of algorithms that includes the \textit{LogLog}
-algorithm, proposed by Marianne Durand and Philippe Flajolet in
-2003 [Du03], and its successors \textit{HyperLogLog} and \textit{HyperLogLog++.}\\
-\indent The algorithms use an approach that is similar to the Probabilistic
-Counting algorithm in a way that estimation of the cardinality $n$ is done
-by observing the maximum number of leading zeros in the binary representation of values.
-They all require an auxiliary memory and perform a single pass over the data to
-produce an estimate of the cardinality.\\
-\indent As usual, every element in the dataset is pre-processed by applying
-a hash function $h$ that transforms elements into integers sufficiently
-uniformly distributed over a scalar range $\{0,1,...,2^M-1\}$ or, equivalently,
-over the set of binary $strings^3$ of length M:
+Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
+được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 [Du03], và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
+Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
+của các số không dấu hàng đầu trong biểu diễn nhị phân của các giá trị. Tất cả chúng đều yêu cầu một bộ nhớ phụ trợ và thực hiện một lần duyệt qua dữ liệu 
+để tạo ra một ước lượng về số lượng.\\
+Như thường lệ, mỗi phần tử trong tập dữ liệu được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
+trên một phạm vi scala $\{0,1,...,2^M-1\}$ hoặc, tương đương, trên tập hợp các $xâu^3$ nhị phân có độ dài M:
 \[
     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}.    
 \]
-\indent The steps of the algorithms are similar to PCSA, which we reproduce
-here once again. First, it splits the initial dataset or input stream into
-some number of subsets, each of these is indexed by one of $m$ simple
-counters. Then, according to the stochastic averaging, because there is
-a single hash function, we choose the counter for the particular element $x$
-using one part of its hash value $h(x)$, while another part is used to update
-the corresponding counter.\\
-\indent All algorithms discussed here based on the observation of
-the patterns $0^k1$ that occur at the beginning of the values for
-the particular counter, and associate each pattern with its index, called
-rank. The rank is equivalent to the least significant 1-bit position in
-the binary representation of the hash value of indexed element and can
-be calculated by the formula (3.2). Each simple counter builds its own
-cardinality observation based on the seen ranks, the final estimation of
-the cardinality is produced from observation using an evaluation function.\\
-\indent In regards to storage, the counters in the Probabilistic Counting
-algorithm are relatively costly to maintain, but the \textit{LogLog} algorithm
-suggests a more storage-efficient solution together with a better
-evaluation function and bias correction approach.
+\indent Các bước của các thuật toán tương tự như PCSA, chúng ta tái tạo ở đây một lần nữa. Đầu tiên, nó chia tập dữ liệu ban đầu hoặc dòng dữ liệu đầu vào 
+thành một số tập con, mỗi tập con này được lập chỉ mục bởi một trong $m$ bộ đếm đơn giản. Sau đó, theo phương pháp trung bình ngẫu nhiên, vì có một 
+hàm băm đơn giản, chúng ta chọn bộ đếm cho phần tử cụ thể $x$ bằng cách sử dụng một phần của giá trị băm của nó $h(x)$, trong khi phần còn lại được 
+sử dụng để cập nhật bộ đếm tương ứng.\\
+Tất cả các thuật toán được thảo luận ở đây dựa trên việc quan sát các mẫu $0^k1$ xuất hiện ở đầu của các giá trị cho bộ đếm cụ thể, và gán mỗi mẫu 
+với chỉ số của nó, gọi là hạng. Hạng tương đương với vị trí bit 1 ít ý nghĩa nhất trong biểu diễn nhị phân của giá trị băm của phần tử được lập chỉ mục 
+và có thể được tính bằng công thức (3.2). Mỗi bộ đếm đơn giản xây dựng quan sát về số lượng của riêng mình dựa trên các hạng đã nhìn thấy, ước lượng 
+cuối cùng của số lượng được tạo ra từ quan sát bằng một hàm đánh giá.\\
+Liên quan đến lưu trữ, các bộ đếm trong thuật toán Đếm xác suất có chi phí tương đối cao để duy trì, nhưng thuật toán \textit{LogLog} đề xuất một giải pháp 
+tiết kiệm lưu trữ hơn cùng với một hàm đánh giá tốt hơn và phương pháp hiệu chỉnh sai lệch tốt hơn.
 \subsection*{LogLog algorithm}
-The basic idea of the \textit{LogLog} algorithm starts with the conputation of
-ranks for each input element based on a single hash function $h$. Since we
-can expect that $\frac{n}{2^k}$ elements can have $rank(\cdot) = k$, where $n$ is the total
-number of elements indexed into a counter, the maximal observed rank can provide a good
-indication of the value of $log_2n$:
+Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
+có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
+hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
 \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
-\indent However, such estimation has an error of about $\pm1.87$ binary orders of
-magnitude, which is unpractical. To reduce the error, the \textit{LogLog}
-algorithm uses a bucketing technique based on the stochastic averaging
-and splits the dataset into $m = 2^p$ subsets $S_0,S_1,...,S_{m-1}$, where
-the precision parameter $p$ defines the number of bits used in navigation.\\
-\indent Thus, for every element $x$ from the dataset, the fisrt $p$ bits of the M-bit
-hash value $h(x)$ can be taken to find out the index $j$ of the appropriate subset.
+Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này không thực tế. Để giảm sai số, thuật toán \textit{LogLog} sử dụng 
+một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$, trong đó tham số 
+độ chính xác $p$ xác định số bit được sử dụng trong điều hướng.\\
+Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
 \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
-and the rest (M-p) bits are indexed into the corresponding counter
-COUNTER[j] to compute the rank and get the observation $R_j$ according
-to formula (3.9).\\
-\indent Under fair distribution, every subset receives $\frac{n}{m}$ elements, therefore
-observation $R_j$ from the counters $\{COUNTER[j]\}_{j=0}^{m-1}$ can provide
-an indication of the value of $\log_2{\frac{n}{m}}$, and using their arithmetic mean
-with some bias correction, we can reduce a single observation variance:
+và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và nhận quan sát $R_j$ theo công thức (3.9).\\
+Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình số học của chúng với một số sự hiệu chỉnh, chúng ta có thể 
+giảm thiểu phương sai của một quan sát duy nhất:
 \[
     n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
 \]
-where $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ is the gamma function. However,
-for most practical cases $m \ge 64$ it is enough to just use $\alpha_m \approx 0.39701$.\\
+với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function. 
+Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng $\alpha_m \approx 0.39701$.\\
 
 \begin{algorithm}[H]
     \vspace{0.25cm}
@@ -1063,51 +933,36 @@ for most practical cases $m \ge 64$ it is enough to just use $\alpha_m \approx 0
 \end{algorithm}
 \vspace{0.25cm}
 \subsection*{Properties}
-The standard error $\delta$ of the \textit{LogLog} algorithm is inversely related to
-the number of used counters $m$ and can be closely approximated as
+Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog} có mối quan hệ nghịch với số lượng bộ đếm sử dụng $m$ và có thể được xấp xỉ gần như là
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
 \vspace{0.25cm}
 \begin{quote}
-    Hence, for $m = 256$ the standard error is about 8\% and for $m = 1024$ it
-    decreases to about 4\%.
+    Do đó, với $m = 256$, sai số tiêu chuẩn là khoảng 8\% và với $m = 1024$, nó giảm xuống còn khoảng 4\%.
     \vspace{0.25cm}
 \end{quote}
 \vspace{0.25cm}
-\indent The storage requirements of the \textit{LogLog} algorithm can be estimated as
-$O(log_2log_2n)$ bits of storage if counts till $n$ are needed. More precisely,
-the total space required by the algorithm in order to count to $n$ is
-$m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
-\indent In comparison to the Probabilistic Counting algorithm where each
-counter requires 16 or 32 bits, the \textit{LogLog} algorithm requires much
-smaller counters $\{COUNTER[j]\}_{j=0}^{m-1}$, usually of 5 bits each. However,
-while the \textit{LogLog} algorithm provides better storage-efficiency than
-the Probabilistic Counting algorithm, it is slightly less accurate.\\
+\indent Yêu cầu lưu trữ của thuật toán \textit{LogLog} có thể được ước tính là $O(log_2log_2n)$ bit nếu cần đến đếm đến $n$. Cụ thể hơn, 
+tổng không gian được yêu cầu bởi thuật toán để đếm đến $n$ là $m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
+So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
+nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
+so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.\\
 
 \begin{quote}
-    Assume that we need to count cardinalities till $2^30$, that is about 1 billion,
-    with an accuracy of about 4\%. As already mentioned, for such standard
-    error, $m = 1024$ buckets are required, each of which will receive roughly
-    $\frac{n}{m} = 2^{20}$ elements.\\
-    The $log_2\left(log_{2}2^{20}\right) \approx 4.32$, therefore, it is enough to allocate about 5 bits
-    per bucket (i.e., a value less than 32). Hence, to estimate cardinalities up
-    to about $10^9$ with the standard error or 4\%, the algorithm requires 1024
-    buckets of 5 bits, which is 640 bytes in total.
+    Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+    cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.\\
+    $log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32). 
+    Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+    tức là tổng cộng 640 byte.
     \vspace{0.25cm}
 \end{quote}
 \vspace{0.25cm}
 \subsection*{HyperLogLog algorithm}
-An improvement of the \textit{LogLog} algorithm, called \textit{HyperLogLog}, was
-proposed by Philippe Flajolet, Eric Fusy, Olivier Gandouet, and Frederic Meunier in
-2027 [Fl07]. The \textit{HyperLogLog} algorithm uses 32-bit hash
-function, a different eveluation function, and various bias corrections.\\
-\indent Similar to the \textit{LogLog} algorithm, \textit{HyperLogLog} uses randomization to
-approximate the cardinality of a dataset and has been designed to handle
-cardinalities up to $10^9$ with a single 32-bit hash function $h$ splitting
-the dataset into $m = 2^p$ subsets, with precision $p \in 4...16$.\\
-\indent Additionally, the evaluation function differentiates the \textit{HyperLogLog}
-algorithm from the standard \textit{LogLog}. The original \textit{LogLog} algorithm
-uses the geometric mean while the \textit{HyperLogLog} uses a function that is
-based on a normalized version of the harmonic mean:
+Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
+Frederic Meunier vào năm 2027 [Fl07]. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
+Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
+thiết kế để xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với độ chính xác $p \in 4...16$.\\
+Ngoài ra, hàm đánh giá khác biệt thuật toán \textit{HyperLogLog} so với \textit{LogLog} tiêu chuẩn. Thuật toán \textit{LogLog} gốc sử dụng 
+trung bình hình học (geometric mean) trong khi \textit{HyperLogLog} sử dụng một hàm dựa trên phiên bản chuẩn hóa của trung bình điều hòa (harmonic mean):
 \[
     \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
 \]
@@ -1115,9 +970,8 @@ where
 \[
     \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
 \]
-\indent The approximate values of $alpha_m$ can be found in Table 3.3.\\
-\indent The intuition behind using the harmonic mean is that it reduces
-the variance due to its property to tame skewed probability distributions.\\
+\indent Các giá trị xấp xỉ của $alpha_m$ có thể được tìm thấy trong Bảng 3.3.\\
+Ý tưởng đằng sau việc sử dụng trung bình điều hòa là nó giảm phương sai do tính chất của nó để kiểm soát các phân phối xác suất lệch.\\
 \begin{center}
     \textbf{Table 3.3:} $\alpha_m$ for most used values of $m$\\
     \begin{tabular}{ |c|c| }
@@ -1130,15 +984,12 @@ the variance due to its property to tame skewed probability distributions.\\
     \end{tabular}
 \end{center}
 
-\indent However, the estimation (3.12), requires a correction for small and large
-ranges due to non-linear errors. Flajolet et al. empirically found that for
-small cardinalities $n < \frac{5}{2}m$ to archieve better estimates the \textit{HyperLogLog}
-algorithm can be corrected with Linear Counting using a number of
-non-zero COUNTER[j] counters (if a counter has a zero value, we can say
-with certainty that the particular subset is empty).\\
-\indent Thus, for different ranges of cardinality, expressed as intervals on
-the estimate $\hat{n}$ computed by formula (3.12), the algorithm provides
-the following corrections:
+\indent Tuy nhiên, ước lượng (3.12) yêu cầu một sự điều chỉnh cho các phạm vi nhỏ và lớn do lỗi phi tuyến. Flajolet và các đồng nghiệp 
+đã tìm thấy từ kinh nghiệm rằng đối với các định lượng nhỏ $n < \frac{5}{2}m$ để đạt được ước lượng tốt hơn, thuật toán \textit{HyperLogLog} 
+có thể được sửa lỗi bằng Đếm Tuyến Tính bằng cách sử dụng một số bộ đếm COUNTER[j] khác không (nếu một bộ đếm có giá trị là không, 
+chúng ta có thể nói chắc chắn rằng tập con cụ thể đó là trống).\\
+Do đó, cho các phạm vi định lượng khác nhau, được biểu diễn dưới dạng các khoảng trên ước lượng $\hat{n}$ được tính bằng công thức (3.12), 
+thuật toán cung cấp các sửa lỗi sau:
 \[
     n = \left\{ \begin{array}{lcl}
         \text{LINEARCOUNTER,} & \hat{n} \leq \frac{5}{2}m \mbox{ and } \exists_j : COUNTER[j] \neq 0 \\ 
@@ -1146,27 +997,21 @@ the following corrections:
         \hat{n}, & \textit{otherwise.}
         \end{array}\right.    
 \]
-\indent However, for $n = 0$ the correction it seems is not enough and
-the algorithm always returns roughly $0.7m$.\\
-\indent Since the \textit{HyperLogLog} algorithm uses a 32-bit hash function, when
-cardinality approaches $2^{32}\approx 4 \cdot 10^9$ the hash function almost reaches its
-limit and the probability of collisions increases. For such large ranges,
-the \textit{HyperLogLog} algorithm estimates the number of different hash values
-and uses it to approximate the cardinality. However, in practice, there is
-a danger that a higher number just cannot be represented and will be
-lost, impacting the accuracy.\\
+\indent Tuy nhiên, đối với $n = 0$, sự sửa lỗi có vẻ không đủ và thuật toán luôn trả về một kết quả xấp xỉ $0.7m$.\\
+Vì thuật toán \textit{HyperLogLog} sử dụng một hàm băm 32-bit, khi định lượng tiến gần đến $2^{32}\approx 4 \cdot 10^9$, 
+hàm băm gần như đạt đến giới hạn của nó và xác suất va chạm tăng lên. Đối với các phạm vi lớn như vậy, thuật toán \textit{HyperLogLog} 
+ước lượng số lượng giá trị băm khác nhau và sử dụng nó để xấp xỉ định lượng. Tuy nhiên, trong thực tế, có nguy cơ rằng một số lượng cao hơn 
+không thể được đại diện và sẽ bị mất, ảnh hưởng đến độ chính xác.\\
 \vspace{0.25cm}
 \begin{quote}
-    Consider a hash function that maps the universe to values of M bits.
-    At most such a function can encode $2^M$ diffirent values and if the estimated
-    cardinality $n$ approaches such a limit, the hash collision become more and more probable.
+    Xem xét một hàm băm mà ánh xạ vũ trụ thành các giá trị có độ dài M bit. Tối đa, một hàm như vậy có thể mã hóa $2^M$ 
+    giá trị khác nhau và nếu định lượng ước lượng $n$ tiến dần đến giới hạn này, đụng độ hàm băm trở nên ngày càng có khả năng xảy ra.
     \vspace{0.25cm}
 \end{quote}
 
-\indent There is no evidence that some popular hash functions (e.g., MurmurHash3,
-MD5, SHA-1, SHA-256) perform significantly better than others in \textit{HyperLogLog} algorithms
-or its modifications.\\
-\indent The complete \textit{HyperLogLog} algorithm is shown below.\\
+\indent Không có bằng chứng cho thấy một số hàm băm phổ biến (ví dụ: MurmurHash3, MD5, SHA-1, SHA-256) 
+hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.\\
+\indent Dưới đây là toàn bộ thuật toán \textit{HyperLogLog}.\\
 \begin{algorithm}[H]
     \vspace{0.25cm}
     \DontPrintSemicolon
@@ -1199,64 +1044,45 @@ or its modifications.\\
 \end{algorithm}
 \vspace{0.25cm}
 \subsection*{Properties}
-Similar to the \textit{LogLog} algorithm, there is a clear trade-off between
-the standard error $\delta$ and the number of counters $m$:
+Tương tự như thuật toán \textit{LogLog}, có một sự đánh đổi rõ ràng giữa sai số tiêu chuẩn $\delta$ và số lượng bộ đếm $m$:
 \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
-\indent The memory requirement does not grow linearly with the number of
-elements (unlike, e.g., the Linear Counting algorithm), allocating $(M=p$)
-bits for the hash values and having $m = 2^p$ counters in total, the required
-memory is
+\indent Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử (không giống như, ví dụ, thuật toán Đếm Tuyến Tính), 
+phân bổ $(M=p$) bit cho các giá trị băm và có tổng cộng $m = 2^p$ bộ đếm, bộ nhớ cần thiết là
 \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits , \indent (3.14)}\]
-moreover, since the algorithm uses only 32-bit hash function and
-the precision $p \in 4...16$, the memory requirements for
-the \textit{HyperLogLog} data structure is $5\cdot 2^p$ bits.\\
+hơn nữa, vì thuật toán chỉ sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ cho 
+cấu trúc dữ liệu \textit{HyperLogLog} là $5\cdot 2^p$ bit.\\
 \vspace{0.4cm}
 \begin{quote}
-    Therefore, the \textit{HyperLogLog} algorithm makes it possible to estimate
-    cardinalities well beyond $10^9$ with a typical accuracy of $2\%$ while using
-    a memory of only 1.5 KB.\\
-    For instance, the well-know in-memory database Redis maintains
-    \textit{HyperLogLog} data structure of 12 KB that approximate cardinalities
-    with a standard error of 0.81\%.
+    Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ 
+    trong khi chỉ sử dụng một bộ nhớ chỉ 1.5 KB.\\
+    Ví dụ, cơ sở dữ liệu trong bộ nhớ nổi tiếng Redis duy trì cấu trúc dữ liệu \textit{HyperLogLog} của 12 KB để xấp xỉ các định lượng 
+    với sai số tiêu chuẩn là 0.81.\%.
     \vspace{0.25cm}
 \end{quote}
 
-While \textit{HyperLogLog}, in comparision to \textit{LogLog}, improved
-the cardinality estimation for small datasets, it still overestimates
-the real cardinalities in such cases.\\
-\indent The variants of the $HyperLogLog$ algorithm are implemented in well-known
-databases such as Amazon Redshift, Redis, Apache CouchDB, Riak, and others.
+Trong khi \textit{HyperLogLog}, so với \textit{LogLog}, đã cải thiện ước lượng định lượng cho các bộ dữ liệu nhỏ, 
+nó vẫn đánh giá quá cao các định lượng thực tế trong các trường hợp như vậy.\\
+Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
+và các hệ thống khác.
 \subsection*{HyperLogLog++ algorithm}
-After some time, in 2013 [He13], an improved version of $HyperLogLog$ was
-developed, the $HyperLogLog++$ algorithm, published by Stefan Heule,
-Marc Nunkesser, and Alexander Hall and focussed on large cardinalities and better 
-bias correction.\\
-\indent The most noticeable improvement of the $HyperLogLog++$ algorithm
-is the usage of a 64-bit hash function. Clearly, the longer the output
-values of the hash function, the more different elements can be encoded.
-Such improvement allows to estimate cardinalites far larger than $10^9$,
-unique elements, but when the cardinality approaches $2^64 \approx 1.8\cdot 10^{19}$,
-hash collisions become a problem for the $HyperLogLog++$ as well.\\
-\indent The $HyperLogLog++$ algorithm uses exactly the same evaluation
-function given by (3.12). However, it improves the bias correction.
-The authors of the algorithm performed a series of experiments to measure
-the bias and found that for $n \le 5m$ the bias of the original $HyperLogLog$ 
-algorithm could be further corrected using empirical data collected over
-the experiments.\\
-\indent Additional to the origin article, Heule et al. provided empirically
-determined values to improve the bias correction in the algorithm-arrays
-of raw cardinality estimates $RAWESTIMATEDATA$ and related
-biases $BIASDATA$. Of course, it is not feasible to cover every possible case,
-so the $RAWESTIMATEDATA$ provides an array of 200 imterpolation
-points, storing the average raw estimate measured at this point over 5000
-different datasets. $BIASDATA$ contains about 200 measured biases that
-correspond with the $RAWESTIMATEDATA$. Both arrays are zero-indexed
-and contain precomputed values for all supported precisions $p \in 4...18$,
-where the zero index in the arrays corresponds to the precision values 4.
-As an example, for $m = 2^{10} and p = 10$ the needed data can be found in
-$RAWESTIMATEDATA[6]$ and $BIASDATA[6]$.\\
-\indent The bias correction procedure in the $HyperLogLog++$ algorithm can
-be formalized as follows.\\
+Sau một thời gian, vào năm 2013 [He13], một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
+đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
+các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
+\indent Cải tiến đáng chú ý nhất của thuật toán $HyperLogLog++$ là việc sử dụng hàm băm 64-bit. Rõ ràng, 
+càng dài giá trị đầu ra của hàm băm, càng nhiều phần tử khác nhau có thể được mã hóa. Sự cải thiện này cho phép ước lượng 
+các định lượng lớn hơn rất nhiều so với $10^9$ phần tử duy nhất, nhưng khi định lượng tiến gần đến $2^64 \approx 1.8\cdot 10^{19}$, 
+đụng độ hàm băm cũng trở thành một vấn đề đối với $HyperLogLog++$.\\
+\indent Thuật toán $HyperLogLog++$ sử dụng chính xác hàm đánh giá giống như được đưa ra trong (3.12). Tuy nhiên, nó cải thiện việc sửa lỗi sai. 
+Các tác giả của thuật toán đã thực hiện một loạt các thí nghiệm để đo lường sai lệch và phát hiện rằng đối với $n \le 5m$, 
+sai lệch của thuật toán $HyperLogLog$ gốc có thể được sửa lỗi hơn bằng cách sử dụng dữ liệu thực nghiệm được thu thập trong quá trình thí nghiệm.\\
+\indent Ngoài bài báo gốc, Heule và đồng nghiệp cung cấp các giá trị được xác định dựa trên kinh nghiệm 
+để cải thiện việc sửa lỗi sai trong thuật toán - các mảng ước lượng định lượng thô $RAWESTIMATEDATA$ và 
+các sai lệch liên quan $BIASDATA$. cung cấp một mảng gồm 200 điểm nội suy, lưu trữ ước lượng thô trung bình được đo tại điểm này 
+qua 5000 tập dữ liệu khác nhau. $BIASDATA$ chứa khoảng 200 sai lệch đã được đo lường tương ứng với $RAWESTIMATEDATA$. 
+Cả hai mảng đều có chỉ số bắt đầu từ 0 và chứa các giá trị được tính toán trước cho tất cả các độ chính xác được hỗ trợ $p \in 4...18$,
+trong đó chỉ số 0 trong các mảng tương ứng với các giá trị độ chính xác 4. Như một ví dụ, đối với $m = 2^{10} and p = 10$ 
+dữ liệu cần thiết có thể được tìm thấy trong $RAWESTIMATEDATA[6]$ và $BIASDATA[6]$.\\
+\indent Quy trình sửa lỗi sai trong thuật toán $HyperLogLog++$ có thể được hình thức như sau.\\
 \begin{algorithm}[H]
     \vspace{0.25cm}
     \DontPrintSemicolon
@@ -1284,22 +1110,18 @@ be formalized as follows.\\
 \begin{mdframed}
     \vspace{0.25cm}
     \textbf{Example 3.8: Bias correction using empirical values}\\
-    As an example, assume that we have computed the cardinality estimation
-    $\hat{n} = 2018.34$ using the formula (3.12) and want to correct it for the precison
-    $p = 10 (m = 2^{10})$.\\
-    First, we check the RAWESTIMATEDATA[6] array and determine that such
-    a value $\hat{n}$ falls in the interval between values with indices 73 and 74 of
-    that array, where RAWESTIMATEDATA[6][73] = 2003.1804 and
+    Ví dụ, giả sử chúng ta đã tính toán ước lượng định lượng $\hat{n} = 2018.34$ bằng cách sử dụng công thức (3.12) và muốn sửa chúng cho 
+    độ chính xác $p = 10 (m = 2^{10})$.\\
+    Đầu tiên chúng ta kiểm trang mảng RAWESTIMATEDATA[6] và xác định giá trị $\hat{n}$, như vậy giá trị này rơi vào khoảng 73 đến 74,\\ với RAWESTIMATEDATA[6][73] = 2003.1804 và
     RAWESTIMATEDATA[6][74] = 2026.071.
     \[2003.1804 \le \hat{n} \le 2026.071.\]
-    The correct estimation is in the interval:
+    Ước lượng chính xác nằm trong khoảng:
     \[\left[2023.1804 - 134.1804, 2026.071 - 131.071\right] = \left[1869.0, 1895.0\right]\]
-    and to compute the corrected approximatation, we can interpolate that
-    values, e.g., using k-nearest neighbor search or just by a linear interpolation\\
+    và để tính toán ước lượng được sửa, chúng ta có thể nội suy giá trị đó, ví dụ, sử dụng tìm kiếm k-nearest neighbor hoặc chỉ là một nội suy tuyến tính\\
     $y(x) = a \cdot x + b, where y(2003.1804) = 1869.0 and y(2026.071) = 1895.0.$\\
-    Thus, using simple calculations, the interpolation line is
+    Do đó, bằng cách tính toán đơn giản, đường nội suy là
     \[y = 1.135837 \cdot x - 406.28725,\]
-    and the interpolated value for our cardinality estimation is
+    và giá trị được nội suy cho ước lượng định lượng của chúng ta là
     \[n = y(\hat{n}) = y(2018.34) \approx 1886.218.\]
     
 \end{mdframed}
