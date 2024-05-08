@@ -1,6 +1,8 @@
 %% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
 
-\documentclass[a4paper,13pt]{article}
+\documentclass[letterpaper,13pt]{article}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{ref.bib}
 \usepackage[linesnumbered,algoruled,boxed,lined]{algorithm2e}
 \usepackage{multirow}
 \usepackage[T1]{fontenc}
@@ -295,11 +297,21 @@ hệ thống khác nhau như mạng xã hội, thương mại điện tử, chư
 và hệ thống giao thông thông minh.
 
 \section{CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN}
-- \textbf{LogLog} - [1] \\
-- \textbf{HyperLogLog} - [2]\\
-- \textbf{HyperLogLog++} - [3] \\
-- \textbf{Sliding HyperLogLog} - [4]\\
-- \textbf{ExaLogLog} - [5] \\
+- \textbf{LogLog} - \cite{durand2003loglog} Thuật toán LogLog cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm của Shakespeare chỉ trong một lần quét và với độ chính xác 
+cỡ vài phần trăm, sử dụng một lượng bộ nhớ phụ nhỏ. Phiên bản cơ bản đã được xác minh qua phân tích toàn diện và có phiên bản tối ưu hóa có khả năng song song.\\
+- \textbf{HyperLogLog} - \cite{flajolet2007hyperloglog} Thuật toán HYPERLOGLOG là một thuật toán xác suất gần tối ưu, được thiết kế để ước lượng số lượng các phần tử khác nhau trong các tập dữ liệu rất lớn. 
+Sử dụng bộ nhớ phụ có kích thước m đơn vị, HYPERLOGLOG thực hiện một lần quét qua dữ liệu và tạo ra một ước lượng về số lượng phần tử khác nhau với độ chính xác tương đối là khoảng $\frac{1.04}{\sqrt{m}}$. 
+Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ sử dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu 
+và thích nghi với mô hình cửa sổ trượt (sliding windown).\\
+- \textbf{HyperLogLog++} - \cite{heule2013hyperloglog} Bài báo giới thiệu các cải tiến cho thuật toán HyperLogLog nhằm giảm yêu cầu bộ nhớ và tăng độ 
+chính xác đối với một phạm vi quan trọng của số phân biệt. Cải tiến này đã được triển khai và đánh giá trên một hệ thống tại Google, so sánh với 
+phiên bản gốc của HyperLogLog. Như HyperLogLog, thuật toán cải tiến này có khả năng song song hoàn hảo và tính toán ước lượng độ phân biệt trong 
+một lượt đi duy nhất. \\
+- \textbf{Sliding HyperLogLog} - \cite{chabchoub2010sliding} Bài báo giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
+thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
+so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
+và tổng hợp.\\
+- \textbf{ExaLogLog} - \cite{ertl2024exaloglog} ExaLogLog là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.\\
 
 \section{Phát biểu bài toán}
 \subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trên một dòng dữ liệu (data stream):}
@@ -311,27 +323,25 @@ và hệ thống giao thông thông minh.
 \subsubsection{Đối tượng nghiên cứu }
 Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"
 
-\section{HyperLogLog}
+\section{Cơ sở lý thuyết}
 Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
-được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 [7], và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
+được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 \cite{durand2003loglog}, và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
 Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
 của các số không dấu hàng đầu trong biểu diễn nhị phân của các giá trị. Tất cả chúng đều yêu cầu một bộ nhớ phụ trợ và thực hiện một lần duyệt qua dữ liệu 
 để tạo ra một ước lượng về số lượng.\\
-Như thường lệ, mỗi phần tử trong tập dữ liệu được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
+Mỗi phần tử trong tập dữ liệu được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
 trên một phạm vi scala $\{0,1,...,2^M-1\}$ hoặc, tương đương, trên tập hợp các $xâu^3$ nhị phân có độ dài M:
 \[
     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}.    
 \]
-\indent Các bước của các thuật toán tương tự như PCSA, chúng ta tái tạo ở đây một lần nữa. Đầu tiên, nó chia tập dữ liệu ban đầu hoặc dòng dữ liệu đầu vào 
-thành một số tập con, mỗi tập con này được lập chỉ mục bởi một trong $m$ bộ đếm đơn giản. Sau đó, theo phương pháp trung bình ngẫu nhiên, vì có một 
-hàm băm đơn giản, chúng ta chọn bộ đếm cho phần tử cụ thể $x$ bằng cách sử dụng một phần của giá trị băm của nó $h(x)$, trong khi phần còn lại được 
-sử dụng để cập nhật bộ đếm tương ứng.\\
+\indent Đầu tiên, chúng ta chia tập dữ liệu ban đầu hoặc dòng dữ liệu đầu vào thành một số tập con, mỗi tập con này được lập chỉ mục bởi một trong $m$ bộ đếm đơn giản. 
+Sau đó, theo phương pháp trung bình ngẫu nhiên, vì có một hàm băm đơn giản, chúng ta chọn bộ đếm cho phần tử cụ thể $x$ bằng cách sử dụng một phần của 
+giá trị băm của nó $h(x)$, trong khi phần còn lại được sử dụng để cập nhật bộ đếm tương ứng.\\
 Tất cả các thuật toán được thảo luận ở đây dựa trên việc quan sát các mẫu $0^k1$ xuất hiện ở đầu của các giá trị cho bộ đếm cụ thể, và gán mỗi mẫu 
-với chỉ số của nó, gọi là hạng. Hạng tương đương với vị trí bit 1 ít ý nghĩa nhất trong biểu diễn nhị phân của giá trị băm của phần tử được lập chỉ mục 
+với chỉ số của nó, gọi là hạng (rank). Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải trong biểu diễn nhị phân của giá trị băm của phần tử được lập chỉ mục 
 và có thể được tính bằng công thức (3.2). Mỗi bộ đếm đơn giản xây dựng quan sát về số lượng của riêng mình dựa trên các hạng đã nhìn thấy, ước lượng 
 cuối cùng của số lượng được tạo ra từ quan sát bằng một hàm đánh giá.\\
-Liên quan đến lưu trữ, các bộ đếm trong thuật toán Đếm xác suất có chi phí tương đối cao để duy trì, nhưng thuật toán \textit{LogLog} đề xuất một giải pháp 
-tiết kiệm lưu trữ hơn cùng với một hàm đánh giá tốt hơn và phương pháp hiệu chỉnh sai lệch tốt hơn.
+Liên quan đến lưu trữ, thuật toán \textit{LogLog} đề xuất một giải pháp tiết kiệm lưu trữ cùng với một hàm đánh giá và phương pháp hiệu chỉnh sai lệch tốt hơn.
 \subsection{LogLog algorithm}
 Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
 có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
@@ -342,7 +352,7 @@ một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và 
 độ chính xác $p$ xác định số bit được sử dụng trong điều hướng.\\
 Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
 \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
-và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và nhận quan sát $R_j$ theo công thức (3.9).\\
+và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$ theo công thức (3.9).\\
 Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
 một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình số học của chúng với một số sự hiệu chỉnh, chúng ta có thể 
 giảm thiểu phương sai của một quan sát duy nhất:
@@ -398,7 +408,7 @@ so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
 \vspace{0.25cm}
 \subsection{HyperLogLog algorithm}
 Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
-Frederic Meunier vào năm 2027 [9]. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
+Frederic Meunier vào năm 2007 \cite{flajolet2007hyperloglog}. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
 Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
 thiết kế để xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với độ chính xác $p \in 4...16$.\\
 Ngoài ra, hàm đánh giá khác biệt thuật toán \textit{HyperLogLog} so với \textit{LogLog} tiêu chuẩn. Thuật toán \textit{LogLog} gốc sử dụng 
@@ -505,7 +515,7 @@ nó vẫn đánh giá quá cao các định lượng thực tế trong các trư
 Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
 và các hệ thống khác.
 \subsection{HyperLogLog++ algorithm}
-Sau một thời gian, vào năm 2013 [10], một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
+Sau một thời gian, vào năm 2013 \cite{chabchoub2010sliding}, một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
 đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
 các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
 \indent Cải tiến đáng chú ý nhất của thuật toán $HyperLogLog++$ là việc sử dụng hàm băm 64-bit. Rõ ràng, 
@@ -736,41 +746,5 @@ Công nghệ và phương pháp giám sát pin ngày càng phát triển, bao g�
 Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có thể nâng cao hiệu suất và tuổi thọ của pin trên xe điện, giúp tăng khả năng di chuyển và đáp ứng nhu cầu của người sử dụng. Đồng thời, việc giám sát pin cũng đóng vai trò quan trọng trong việc đảm bảo an toàn và hạn chế các vấn đề liên quan đến pin như quá nhiệt, quá điện áp hoặc quá dòng điện.\\
 
 Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin và xe điện hiệu quả và bền vững.\\
-
-\begin{thebibliography}{19}
-    \bibitem{LogLog} M. Durand and P. Flajolet, "LogLog Counting of Large Cardinalities", Proc. European Symposium on Algorithms, 2003.
-    \bibitem{HyperLogLog} P. Flajolet, E. Fusy, O. Gandouet and F. Meunier, "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm", Proceedings of the 13th conference on analysis of algorithm (AofA 07), 2007.
-    \bibitem{HyperLogLog++} Hoffa, Felipe, Counting uniques faster in BigQuery with HyperLogLog++, 2017.
-    \bibitem{Sliding HyperLogLog} Chabchoub, Yousra and He{\'e}brail, Georges, "Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window", 2010.
-    \bibitem{ExaLogLog} Ertl, Otmar, "ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale", 2024.
-    \bibitem{As87} Astrahan, M.M., Schkolnick, M., Whang, K.-Y. (1987)
-    “Approximating the number of unique values of an attribute without
-    sorting”, Journal Information Systems, Vol. 12 (1), pp. 11-15,
-    Oxford, UK.
-    
-    \bibitem{Du03} Durand, M., Flajolet, P. (2003) “Loglog Counting of Large
-    Cardinalities (Extended Abstract)”, In: G. Di Battista and U.
-    Zwick (Eds.) - ESA 2003. Lecture Notes in Computer Science, Vol.
-    2832, pp. 605-617, Springer, Heidelberg.
-    
-    \bibitem{Fl07} Flajolet, P., et al. (2007) “HyperLogLog: the analysis of a nearoptimal cardinality estimation algorithm”, Proceedings of the 2007
-    International Conference on Analysis of Algorithms, Juan les Pins,
-    France - June 17-22, 2007, pp. 127-146.
-    
-    \bibitem{He13} Heule, S., et al. (2013) “HyperLogLog in Practice: Algorithmic
-    Engineering of a State of The Art Cardinality Estimation Algorithm”, Proceedings of the 16th International Conference on Extending
-    Database Technology, Genoa, Italy —- March 18-22, 2013, pp. 683-
-    692, ACM New York, NY.
-    
-    \bibitem{Sc07} Scheuermann, B., Mauve, M. (2007) “Near-optimal compression
-    of probabilistic counting sketches for networking applications”,
-    Proceedings of the 4th ACM SIGACT-SIGOPS International
-    Workshop on Foundation of Mobile Computing (DIAL M-POMC),
-    Portland, Oregon, USA. - August 16, 2007.
-    
-    \bibitem{Wh90} Whang, K.-Y., Vander-Zanden, B.T., Taylor H.M. (1990)
-    “A Linear-Time Probabilistic Counting Algorithm for Database
-    Applications”, Journal ACM Transactions on Database Systems,
-    Vol. 15 (2), pp. 208-229.
-\end{thebibliography}
+\printbibliography
 \end{document}
