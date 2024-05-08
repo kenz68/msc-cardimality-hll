@@ -312,7 +312,6 @@ và hệ thống giao thông thông minh.
 Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"
 
 \section{HyperLogLog}
-\subsection{LogLog and HyperLogLog}
 Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
 được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 [7], và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
 Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
@@ -333,7 +332,7 @@ và có thể được tính bằng công thức (3.2). Mỗi bộ đếm đơn 
 cuối cùng của số lượng được tạo ra từ quan sát bằng một hàm đánh giá.\\
 Liên quan đến lưu trữ, các bộ đếm trong thuật toán Đếm xác suất có chi phí tương đối cao để duy trì, nhưng thuật toán \textit{LogLog} đề xuất một giải pháp 
 tiết kiệm lưu trữ hơn cùng với một hàm đánh giá tốt hơn và phương pháp hiệu chỉnh sai lệch tốt hơn.
-\subsection*{LogLog algorithm}
+\subsection{LogLog algorithm}
 Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
 có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
 hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
@@ -397,7 +396,7 @@ so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
     \vspace{0.25cm}
 \end{quote}
 \vspace{0.25cm}
-\subsection*{HyperLogLog algorithm}
+\subsection{HyperLogLog algorithm}
 Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
 Frederic Meunier vào năm 2027 [9]. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
 Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
@@ -505,7 +504,7 @@ Trong khi \textit{HyperLogLog}, so với \textit{LogLog}, đã cải thiện ư�
 nó vẫn đánh giá quá cao các định lượng thực tế trong các trường hợp như vậy.\\
 Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
 và các hệ thống khác.
-\subsection*{HyperLogLog++ algorithm}
+\subsection{HyperLogLog++ algorithm}
 Sau một thời gian, vào năm 2013 [10], một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
 đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
 các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
