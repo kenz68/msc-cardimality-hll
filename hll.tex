@@ -366,7 +366,7 @@ phần tử duy nhất mà không cần phải lưu trữ tất cả chúng.
 \subsection{Linear Counting}
 \indent Như một phương pháp xác suất đầu tiên cho vấn đề về số lượng phần tử, chúng ta xem xét thuật toán đếm xác suất có thời gian tuyến tính, 
 gọi là thuật toán \textit{Linear Counting}. Các ý tưởng gốc của thuật toán này đã được đề xuất bởi Morton Astrahan, Mario Schkolnick và Kyu-Young Whang 
-vào năm 1987 [As87], và thuật toán thực tế đã được công bố bởi Kyu-Young Whang, Brad Vander-Zanden và Howard Taylor vào năm 1990 [Wh90].\\
+vào năm 1987 [6], và thuật toán thực tế đã được công bố bởi Kyu-Young Whang, Brad Vander-Zanden và Howard Taylor vào năm 1990 [11].\\
 Cải tiến ngay lập tức đối với các phương pháp chính xác cổ điển là băm các phần tử bằng một hàm băm \textit{h}, mà có thể loại bỏ các bản sao mà 
 không cần sắp xếp các phần tử với chi phí của việc giới thiệu một số lượng xác suất sai sót do các va chạm băm có thể 
 xảy ra (chúng ta không thể phân biệt giữa các bản sao và "bản sao ngẫu nhiên"). Do đó, việc sử dụng một bảng băm như vậy chỉ yêu cầu một 
@@ -520,7 +520,7 @@ Trong phần tiếp theo, chúng ta sẽ xem xét một thuật toán thay thế
 vì nó dựa trên các ước lượng của logarithm của định lượng thực sự.
 \subsection{Đếm Xác Suất}
 Một trong những thuật toán đếm dựa trên ý tưởng quan sát các mẫu phổ biến trong các biểu diễn băm của các phần tử được chỉ mục là một loại 
-thuật toán \textit{Đếm Xác Suất (Probabilistic Counting)} được phát minh bởi Philippe Flajolet và G. Nigel Martin vào năm 1985 [Fl85].
+thuật toán \textit{Đếm Xác Suất (Probabilistic Counting)} được phát minh bởi Philippe Flajolet và G. Nigel Martin vào năm 1985 [8].
 
 Như thường lệ, mỗi phần tử được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
 trên một phạm vi scala ${0, 1,...,2^M - 1}$ hoặc, tương đương, trên tập hợp các chuỗi nhị phân ($strings^2$) có độ dài M:
@@ -842,7 +842,7 @@ mỗi phần tử xuống khoảng O(1).
 Thuật toán Flajolet-Martin hoạt động tốt cho các tập dữ liệu có định lượng lớn và tạo ra các ước lượng tốt khi $\frac{n}{m} > 20$. Tuy nhiên, 
 các phi đạo hàm bổ sung có thể xuất hiện trong thuật toán cho các định lượng nhỏ thường yêu cầu các sự sửa đổi đặc biệt.
 
-Một sửa đổi cho thuật toán được đề xuất bởi Bjorn Scheuermann và Martin Mauve vào năm 2007 [Sc07] điều chỉnh công thức (3.5) bằng cách 
+Một sửa đổi cho thuật toán được đề xuất bởi Bjorn Scheuermann và Martin Mauve vào năm 2007 [10] điều chỉnh công thức (3.5) bằng cách 
 thêm một thuật ngữ để điều chỉnh nó cho các định lượng nhỏ và nhanh chóng hội tụ về không cho các định lượng lớn:
 \[
     n \approx \frac{m}{\varphi}\left(2^{\bar{R}} - 2^{-\varkappa\cdot\bar{R}}\right),
@@ -873,7 +873,7 @@ các mảng bit bên trong của chúng có thể được mở rộng bằng c�
 phải được tính đến.
 \subsection{LogLog and HyperLogLog}
 Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
-được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 [Du03], và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
+được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 [7], và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
 Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
 của các số không dấu hàng đầu trong biểu diễn nhị phân của các giá trị. Tất cả chúng đều yêu cầu một bộ nhớ phụ trợ và thực hiện một lần duyệt qua dữ liệu 
 để tạo ra một ước lượng về số lượng.\\
@@ -958,7 +958,7 @@ so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
 \vspace{0.25cm}
 \subsection*{HyperLogLog algorithm}
 Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
-Frederic Meunier vào năm 2027 [Fl07]. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
+Frederic Meunier vào năm 2027 [9]. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.\\
 Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
 thiết kế để xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với độ chính xác $p \in 4...16$.\\
 Ngoài ra, hàm đánh giá khác biệt thuật toán \textit{HyperLogLog} so với \textit{LogLog} tiêu chuẩn. Thuật toán \textit{LogLog} gốc sử dụng 
@@ -1065,7 +1065,7 @@ nó vẫn đánh giá quá cao các định lượng thực tế trong các trư
 Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
 và các hệ thống khác.
 \subsection*{HyperLogLog++ algorithm}
-Sau một thời gian, vào năm 2013 [He13], một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
+Sau một thời gian, vào năm 2013 [10], một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
 đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
 các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
 \indent Cải tiến đáng chú ý nhất của thuật toán $HyperLogLog++$ là việc sử dụng hàm băm 64-bit. Rõ ràng, 
@@ -1303,37 +1303,32 @@ Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực 
     \bibitem{HyperLogLog++} Hoffa, Felipe, Counting uniques faster in BigQuery with HyperLogLog++, 2017.
     \bibitem{Sliding HyperLogLog} Chabchoub, Yousra and He{\'e}brail, Georges, "Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window", 2010.
     \bibitem{ExaLogLog} Ertl, Otmar, "ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale", 2024.
-    \bibitem
-    [As87] Astrahan, M.M., Schkolnick, M., Whang, K.-Y. (1987)
+    \bibitem{As87} Astrahan, M.M., Schkolnick, M., Whang, K.-Y. (1987)
     “Approximating the number of unique values of an attribute without
     sorting”, Journal Information Systems, Vol. 12 (1), pp. 11-15,
     Oxford, UK.
     
-    \bibitem[Du03] Durand, M., Flajolet, P. (2003) “Loglog Counting of Large
+    \bibitem{Du03} Durand, M., Flajolet, P. (2003) “Loglog Counting of Large
     Cardinalities (Extended Abstract)”, In: G. Di Battista and U.
     Zwick (Eds.) - ESA 2003. Lecture Notes in Computer Science, Vol.
     2832, pp. 605-617, Springer, Heidelberg.
     
-    \bibitem[Fl85] Flajolet, P., Martin, G.N. (1985) “Probabilistic Counting
-    Algorithms for Data Base Applications”, Journal of Computer and
-    System Sciences, Vol. 31 (2), pp. 182-209.
-    
-    \bibitem[Fl07] Flajolet, P., et al. (2007) “HyperLogLog: the analysis of a nearoptimal cardinality estimation algorithm”, Proceedings of the 2007
+    \bibitem{Fl07} Flajolet, P., et al. (2007) “HyperLogLog: the analysis of a nearoptimal cardinality estimation algorithm”, Proceedings of the 2007
     International Conference on Analysis of Algorithms, Juan les Pins,
     France - June 17-22, 2007, pp. 127-146.
     
-    \bibitem[He13] Heule, S., et al. (2013) “HyperLogLog in Practice: Algorithmic
+    \bibitem{He13} Heule, S., et al. (2013) “HyperLogLog in Practice: Algorithmic
     Engineering of a State of The Art Cardinality Estimation Algorithm”, Proceedings of the 16th International Conference on Extending
     Database Technology, Genoa, Italy —- March 18-22, 2013, pp. 683-
     692, ACM New York, NY.
     
-    \bibitem[Sc07] Scheuermann, B., Mauve, M. (2007) “Near-optimal compression
+    \bibitem{Sc07} Scheuermann, B., Mauve, M. (2007) “Near-optimal compression
     of probabilistic counting sketches for networking applications”,
     Proceedings of the 4th ACM SIGACT-SIGOPS International
     Workshop on Foundation of Mobile Computing (DIAL M-POMC),
     Portland, Oregon, USA. - August 16, 2007.
     
-    \bibitem[Wh90] Whang, K.-Y., Vander-Zanden, B.T., Taylor H.M. (1990)
+    \bibitem{Wh90} Whang, K.-Y., Vander-Zanden, B.T., Taylor H.M. (1990)
     “A Linear-Time Probabilistic Counting Algorithm for Database
     Applications”, Journal ACM Transactions on Database Systems,
     Vol. 15 (2), pp. 208-229.
