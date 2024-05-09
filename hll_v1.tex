@@ -382,7 +382,7 @@ Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 6
     \vspace{0.25cm}
 \end{algorithm}
 \vspace{0.25cm}
-\subsection*{Properties}
+
 Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog} có mối quan hệ nghịch với số lượng bộ đếm sử dụng $m$ và có thể được xấp xỉ gần như là
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
 \vspace{0.25cm}
@@ -493,7 +493,7 @@ hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \
     \vspace{0.25cm}
 \end{algorithm}
 \vspace{0.25cm}
-\subsection*{Properties}
+
 Tương tự như thuật toán \textit{LogLog}, có một sự đánh đổi rõ ràng giữa sai số tiêu chuẩn $\delta$ và số lượng bộ đếm $m$:
 \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
 \indent Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử (không giống như, ví dụ, thuật toán Đếm Tuyến Tính), 
@@ -594,7 +594,7 @@ vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
 \end{mdframed}
     
 \begin{center}
-    \textbf{Table 3.4: } Empirical threshold $\varkappa_m$ for the supported precision values \\
+    \textbf{Table 3.4: } Ngưỡng thực nghiệm $\varkappa_m$ cho các giá trị độ chính xác được hỗ trợ \\
     \begin{tabular}{ |c|c|c| }
         \multicolumn{3}{}{} \\ \hline
         p & m & $\varkappa_m$ \\ \hline
@@ -627,7 +627,7 @@ vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
     \hspace{0.5cm}
 \end{center}
 
-\indent The complete HyperLogLog++ algorithm is shown below.\\
+\indent Thuật toán hoàn chỉnh HyperLogLog++ được thể hiện dưới đây.\\
 
 \begin{algorithm}[H]
     \vspace{0.25cm}
@@ -662,7 +662,7 @@ vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
     \Return{n}
     \vspace{0.25cm}
 \end{algorithm}
-\subsection*{Properties}
+
 Độ chính xác của HyperLogLog++ tốt hơn so với HyperLogLog cho một phạm vi lớn của các số lượng phần tử và tương đương tốt cho phần còn lại. 
 Đối với các số lượng phần tử từ 12000 đến 61000, việc hiệu chỉnh sai số cho phép giảm thiểu sai số và tránh một đỉnh sai số khi chuyển đổi 
 giữa các phụ thuộc (sub-algorithns).\\
@@ -690,7 +690,7 @@ của các bộ đếm, nó có thể dễ dàng chuyển đổi thành dạng d
 thuật toán HyperLogLog++ đề xuất các kỹ thuật nén khác nhau bằng cách sử dụng mã hóa độ dài biến và mã hóa sự khác biệt cho các số nguyên, 
 do đó chỉ lưu trữ cặp đầu tiên và sự khác biệt từ giá trị đó.\\
 \indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
-\subsection*{Conclusion}
+\subsection*{Kết luận}
 Trong chương này, chúng ta đã đi qua các phương pháp xác suất khác nhau để tính toán các phần tử duy nhất trong các tập dữ liệu lớn. 
 Chúng ta đã thảo luận về những khó khăn xuất hiện trong các nhiệm vụ ước lượng số lượng phần tử và tìm hiểu về một giải pháp đơn giản có thể ước lượng 
 các tập hợp có số lượng phần tử nhỏ khá tốt. Hơn nữa, chúng ta đã nghiên cứu về họ các thuật toán dựa trên việc quan sát các mẫu nhất định trong 
@@ -725,26 +725,38 @@ Trong thời gian sắp tới của luận văn, tôi dự định triển khai 
 
 Nội dung báo cáo của luận văn dự kiến sẽ bao gồm các phần như sau:\\
 
-\textbf{Chương 1: Giới thiệu}. Trong chương này sẽ trình bày một số vấn đề cơ bản của đề tài, nêu lên sự quan trọng của việc kiểm tra và giám sát thành phần trong xe điện trong lĩnh vực dữ liệu số hóa. Từ đó thấy được tầm quan trọng của đề tài để xác định rõ phạm vi và đối tượng nghiên cứu, hướng giải quyết của đề tài.
-\\
+\textbf{Chương 1: Giới thiệu}. Chương này nhấn mạnh về tầm quan trọng của việc phát triển kỹ thuật đếm số phần tử trên dòng dữ liệu trong ngữ cảnh 
+dữ liệu lớn. Qua đó, ta sẽ hiểu rõ hơn về phạm vi và mục tiêu của nghiên cứu, cũng như cách tiếp cận vấn đề.
 
-\textbf{Chương 2: Các công trình nghiên cứu liên quan.} Trong chương này sẽ trình bày các công trình nghiên cứu liên quan. Tìm hiểu các phương pháp giải quyết vấn đề cũng như phạm vi, giới hạn của các nghiên cứu đó. Từ đó đánh giá tính khả thi của đề tài.\\
+\textbf{Chương 2: Các công trình nghiên cứu liên quan.} Trong chương này, sẽ được trình bày các công trình nghiên cứu liên quan, khám phá các 
+phương pháp giải quyết vấn đề cũng như những phạm vi và giới hạn của các nghiên cứu đó. Qua đó, ta có thể đánh giá tính khả thi của đề tài.\\
 
-\textbf{Chương 3: Hiện thực và thử nghiệm mô hình. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của mô hình. Bao gồm các bước xây dựng và huấn luyện mô hình, sử dụng các mô hình và heuristic để giải quyết bài toán.\\
+\textbf{Chương 3: Hiện thực và thử nghiệm thuật toán. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của từng thuật toán. \\
 
-\textbf{Chương 4: Kết quả và đánh giá.} Trong chương này sẽ nêu ra các kết quả đạt được của mô hình, cũng như phương pháp đánh giá các kết quả đó.\\
+\textbf{Chương 4: Kết quả và đánh giá.} Trong chương này sẽ nêu ra các kết quả đạt được của các kỹ thuật, cũng như phương pháp đánh giá 
+dựa trên kết quả thực nghiệm.\\
 
-\textbf{Chương 5: Kết luận.} Trong chương này sẽ tóm lại các ưu điểm và nhược điểm của mô hình và đưa ra các hướng nghiên cứu phát triển hệ thống trong tương lai.\\
+\textbf{Chương 5: Kết luận.} Trong chương này sẽ tóm lại các ưu điểm và nhược điểm của mô hình và đưa ra các hướng nghiên cứu phát triển 
+các kỹ thuật đếm số phần tử trong tương lai.\\
 
 \section{KẾT LUẬN}
-Việc giám sát và quản lý pin đóng vai trò quan trọng trong đảm bảo hiệu suất, tuổi thọ và an toàn của hệ thống pin trên xe điện. Các công trình nghiên cứu liên quan đã tập trung vào các khía cạnh quan trọng như ước lượng trạng thái sạc và sức khỏe pin, chẩn đoán và tiên đoán lỗi, và quản lý thông minh của pin.\\
+Việc giám sát và quản lý pin đóng vai trò quan trọng trong đảm bảo hiệu suất, tuổi thọ và an toàn của hệ thống pin trên xe điện. 
+Các công trình nghiên cứu liên quan đã tập trung vào các khía cạnh quan trọng như ước lượng trạng thái sạc và sức khỏe pin, 
+chẩn đoán và tiên đoán lỗi, và quản lý thông minh của pin.\\
 
-Để giám sát pin trên xe điện một cách hiệu quả, cần phải có hệ thống quản lý pin (BMS) thông minh và chính xác. BMS sẽ thu thập dữ liệu về trạng thái pin như trạng thái sạc, nhiệt độ, điện áp và dòng điện, sau đó phân tích và đưa ra các quyết định để bảo vệ pin và tối ưu hóa hiệu suất sử dụng năng lượng.\\
+Để giám sát pin trên xe điện một cách hiệu quả, cần phải có hệ thống quản lý pin (BMS) thông minh và chính xác. BMS sẽ thu thập dữ liệu 
+về trạng thái pin như trạng thái sạc, nhiệt độ, điện áp và dòng điện, sau đó phân tích và đưa ra các quyết định để bảo vệ pin và tối ưu hóa 
+hiệu suất sử dụng năng lượng.\\
 
-Công nghệ và phương pháp giám sát pin ngày càng phát triển, bao gồm sự kết hợp của cảm biến, hệ thống ghi dữ liệu, trí tuệ nhân tạo và học máy. Các phương pháp này giúp ước lượng trạng thái sạc và sức khỏe pin một cách chính xác, phát hiện và chẩn đoán lỗi một cách nhanh chóng, và dự đoán tuổi thọ còn lại của pin.\\
+Công nghệ và phương pháp giám sát pin ngày càng phát triển, bao gồm sự kết hợp của cảm biến, hệ thống ghi dữ liệu, trí tuệ nhân tạo và học máy. 
+Các phương pháp này giúp ước lượng trạng thái sạc và sức khỏe pin một cách chính xác, phát hiện và chẩn đoán lỗi một cách nhanh chóng, và dự đoán 
+tuổi thọ còn lại của pin.\\
 
-Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có thể nâng cao hiệu suất và tuổi thọ của pin trên xe điện, giúp tăng khả năng di chuyển và đáp ứng nhu cầu của người sử dụng. Đồng thời, việc giám sát pin cũng đóng vai trò quan trọng trong việc đảm bảo an toàn và hạn chế các vấn đề liên quan đến pin như quá nhiệt, quá điện áp hoặc quá dòng điện.\\
+Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có thể nâng cao hiệu suất và tuổi thọ của pin trên xe điện, giúp tăng khả năng 
+di chuyển và đáp ứng nhu cầu của người sử dụng. Đồng thời, việc giám sát pin cũng đóng vai trò quan trọng trong việc đảm bảo an toàn và hạn chế 
+các vấn đề liên quan đến pin như quá nhiệt, quá điện áp hoặc quá dòng điện.\\
 
-Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin và xe điện hiệu quả và bền vững.\\
+Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin 
+và xe điện hiệu quả và bền vững.\\
 \printbibliography
 \end{document}
