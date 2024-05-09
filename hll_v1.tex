@@ -242,7 +242,7 @@ bindingoffset=0mm, top=22mm,bottom=25mm}
 \begin{table}[h]
 \begin{tabular}{rrl}
 \hspace{5.6cm} 
-&\textit{Học viên: } & \textbf{lÊ ANH QUỐC}\\
+&\textit{Học viên: } & \textbf{LÊ ANH QUỐC}\\
 &\textit{ID: } & \textbf{2070428}\\
 
 \end{tabular}
@@ -314,9 +314,8 @@ và tổng hợp.\\
 - \textbf{ExaLogLog} - \cite{ertl2024exaloglog} ExaLogLog là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.\\
 
 \section{Phát biểu bài toán}
-\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trên một dòng dữ liệu (data stream):}
+\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream):}
 \subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:}
-\subsubsection{Phát triển một thuật toán để ước lượng số lượng phần tử trên nhiều khung thời gian tỏng hợp từ nhiều dòng dữ liệu}
 \section{Mục tiêu nghiên cứu}
 \section{Giới hạn và đối tượng nghiên cứu }
 \subsubsection{Giới hạn}
@@ -697,12 +696,40 @@ các tập hợp có số lượng phần tử nhỏ khá tốt. Hơn nữa, ch�
 các biểu diễn băm của các phần tử từ tập dữ liệu, theo sau bởi nhiều cải tiến và sửa đổi đã trở thành tiêu chuẩn ngành công nghiệp ngày nay để 
 ước lượng số lượng phần tử của hầu hết các loại.\\
 \section{PHƯƠNG PHÁP THỰC HIỆN}
-\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trên một dòng dữ liệu (data stream):}
-TODO:
-\subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều streams:}
-TODO:
-\subsubsection{Phát triển một thuật toán để ước lượng số lượng phần tử trên nhiều khung thời gian tỏng hợp từ nhiều dòng dữ liệu}
-TODO:
+\subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream):}
+Trong phương pháp này, chúng tôi sẽ trình bày quá trình phát triển thuật toán sử dụng HyperLogLog để ước lượng 
+số lượng phần tử trên một dòng dữ liệu. Bằng cách sử dụng cấu trúc dữ liệu HyperLogLog thep khung thời gian, ví dụ như mỗi giờ hoặc mỗi phút và các kỹ thuật tối ưu, 
+chúng tôi xây dựng một thuật toán hiệu quả và chính xác để đếm số lượng phần tử duy nhất trong dữ liệu dòng.
+\begin{itemize}
+    \item Bước 1: Xác định khoảng thời gian
+    Đầu tiên, chúng tôi sẽ xác định khoảng thời gian mà chúng tôi muốn đếm số lượng phần tử. Ví dụ, mỗi giờ hoặc mỗi phút.
+    \item Bước 2: Lưu trữ HyperLogLog
+    Tiếp theo, chúng tôi sẽ lưu trữ cấu trúc HyperLogLog cho mỗi khoảng thời gian. Cấu trúc dữ liệu sẽ bao gồm cặp $\left< T_1, HLL_1\right>$, 
+    trong đó $T_1$ là thời điểm đại diện cho khung thời gian cụ thể.
+    \item Bước 3: Sử dụng kết quả
+    Cuối cùng, khi cần, chúng tôi có thể truy vấn và sử dụng kết quả từ các cấu trúc HyperLogLog lưu trữ theo khung thời gian để 
+    ước lượng số lượng phần tử trong mỗi khoảng thời gian.
+\end{itemize}
+\subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:}
+Trong phương pháp này, chúng tôi sẽ sẽ mở rộng thuật toán 1 để ước lượng trên nhiều dòng dữ liệu. Ví dụ khi chúng ta cần biết có bao nhiêu người dùng
+đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người dùng được lưu ở trên nhiều hệ thống như web, application và cũng như trên các bộ phận khác nhau
+của doanh nghiệp. Khi đó chúng ta sẽ có nhiều nguồn dữ liệu khác nhau và cần một thuật toán để kết hợp các nguồn dữ liệu này để tổng hợp cho ra ước lượng
+số lượng cuối cùng.
+\begin{itemize}
+    \item Bước 1: Tổng hợp dữ liệu
+    Đầu tiên, chúng ta đã lưu trữ dữ liệu trên một dòng dữ liệu như thuật toán ở trên. 
+    \item Bước 2: Tổng hợp HyperLogLog
+    Tiếp theo, chúng tôi sẽ sẽ tiến hành tổng hợp các dữ liệu từ nhiều nơi khác nhau $\left< T_1, HLL_1\right>, \left< T_2, HLL_2\right>,...,\left< T_N, HLL_N\right>$, 
+    trong đó $T_1, T_2,...,T_N$ là các khoảng thời gian giống nhau nên $T_1 = T_2 = T_N$ và đặt chung là $T$, và $HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian, ví dụ
+    từ 12:00 ngày hôm qua cho đến 12:00 ngày hôm nay.  
+    \item Bước 3: Ước lượng số phần tử
+    Cuối cùng, sau khi đã tổng hợp dữ liệu thành một cấu trúc HyperLogLog mới ta tiến hành ước lượng số phần tử theo công thức:
+    \[E = \alpha_m \cdot m^2 \cdot \left( \sum_{j=1}^{m} 2^{-M[j]} \right)^{-1}\]
+    Trong đó: $E$ là ước lượng số lượng phần tử duy nhất, 
+    $\alpha_m$ là hằng số, được chọn tùy thuộc vào số lượng bộ nhớ sử dụng.
+    $m$ là số lượng register trong cấu trúc HyperLogLog, $M[j]$ là giá trị của register thứ jj.
+
+\end{itemize}
 
 \section{KẾ HOẠCH TRIỂN KHAI}
 Trong thời gian hiện thực luận văn, tôi dự định triển khai công việc với nội dung như sau:\\
@@ -716,7 +743,7 @@ Trong thời gian hiện thực luận văn, tôi dự định triển khai côn
         \hline
         2 & 3 - 4 &\vtop{\hbox{\strut Thu thập dữ liệu, chuẩn hoá và tiền xử lý. Hiện thực bài toán 1 }\hbox{\strut ước lượng số lượng phần tử trên dòng dữ liệu}}\\
         \hline
-        3 & 5 - 6 &\vtop{\hbox{\strut Hiện thực 2 bài toán mở rộng trên nhiều dòng dữ liệu và các khung thời gian khác nhau.}\hbox{\strut Đánh giá hiệu suất và độ chính xác.}}\\
+        3 & 5 - 6 &\vtop{\hbox{\strut Hiện thực bài toán mở rộng để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu.}\hbox{\strut Đánh giá hiệu suất và độ chính xác.}}\\
         \hline
         4 & 7 - 8 &\vtop{\hbox{\strut Phân tích và so sánh kết quả, đánh giá ưu nhược điểm của từng kỹ thuật ước lượng.}\hbox{\strut Đề suất phương pháp hay tối ưu hiệu suất và độ chính xác.}}\\
         \hline
@@ -738,15 +765,19 @@ Nội dung báo cáo của luận văn dự kiến sẽ bao gồm các phần nh
 dữ liệu lớn. Qua đó, ta sẽ hiểu rõ hơn về phạm vi và mục tiêu của nghiên cứu, cũng như cách tiếp cận vấn đề.
 
 \textbf{Chương 2: Các công trình nghiên cứu liên quan.} Trong chương này, sẽ được trình bày các công trình nghiên cứu liên quan, khám phá các 
-phương pháp giải quyết vấn đề cũng như những phạm vi và giới hạn của các nghiên cứu đó. Qua đó, ta có thể đánh giá tính khả thi của đề tài.\\
+phương pháp giải quyết vấn đề cũng như những phạm vi và giới hạn của các nghiên cứu đó. Qua đó, ta có thể đánh giá tính khả thi của đề tài.
 
-\textbf{Chương 3: Hiện thực và thử nghiệm thuật toán. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của từng thuật toán. \\
+\textbf{Chương 3: Kiến thức nền tảng.} Trong chương này giới thiệu về dòng dữ liệu, và các tính chất của nó.
+Các phương pháp truy vấn và xử lý dữ liệu trên dòng dữ liệu. Giới thiệu về HyperLogLog và nguyên lý hoạt động của nó. Các kiến thức cơ bản về ước lượng số lượng phần tử trong dữ liệu lớn,
+và các khái niệm về đánh giá hiệu suất và độ chính xác trong đếm số phần tử trên dòng dữ liệu.
 
-\textbf{Chương 4: Kết quả và đánh giá.} Trong chương này sẽ nêu ra các kết quả đạt được của các kỹ thuật, cũng như phương pháp đánh giá 
-dựa trên kết quả thực nghiệm.\\
+\textbf{Chương 4: Hiện thực và thử nghiệm. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của từng thuật toán.
 
-\textbf{Chương 5: Kết luận.} Trong chương này sẽ tóm lại các ưu điểm và nhược điểm của mô hình và đưa ra các hướng nghiên cứu phát triển 
-các kỹ thuật đếm số phần tử trong tương lai.\\
+\textbf{Chương 5: Kết quả và đánh giá.} Trong chương này sẽ nêu ra các kết quả đạt được của các kỹ thuật, cũng như phương pháp đánh giá 
+dựa trên kết quả thực nghiệm.
+
+\textbf{Chương 6: Kết luận.} Trong chương này sẽ tóm lại các ưu điểm và nhược điểm của mô hình và đưa ra các hướng nghiên cứu phát triển 
+các kỹ thuật đếm số phần tử trong tương lai.
 
 \section{KẾT LUẬN}
 Việc giám sát và quản lý pin đóng vai trò quan trọng trong đảm bảo hiệu suất, tuổi thọ và an toàn của hệ thống pin trên xe điện. 
