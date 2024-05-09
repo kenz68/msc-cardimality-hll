@@ -295,7 +295,7 @@ tăng độ phức tạp của thuật toán và ảnh hưởng đến hiệu su
 đếm số lượng phần tử trên dòng dữ liệu đạt hiệu suất cao và tin cậy, từ đó có thể ứng dụng rộng rãi trong các 
 hệ thống khác nhau như mạng xã hội, thương mại điện tử, chương trình phát trực tiếp, hệ thống giám sát 
 và hệ thống giao thông thông minh.
-
+\newpage
 \section{CÁC CÔNG TRÌNH NGHIÊN CỨU LIÊN QUAN}
 - \textbf{LogLog} - \cite{durand2003loglog} Thuật toán LogLog cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm của Shakespeare chỉ trong một lần quét và với độ chính xác 
 cỡ vài phần trăm, sử dụng một lượng bộ nhớ phụ nhỏ. Phiên bản cơ bản đã được xác minh qua phân tích toàn diện và có phiên bản tối ưu hóa có khả năng song song.\\
@@ -312,15 +312,43 @@ thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi t
 so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
 và tổng hợp.\\
 - \textbf{ExaLogLog} - \cite{ertl2024exaloglog} ExaLogLog là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.\\
-
+\newpage
 \section{Phát biểu bài toán}
 \subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream):}
 \subsubsection{Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:}
-\section{Mục tiêu nghiên cứu}
-\section{Giới hạn và đối tượng nghiên cứu }
+\section{Mục tiêu, Giới hạn và đối tượng nghiên cứu }
+\subsection{Mục tiêu}
+Mục tiêu chính:
+\begin{itemize}
+    \item Phát triển kỹ thuật đếm số lượng phần tử hiệu quả, có chính xác cao trên dòng dữ liệu.
+    \item Nâng cao hiệu suất xử lý dữ liệu lớn, đáp ứng nhu cầu ngày càng tăng trong kỷ nguyên số.
+    \item Đóng góp vào sự phát triển của công nghệ dữ liệu lớn, mở ra tiềm năng ứng dụng rộng lớn trong nhiều lĩnh vực.
+\end{itemize}
+Mục tiêu cụ thể:
+\begin{itemize}
+    \item Phân tích và đánh giá các kỹ thuật đếm số lượng phần tử hiện có.
+    \item Đề xuất và triển khai kỹ thuật đếm số lượng phần tử mới, tối ưu hóa hiệu suất và độ chính xác.
+    \item Thực hiện thí nghiệm để chứng minh tính ưu việt của kỹ thuật mới so với các kỹ thuật hiện có.
+    \item Phân tích kết quả thí nghiệm, rút ra kết luận và đề xuất hướng nghiên cứu tiếp theo.
+\end{itemize}
 \subsubsection{Giới hạn}
+\begin{itemize}
+    \item Đề tài tập trung nghiên cứu kỹ thuật đếm số lượng phần tử trên dòng dữ liệu dạng văn bản.
+    \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng được cho tất cả các loại dữ liệu.
+    \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
+\end{itemize}
 \subsubsection{Đối tượng nghiên cứu }
 Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"
+Đối tượng nghiên cứu chính:
+\begin{itemize}
+    \item Dòng dữ liệu dạng văn bản có chứa nhiều phần tử cần đếm.
+    \item Các kỹ thuật đếm số lượng phần tử hiện có và mới được đề xuất.
+\end{itemize}
+Đối tượng nghiên cứu cụ thể:
+\begin{itemize}
+    \item Số phần tử có thể là userID, IP address hoặc bất kỳ đối tượng nào tương đương mà có thể đếm được nhờ định danh của nó.
+    \item Các ứng dụng xử lý dữ liệu lớn có nhu cầu đếm số lượng phần tử hiệu quả.
+\end{itemize}
 
 \section{Cơ sở lý thuyết}
 Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
@@ -695,6 +723,7 @@ Chúng ta đã thảo luận về những khó khăn xuất hiện trong các nh
 các tập hợp có số lượng phần tử nhỏ khá tốt. Hơn nữa, chúng ta đã nghiên cứu về họ các thuật toán dựa trên việc quan sát các mẫu nhất định trong 
 các biểu diễn băm của các phần tử từ tập dữ liệu, theo sau bởi nhiều cải tiến và sửa đổi đã trở thành tiêu chuẩn ngành công nghiệp ngày nay để 
 ước lượng số lượng phần tử của hầu hết các loại.\\
+\newpage
 \section{PHƯƠNG PHÁP THỰC HIỆN}
 \subsubsection{Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream):}
 Trong phương pháp này, chúng tôi sẽ trình bày quá trình phát triển thuật toán sử dụng HyperLogLog để ước lượng 
@@ -757,46 +786,48 @@ Trong thời gian hiện thực luận văn, tôi dự định triển khai côn
     \hspace{0.5cm}
 \end{center}
 \vspace{5cm}
+\newpage
 \section{NỘI DUNG DỰ KIẾN CỦA LUẬN VĂN}
 
 Nội dung báo cáo của luận văn dự kiến sẽ bao gồm các phần như sau:\\
 
 \textbf{Chương 1: Giới thiệu}. Chương này nhấn mạnh về tầm quan trọng của việc phát triển kỹ thuật đếm số phần tử trên dòng dữ liệu trong ngữ cảnh 
-dữ liệu lớn. Qua đó, ta sẽ hiểu rõ hơn về phạm vi và mục tiêu của nghiên cứu, cũng như cách tiếp cận vấn đề.
+dữ liệu lớn. Qua đó, ta sẽ hiểu rõ hơn về phạm vi và mục tiêu của nghiên cứu, cũng như cách tiếp cận vấn đề.\\
 
 \textbf{Chương 2: Các công trình nghiên cứu liên quan.} Trong chương này, sẽ được trình bày các công trình nghiên cứu liên quan, khám phá các 
-phương pháp giải quyết vấn đề cũng như những phạm vi và giới hạn của các nghiên cứu đó. Qua đó, ta có thể đánh giá tính khả thi của đề tài.
+phương pháp giải quyết vấn đề cũng như những phạm vi và giới hạn của các nghiên cứu đó. Qua đó, ta có thể đánh giá tính khả thi của đề tài.\\
 
 \textbf{Chương 3: Kiến thức nền tảng.} Trong chương này giới thiệu về dòng dữ liệu, và các tính chất của nó.
 Các phương pháp truy vấn và xử lý dữ liệu trên dòng dữ liệu. Giới thiệu về HyperLogLog và nguyên lý hoạt động của nó. Các kiến thức cơ bản về ước lượng số lượng phần tử trong dữ liệu lớn,
-và các khái niệm về đánh giá hiệu suất và độ chính xác trong đếm số phần tử trên dòng dữ liệu.
+và các khái niệm về đánh giá hiệu suất và độ chính xác trong đếm số phần tử trên dòng dữ liệu.\\
 
-\textbf{Chương 4: Hiện thực và thử nghiệm. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của từng thuật toán.
+\textbf{Chương 4: Hiện thực và thử nghiệm. } Trong chương này sẽ trình bày chi tiết cách thức hiện thực của từng thuật toán.\\
 
 \textbf{Chương 5: Kết quả và đánh giá.} Trong chương này sẽ nêu ra các kết quả đạt được của các kỹ thuật, cũng như phương pháp đánh giá 
-dựa trên kết quả thực nghiệm.
+dựa trên kết quả thực nghiệm.\\
 
 \textbf{Chương 6: Kết luận.} Trong chương này sẽ tóm lại các ưu điểm và nhược điểm của mô hình và đưa ra các hướng nghiên cứu phát triển 
-các kỹ thuật đếm số phần tử trong tương lai.
-
+các kỹ thuật đếm số phần tử trong tương lai.\\
+\newpage
 \section{KẾT LUẬN}
-Việc giám sát và quản lý pin đóng vai trò quan trọng trong đảm bảo hiệu suất, tuổi thọ và an toàn của hệ thống pin trên xe điện. 
-Các công trình nghiên cứu liên quan đã tập trung vào các khía cạnh quan trọng như ước lượng trạng thái sạc và sức khỏe pin, 
-chẩn đoán và tiên đoán lỗi, và quản lý thông minh của pin.\\
+Việc giám sát và quản lý số lượng người dùng đóng vai trò quan trọng trong việc tối ưu hóa hiệu quả hoạt động, 
+nâng cao trải nghiệm người dùng, hỗ trợ ra quyết định kinh doanh sáng suốt và đảm bảo an ninh mạng cho doanh nghiệp.\\
 
-Để giám sát pin trên xe điện một cách hiệu quả, cần phải có hệ thống quản lý pin (BMS) thông minh và chính xác. BMS sẽ thu thập dữ liệu 
-về trạng thái pin như trạng thái sạc, nhiệt độ, điện áp và dòng điện, sau đó phân tích và đưa ra các quyết định để bảo vệ pin và tối ưu hóa 
-hiệu suất sử dụng năng lượng.\\
+Phân bổ tài nguyên hợp lý: Đảm bảo hệ thống hoạt động ổn định, tránh quá tải, lãng phí tài nguyên, tối ưu hóa chi phí vận hành.\\
 
-Công nghệ và phương pháp giám sát pin ngày càng phát triển, bao gồm sự kết hợp của cảm biến, hệ thống ghi dữ liệu, trí tuệ nhân tạo và học máy. 
-Các phương pháp này giúp ước lượng trạng thái sạc và sức khỏe pin một cách chính xác, phát hiện và chẩn đoán lỗi một cách nhanh chóng, và dự đoán 
-tuổi thọ còn lại của pin.\\
+Nâng cao trải nghiệm người dùng: Giảm thiểu lỗi hệ thống, lag, giật, loading lâu, mang đến trải nghiệm mượt mà, thu hút và giữ chân khách hàng.\\
 
-Thông qua việc nghiên cứu và áp dụng các công trình liên quan, có thể nâng cao hiệu suất và tuổi thọ của pin trên xe điện, giúp tăng khả năng 
-di chuyển và đáp ứng nhu cầu của người sử dụng. Đồng thời, việc giám sát pin cũng đóng vai trò quan trọng trong việc đảm bảo an toàn và hạn chế 
-các vấn đề liên quan đến pin như quá nhiệt, quá điện áp hoặc quá dòng điện.\\
+Phát hiện và khắc phục sự cố kịp thời: Nhận diện sớm các dấu hiệu bất thường, sự cố hệ thống, từ đó có biện pháp khắc phục nhanh chóng, hạn chế ảnh hưởng đến hoạt động kinh doanh.\\
 
-Tổng quan, đề tài "Giám sát pin trên xe điện" là một lĩnh vực nghiên cứu quan trọng và đầy triển vọng, đóng góp vào sự phát triển của công nghệ pin 
-và xe điện hiệu quả và bền vững.\\
+Hiểu rõ hành vi người dùng: Phân tích dữ liệu truy cập, hành vi click chuột, sở thích, nhu cầu của người dùng để cá nhân hóa trải nghiệm, đề xuất sản phẩm/dịch vụ phù hợp, 
+nâng cao hiệu quả marketing và dự báo xu hướng thị trường.\\
+
+Hỗ trợ ra quyết định kinh doanh: Đánh giá hiệu quả chiến dịch marketing, điều chỉnh chiến lược phù hợp, dự báo nhu cầu thị trường, 
+lập kế hoạch sản xuất, kinh doanh hiệu quả, tối ưu hóa nguồn lực, nâng cao lợi nhuận cho doanh nghiệp.\\
+
+Sự bùng nổ của kỷ nguyên dữ liệu lớn đặt ra nhu cầu cấp thiết cho các kỹ thuật xử lý dữ liệu hiệu quả, chính xác. 
+Đề tài "NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU" đã xuất hiện như một giải pháp đột phá, mang đến những đóng góp 
+to lớn cho lĩnh vực khoa học máy tính và mở ra cánh cửa cho vô số ứng dụng thực tiễn.\\
+\newpage
 \printbibliography
 \end{document}
