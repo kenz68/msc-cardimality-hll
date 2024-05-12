@@ -1,0 +1,186 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{chabchoub2010sliding}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=f919a687e5ca2b7ca8c7cee6c048c5a8}{%
+           family={Chabchoub},
+           familyi={C\bibinitperiod},
+           given={Yousra},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=8fd58b10ebb2f4467369238e94692b25}{%
+           family={Heébrail},
+           familyi={H\bibinitperiod},
+           given={Georges},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \strng{fullhash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \strng{bibnamehash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \strng{authorbibnamehash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \strng{authornamehash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \strng{authorfullhash}{cf371a7a2a8bd5186452de9de4ab3969}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2010 IEEE International Conference on Data Mining Workshops}
+      \field{title}{Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window}
+      \field{year}{2010}
+      \field{pages}{1297\bibrangedash 1303}
+      \range{pages}{7}
+    \endentry
+    \entry{durand2003loglog}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=ffaab3f6d3dc5fd625223b9af5580cf6}{%
+           family={Durand},
+           familyi={D\bibinitperiod},
+           given={Marianne},
+           giveni={M\bibinitperiod}}}%
+        {{hash=0c274bb73bea169ae39b88ce37a9090f}{%
+           family={Flajolet},
+           familyi={F\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \strng{fullhash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \strng{bibnamehash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \strng{authorbibnamehash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \strng{authornamehash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \strng{authorfullhash}{3e74eb1255f3f7b8e7629c72336aaab0}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Algorithms-ESA 2003: 11th Annual European Symposium, Budapest, Hungary, September 16-19, 2003. Proceedings 11}
+      \field{title}{Loglog counting of large cardinalities}
+      \field{year}{2003}
+      \field{pages}{605\bibrangedash 617}
+      \range{pages}{13}
+    \endentry
+    \entry{ertl2024exaloglog}{article}{}
+      \name{author}{1}{}{%
+        {{hash=549f7bcbdc7d9c35b957d044e8f4318d}{%
+           family={Ertl},
+           familyi={E\bibinitperiod},
+           given={Otmar},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \strng{fullhash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \strng{bibnamehash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \strng{authorbibnamehash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \strng{authornamehash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \strng{authorfullhash}{549f7bcbdc7d9c35b957d044e8f4318d}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2402.13726}
+      \field{title}{ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale}
+      \field{year}{2024}
+    \endentry
+    \entry{flajolet2007hyperloglog}{article}{}
+      \name{author}{4}{}{%
+        {{hash=0c274bb73bea169ae39b88ce37a9090f}{%
+           family={Flajolet},
+           familyi={F\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod}}}%
+        {{hash=ff478144bd24f4686bd68a298cae592f}{%
+           family={Fusy},
+           familyi={F\bibinitperiod},
+           given={Éric},
+           giveni={É\bibinitperiod}}}%
+        {{hash=9befc24f9831cad86d1cb5fabe5a67bf}{%
+           family={Gandouet},
+           familyi={G\bibinitperiod},
+           given={Olivier},
+           giveni={O\bibinitperiod}}}%
+        {{hash=da19bec16584edf23a2b223304f7e5e6}{%
+           family={Meunier},
+           familyi={M\bibinitperiod},
+           given={Frédéric},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Episciences. org}%
+      }
+      \strng{namehash}{0c8c502e4ddcdbed59b5183c290ab8c0}
+      \strng{fullhash}{409ccdaf4eb6bab37a9b011eaaf45678}
+      \strng{bibnamehash}{0c8c502e4ddcdbed59b5183c290ab8c0}
+      \strng{authorbibnamehash}{0c8c502e4ddcdbed59b5183c290ab8c0}
+      \strng{authornamehash}{0c8c502e4ddcdbed59b5183c290ab8c0}
+      \strng{authorfullhash}{409ccdaf4eb6bab37a9b011eaaf45678}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Discrete mathematics \& theoretical computer science}
+      \field{number}{Proceedings}
+      \field{title}{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm}
+      \field{year}{2007}
+    \endentry
+    \entry{heule2013hyperloglog}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=5dacc0c9edc2d8aca0777e4f87d8d59e}{%
+           family={Heule},
+           familyi={H\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=48465760066751d2dcc2f6e403d879ba}{%
+           family={Nunkesser},
+           familyi={N\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=cbb1b171b7bbfedc3942da6c78996b79}{%
+           family={Hall},
+           familyi={H\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \strng{fullhash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \strng{bibnamehash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \strng{authorbibnamehash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \strng{authornamehash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \strng{authorfullhash}{e827c956fee1c98f4e1a60eb04c99e41}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 16th International Conference on Extending Database Technology}
+      \field{title}{Hyperloglog in practice: Algorithmic engineering of a state of the art cardinality estimation algorithm}
+      \field{year}{2013}
+      \field{pages}{683\bibrangedash 692}
+      \range{pages}{10}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
