@@ -1,0 +1,56 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[style=ieee-alphabetic, backend=bibtex]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+\makeatletter
+\newcommand*{\mkblankfootnote}[1]{%
+  \begingroup
+    \renewcommand\thefootnote{}%
+    \footnotetext{\bibfootnotewrapper{#1}}%
+  \endgroup
+}
+
+\newcommand*{\mkbibsupercite}[1]{%
+  \def\cbx@savedcites{\cbx@footfullcite}%
+  \mkbibbrackets{#1}%
+  \ifx\cbx@savedkeys\@empty
+  \else
+    \cbx@savedcites
+  \fi}
+
+\DeclareCiteCommand{\supercite}[\mkbibsupercite]
+  {\gdef\cbx@savedkeys{}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}%
+     {}%
+   \xappto\cbx@savedkeys{\thefield{entrykey},}}
+  {\supercitedelim}
+  {\protected@xappto\cbx@savedcites{%
+     [\thefield{prenote}][\thefield{postnote}]{\cbx@savedkeys}}}
+
+\DeclareCiteCommand{\cbx@footfullcite}
+  {}
+  {\mkblankfootnote{%
+     \printtext[labelalphawidth]{%
+       \usebibmacro{cite}%
+     }%
+   \setunit{\addspace}%
+   \usedriver
+     {\DeclareNameAlias{sortname}{default}}
+     {\thefield{entrytype}}}}
+  {}
+  {}
+\makeatother
+
+\begin{document}
+\begin{frame}
+    \frametitle{\textbf{What is Cyclostationarity?} - 1}
+
+    \begin{itemize}
+        \item There is a special type of non-stationary stochastic processes when their statistical properties vary periodically with time called cyclostationary processes. 
+        \item There is a special type of non-stationary stochastic processes when their statistical properties vary periodically with time called cyclostationary processes. 
+        \item There is a special type of non-stationary stochastic processes when their statistical properties vary periodically with time called cyclostationary processes \supercite{sigfridsson}. 
+    \end{itemize}
+\end{frame}
+\end{document}
