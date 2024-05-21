@@ -1,5 +1,5 @@
 \documentclass[10pt]{beamer}
-
+\usepackage[linesnumbered,algoruled,boxed,lined]{algorithm2e}
 \usetheme{metropolis}
 \usepackage{appendixnumberbeamer}
 \usepackage[utf8]{vietnam}
@@ -101,70 +101,79 @@ phát trực tiếp, hệ thống giám sát và hệ thống giao thông thông
 \textbf{Bài toán 2:} Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu.
 \end{frame}
 \section{Mục tiêu, đối tượng và giới hạn nghiên cứu}
+
+\begin{frame}{Mục tiêu, đối tượng và giới hạn nghiên cứu}
+	\themename supports 4 different title formats:
+	\begin{itemize}
+		\item Regular
+		\item \textsc{Small caps}
+		\item \textsc{all small caps}
+		\item ALL CAPS
+	\end{itemize}
+	They can either be set at once for every title type or individually.
+\end{frame}
+
 {
-\metroset{titleformat frame=allcaps}
-\begin{frame}{Mục tiêu}
-  Mục tiêu chính:
-  \begin{itemize}
-      \item Phát triển kỹ thuật đếm số lượng phần tử hiệu quả, có chính xác cao trên dòng dữ liệu.
-      \item Nâng cao hiệu suất xử lý dữ liệu lớn, đáp ứng nhu cầu ngày càng tăng trong kỷ nguyên số.
-      \item Đóng góp vào sự phát triển của công nghệ dữ liệu lớn, mở ra tiềm năng ứng dụng rộng lớn trong nhiều lĩnh vực.
-  \end{itemize}
-  Mục tiêu cụ thể:
-  \begin{itemize}
-      \item Phân tích và đánh giá các kỹ thuật đếm số lượng phần tử hiện có.
-      \item Đề xuất và triển khai kỹ thuật đếm số lượng phần tử mới, tối ưu hóa hiệu suất và độ chính xác.
-      \item Thực hiện thí nghiệm để chứng minh tính ưu việt của kỹ thuật mới so với các kỹ thuật hiện có.
-      \item Phân tích kết quả thí nghiệm, rút ra kết luận và đề xuất hướng nghiên cứu tiếp theo.
-  \end{itemize}
+    \metroset{titleformat frame=smallcaps}
+\begin{frame}{Small caps}
+	This frame uses the \texttt{smallcaps} title format.
+
+	\begin{alertblock}{Potential Problems}
+		Be aware that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in small caps will be typeset with the Computer Modern Serif font instead.
+	\end{alertblock}
 \end{frame}
 }
 
 {
-  \metroset{titleformat frame=allcaps}
-  \begin{frame}{Giới hạn}
-    \begin{itemize}
-        \item Đề tài tập trung nghiên cứu kỹ thuật đếm số lượng phần tử trên dòng dữ liệu dạng văn bản.
-        \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng được cho tất cả các loại dữ liệu.
-        \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
-    \end{itemize}
-  \end{frame}
+\metroset{titleformat frame=allsmallcaps}
+\begin{frame}{All small caps}
+	This frame uses the \texttt{allsmallcaps} title format.
+
+	\begin{alertblock}{Potential problems}
+		As this title format also uses small caps you face the same problems as with the \texttt{smallcaps} title format. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
+
+		As a rule of thumb: just use it for plaintext-only titles.
+	\end{alertblock}
+\end{frame}
 }
 
 {
-  \metroset{titleformat frame=allcaps}
-    \begin{frame}{Đối tượng nghiên cứu}
-    Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"\\
-    Đối tượng nghiên cứu chính:
-    \begin{itemize}
-        \item Dòng dữ liệu dạng văn bản có chứa nhiều phần tử cần đếm.
-        \item Các kỹ thuật đếm số lượng phần tử hiện có và mới được đề xuất.
-    \end{itemize}
-    Đối tượng nghiên cứu cụ thể:
-    \begin{itemize}
-        \item Số phần tử có thể là userID, IP address hoặc bất kỳ đối tượng nào tương đương mà có thể đếm được nhờ định danh của nó.
-        \item Các ứng dụng xử lý dữ liệu lớn có nhu cầu đếm số lượng phần tử hiệu quả.
-    \end{itemize}
-  \end{frame}
+\metroset{titleformat frame=allcaps}
+\begin{frame}{All caps}
+	This frame uses the \texttt{allcaps} title format.
+
+	\begin{alertblock}{Potential Problems}
+		This title format is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
+	\end{alertblock}
+\end{frame}
 }
 
-\section{Phương pháp thực hiện}
+\section{Phát biểu bài toán}
 
-\begin{frame}[fragile]{Bài toán 1}
-Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream):
-Trong phương pháp này, chúng tôi sẽ trình bày quá trình phát triển thuật toán sử dụng HyperLogLog để ước lượng 
-số lượng phần tử trên một dòng dữ liệu. Bằng cách sử dụng cấu trúc dữ liệu HyperLogLog thep khung thời gian, ví dụ như mỗi giờ hoặc mỗi phút và các kỹ thuật tối ưu, 
-chúng tôi xây dựng một thuật toán hiệu quả và chính xác để đếm số lượng phần tử duy nhất trong dữ liệu dòng.
-\begin{itemize}
-    \item Bước 1: Xác định khoảng thời gian
-    Đầu tiên, chúng tôi sẽ xác định khoảng thời gian mà chúng tôi muốn đếm số lượng phần tử. Ví dụ, mỗi giờ hoặc mỗi phút.
-    \item Bước 2: Lưu trữ HyperLogLog
-    Tiếp theo, chúng tôi sẽ lưu trữ cấu trúc HyperLogLog cho mỗi khoảng thời gian. Cấu trúc dữ liệu sẽ bao gồm cặp $\left< T_1, HLL_1\right>$, 
-    trong đó $T_1$ là thời điểm đại diện cho khung thời gian cụ thể.
-    \item Bước 3: Sử dụng kết quả
-    Cuối cùng, khi cần, chúng tôi có thể truy vấn và sử dụng kết quả từ các cấu trúc HyperLogLog lưu trữ theo khung thời gian để 
-    ước lượng số lượng phần tử trong mỗi khoảng thời gian.
-\end{itemize}
+\begin{frame}[fragile]{Phát biểu bài toán}
+      \begin{verbatim}The theme provides sensible defaults to
+\emph{emphasize} text, \alert{accent} parts
+or show \textbf{bold} results.\end{verbatim}
+
+  \begin{center}becomes\end{center}
+
+  The theme provides sensible defaults to \emph{emphasize} text,
+  \alert{accent} parts or show \textbf{bold} results.
+\end{frame}
+
+\begin{frame}{Font feature test}
+  \begin{itemize}
+    \item Regular
+    \item \textit{Italic}
+    \item \textsc{Small Caps}
+    \item \textbf{Bold}
+    \item \textbf{\textit{Bold Italic}}
+    \item \textbf{\textsc{Bold Small Caps}}
+    \item \texttt{Monospace}
+    \item \texttt{\textit{Monospace Italic}}
+    \item \texttt{\textbf{Monospace Bold}}
+    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]{Bài toán 2}
   Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:
@@ -258,6 +267,38 @@ to lớn cho lĩnh vực khoa học máy tính và mở ra cánh cửa cho vô s
 
 \begin{frame}{References}
   Some references to showcase [allowframebreaks] \cite{durand2003loglog, flajolet2007hyperloglog, chabchoub2010sliding, ertl2024exaloglog, heule2013hyperloglog}
+\end{frame}
+
+\section{Kiến thức nền tảng}
+
+\begin{frame}{Kiến thức nền tảng}
+
+  Get the source of this theme and the demo presentation from
+
+  \begin{center}\url{github.com/matze/mtheme}\end{center}
+
+  The theme \emph{itself} is licensed under a
+  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+  Attribution-ShareAlike 4.0 International License}.
+
+  \begin{center}\ccbysa\end{center}
+
+\end{frame}
+
+\section{Phương pháp thực hiện}
+
+\begin{frame}{Phương pháp thực hiện}
+
+  Get the source of this theme and the demo presentation from
+
+  \begin{center}\url{github.com/matze/mtheme}\end{center}
+
+  The theme \emph{itself} is licensed under a
+  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+  Attribution-ShareAlike 4.0 International License}.
+
+  \begin{center}\ccbysa\end{center}
+
 \end{frame}
 
 \begin{frame}[standout]
