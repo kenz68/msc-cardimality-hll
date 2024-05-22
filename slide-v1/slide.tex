@@ -102,49 +102,44 @@ phát trực tiếp, hệ thống giám sát và hệ thống giao thông thông
 \end{frame}
 \section{Mục tiêu, đối tượng và giới hạn nghiên cứu}
 
-\begin{frame}{Mục tiêu, đối tượng và giới hạn nghiên cứu}
-	\themename supports 4 different title formats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Small caps}
-		\item \textsc{all small caps}
-		\item ALL CAPS
-	\end{itemize}
-	They can either be set at once for every title type or individually.
+\begin{frame}{Mục tiêu}
+  Mục tiêu chính:
+  \begin{itemize}
+      \item Phát triển kỹ thuật đếm số lượng phần tử hiệu quả, có chính xác cao trên dòng dữ liệu.
+      \item Nâng cao hiệu suất xử lý dữ liệu lớn, đáp ứng nhu cầu ngày càng tăng trong kỷ nguyên số.
+      \item Đóng góp vào sự phát triển của công nghệ dữ liệu lớn, mở ra tiềm năng ứng dụng rộng lớn trong nhiều lĩnh vực.
+  \end{itemize}
+  Mục tiêu cụ thể:
+  \begin{itemize}
+      \item Phân tích và đánh giá các kỹ thuật đếm số lượng phần tử hiện có.
+      \item Đề xuất và triển khai kỹ thuật đếm số lượng phần tử mới, tối ưu hóa hiệu suất và độ chính xác.
+      \item Thực hiện thí nghiệm để chứng minh tính ưu việt của kỹ thuật mới so với các kỹ thuật hiện có.
+      \item Phân tích kết quả thí nghiệm, rút ra kết luận và đề xuất hướng nghiên cứu tiếp theo.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Giới hạn}
+  \begin{itemize}
+    \item Đề tài tập trung nghiên cứu kỹ thuật đếm số lượng phần tử trên dòng dữ liệu dạng văn bản.
+    \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng được cho tất cả các loại dữ liệu.
+    \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
+  \end{itemize}
 \end{frame}
 
 {
-    \metroset{titleformat frame=smallcaps}
-\begin{frame}{Small caps}
-	This frame uses the \texttt{smallcaps} title format.
-
-	\begin{alertblock}{Potential Problems}
-		Be aware that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in small caps will be typeset with the Computer Modern Serif font instead.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allsmallcaps}
-\begin{frame}{All small caps}
-	This frame uses the \texttt{allsmallcaps} title format.
-
-	\begin{alertblock}{Potential problems}
-		As this title format also uses small caps you face the same problems as with the \texttt{smallcaps} title format. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
-
-		As a rule of thumb: just use it for plaintext-only titles.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allcaps}
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} title format.
-
-	\begin{alertblock}{Potential Problems}
-		This title format is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
+\metroset{titleformat frame=smallcaps}
+\begin{frame}{Đối tượng nghiên cứu}
+  Đối tượng nghiên cứu của đề tài "Nghiên cứu phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu"
+  Đối tượng nghiên cứu chính:
+  \begin{itemize}
+      \item Dòng dữ liệu dạng văn bản có chứa nhiều phần tử cần đếm.
+      \item Các kỹ thuật đếm số lượng phần tử hiện có và mới được đề xuất.
+  \end{itemize}
+  Đối tượng nghiên cứu cụ thể:
+  \begin{itemize}
+      \item Số phần tử có thể là userID, IP address hoặc bất kỳ đối tượng nào tương đương mà có thể đếm được nhờ định danh của nó.
+      \item Các ứng dụng xử lý dữ liệu lớn có nhu cầu đếm số lượng phần tử hiệu quả.
+  \end{itemize}
 \end{frame}
 }
 
@@ -191,7 +186,70 @@ giải pháp tiết kiệm lưu trữ cùng với một hàm đánh giá và ph�
 sai lệch tốt hơn.
 \end{frame}
 
-\begin{frame}{Font feature test}
+\begin{frame}{LogLog algorithm}
+  Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng 
+  cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
+  có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, 
+  trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
+  hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
+  \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+  Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+  không thực tế. Để giảm sai số, thuật toán \textit{LogLog} sử dụng 
+  một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và chia tập dữ liệu 
+  thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$, trong đó tham số độ chính xác 
+  $p$ xác định số bit được sử dụng trong điều hướng.\\
+  Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị 
+  băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
+  \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
+  và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để 
+  tính hạng và quan sát $R_j$ theo công thức (3.9).\\
+  Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát 
+  $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+  một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
+  số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
+  của một quan sát duy nhất:
+  \[
+      n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
+  \]
+  với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
+  Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+  $\alpha_m \approx 0.39701$.
+\end{frame}
+\begin{frame}{LogLog algorithm}
+  \begin{algorithm}[H]
+    \vspace{0.25cm}
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \caption[]{Estimatin cardinality with \textit{LogLog}}
+    \KwIn{Dataset D}
+    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+    \KwOut{Cardinality estimation}
+    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+    \For{$x \in D$}{
+        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+        $j \gets $($i_0i_1...i_{M-1})_2$\\
+        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+        $COUNTER[j] \gets \max($COUNTER[j],r)
+    }
+    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+    \Return{$\alpha_m \cdot m \cdot 2^R$}
+    \vspace{0.25cm}
+\end{algorithm}
+\end{frame}
+\begin{frame}{LogLog algorithm}
+Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog} có mối quan hệ nghịch với số lượng bộ đếm sử dụng $m$ và có thể được xấp xỉ gần như là:
+\[\delta \approx \frac{1.3}{\sqrt{m}}\]
+Do đó, với $m = 256$, sai số tiêu chuẩn là khoảng 8\% và với $m = 1024$, nó giảm xuống còn khoảng 4\%.
+\indent Yêu cầu lưu trữ của thuật toán \textit{LogLog} có thể được ước tính là $O(log_2log_2n)$ bit nếu cần đến đếm đến $n$. Cụ thể hơn, 
+tổng không gian được yêu cầu bởi thuật toán để đếm đến $n$ là $m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
+So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
+nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
+so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.\\
+Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.\\
+$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32). 
+Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+tức là tổng cộng 640 byte.
 \end{frame}
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
