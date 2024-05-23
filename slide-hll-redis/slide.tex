@@ -90,22 +90,11 @@
 % \end{frame}
 \section{Các công trình nghiên cứu liên quan}
 \begin{frame}{Các công trình nghiên cứu liên quan}
-- LogLog\cite{durand2003loglog} cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm
-  của Shakespeare chỉ trong một lần quét và với độ chính xác cỡ vài phần trăm, sử dụng một lượng bộ nhớ
-  phụ nhỏ. Phiên bản cơ bản đã được xác minh qua phân tích toàn diện và có phiên bản tối ưu hóa có khả
-  năng song song.\\
-- HyperLogLog\cite{flajolet2007hyperloglog} là một thuật toán xác suất gần tối ưu, được thiết kế để ước lượng số lượng các phần tử khác nhau trong các tập dữ liệu rất lớn. 
-  Sử dụng bộ nhớ phụ có kích thước m đơn vị, HYPERLOGLOG thực hiện một lần quét qua dữ liệu và tạo ra một ước lượng về số lượng phần tử khác nhau với độ chính xác tương đối là khoảng $\frac{1.04}{\sqrt{m}}$. 
-  Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ sử dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu 
-  và thích nghi với mô hình cửa sổ trượt (sliding windown).\\
-- HyperLogLog++\cite{heule2013hyperloglog} giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
-  thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
-  so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
-  và tổng hợp.\\
-- Sliding HyperLogLog\cite{chabchoub2010sliding} giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
-  thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
-  so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
-  và tổng hợp.\\
+- LogLog\cite{durand2003loglog} Thuật toán ước lượng số lượng phần tử với độ chính xác cao và sử dụng ít bộ nhớ.\\
+- HyperLogLog\cite{flajolet2007hyperloglog} là một cải tiến từ LogLog.
+  Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu và thích nghi với mô hình cửa sổ trượt (sliding window).\\
+- HyperLogLog++\cite{heule2013hyperloglog} Phiên bản nâng cấp của HyperLogLog với độ chính xác cao hơn và yêu cầu bộ nhớ ít hơn.\\
+- Sliding HyperLogLog\cite{chabchoub2010sliding} Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.\\
 - ExaLogLog\cite{ertl2024exaloglog} là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.
 \end{frame}
 % \begin{frame}[fragile]{LogLog \cite{durand2003loglog}}
@@ -584,12 +573,12 @@ tức là tổng cộng 640 byte.
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
 Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong 
-một khoảng thời gian trên một dòng dữ liệu (data stream): Trong phương pháp này, 
-chúng tôi sẽ trình bày quá trình phát triển thuật toán sử dụng HyperLogLog để 
-ước lượng số lượng phần tử trên một dòng dữ liệu. Bằng cách sử dụng cấu trúc dữ liệu 
-HyperLogLog thep khung thời gian, ví dụ như mỗi giờ hoặc mỗi phút và các kỹ thuật 
-tối ưu, chúng tôi xây dựng một thuật toán hiệu quả và chính xác để đếm số lượng 
-phần tử duy nhất trong dữ liệu dòng.
+một khoảng thời gian trên một dòng dữ liệu (data stream): 
+%Trong phương pháp này, chúng tôi sẽ trình bày quá trình phát triển thuật toán sử dụng HyperLogLog để 
+%ước lượng số lượng phần tử trên một dòng dữ liệu. Bằng cách sử dụng cấu trúc dữ liệu 
+%HyperLogLog thep khung thời gian, ví dụ như mỗi giờ hoặc mỗi phút và các kỹ thuật 
+%tối ưu, chúng tôi xây dựng một thuật toán hiệu quả và chính xác để đếm số lượng 
+%phần tử duy nhất trong dữ liệu dòng.
 \begin{itemize}
   \item Bước 1: Xác định khoảng thời gian
   Đầu tiên, chúng tôi sẽ xác định khoảng thời gian mà chúng tôi muốn đếm số lượng 
@@ -604,25 +593,40 @@ phần tử duy nhất trong dữ liệu dòng.
   mỗi khoảng thời gian.
 \end{itemize}
 \end{frame}
-\begin{frame}[fragile]{Bài toán 2}
-  Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:
-  Trong phương pháp này, chúng tôi sẽ sẽ mở rộng thuật toán 1 để ước lượng trên nhiều dòng dữ liệu. Ví dụ khi chúng ta cần biết có bao nhiêu người dùng
-  đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người dùng được lưu ở trên nhiều hệ thống như web, application và cũng như trên các bộ phận khác nhau
-  của doanh nghiệp. Khi đó chúng ta sẽ có nhiều nguồn dữ liệu khác nhau và cần một thuật toán để kết hợp các nguồn dữ liệu này để tổng hợp cho ra ước lượng
-  số lượng cuối cùng.
+\begin{frame}[fragile]{Bài toán 2 (1/2)}
+  Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:\\
+\vspace{0.1cm}
+  \textit{ Ví dụ khi chúng ta cần biết có bao nhiêu người dùng đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người dùng được lưu ở trên nhiều hệ thống như web, application và cũng như trên các bộ phận khác nhau của doanh nghiệp. Khi đó chúng ta sẽ có nhiều nguồn dữ liệu khác nhau và cần một thuật toán để kết hợp các nguồn dữ liệu này để tổng hợp cho ra ước lượng
+  số lượng cuối cùng.}
+%  \begin{itemize}
+%      \item Bước 1: Tổng hợp dữ liệu
+%      Đầu tiên, chúng ta đã lưu trữ dữ liệu trên một dòng dữ liệu như thuật toán ở trên. 
+%      \item Bước 2: Tổng hợp HyperLogLog
+%      Tiếp theo, chúng tôi sẽ sẽ tiến hành tổng hợp các dữ liệu từ nhiều nơi khác nhau $\left< T_1, HLL_1\right>, \left< T_2, HLL_2\right>,...,\left< T_N, HLL_N\right>$, 
+%      trong đó $T_1, T_2,...,T_N$ là các khoảng thời gian giống nhau nên $T_1 = T_2 = T_N$ và đặt chung là $T$, và $HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian, ví dụ
+%      từ 12:00 ngày hôm qua cho đến 12:00 ngày hôm nay.  
+%      \item Bước 3: Ước lượng số phần tử
+%      Cuối cùng, sau khi đã tổng hợp dữ liệu thành một cấu trúc HyperLogLog mới ta tiến hành ước lượng số phần tử theo công thức:
+%      \[E = \alpha_m \cdot m^2 \cdot \left( \sum_{j=1}^{m} 2^{-M[j]} \right)^{-1}\]
+%      Trong đó: $E$ là ước lượng số lượng phần tử duy nhất, 
+%      $\alpha_m$ là hằng số, được chọn tùy thuộc vào số lượng bộ nhớ sử dụng.
+%      $m$ là số lượng register trong cấu trúc HyperLogLog, $M[j]$ là giá trị của register thứ j.
+%\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Bài toán 2 (2/2)}
   \begin{itemize}
-      \item Bước 1: Tổng hợp dữ liệu
-      Đầu tiên, chúng ta đã lưu trữ dữ liệu trên một dòng dữ liệu như thuật toán ở trên. 
-      \item Bước 2: Tổng hợp HyperLogLog
-      Tiếp theo, chúng tôi sẽ sẽ tiến hành tổng hợp các dữ liệu từ nhiều nơi khác nhau $\left< T_1, HLL_1\right>, \left< T_2, HLL_2\right>,...,\left< T_N, HLL_N\right>$, 
-      trong đó $T_1, T_2,...,T_N$ là các khoảng thời gian giống nhau nên $T_1 = T_2 = T_N$ và đặt chung là $T$, và $HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian, ví dụ
-      từ 12:00 ngày hôm qua cho đến 12:00 ngày hôm nay.  
+      \item Bước 1: Lưu trữ dữ liệu
+      \SubItem{Lưu trữ dữ liệu theo khung thời gian $\left< T, HLL\right>$}
+      \item Bước 2: Tổng hợp HLL từ các dữ liệu từ nhiều nơi khác nhau:\\
+      $\left< T, HLL_1\right>, \left< T, HLL_2\right>,...,\left< T, HLL_N\right>$\\
+      \SubItem{$T$ là khoảng thời gian cần tổng hợp} \\
+      \SubItem{$HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian}
       \item Bước 3: Ước lượng số phần tử
-      Cuối cùng, sau khi đã tổng hợp dữ liệu thành một cấu trúc HyperLogLog mới ta tiến hành ước lượng số phần tử theo công thức:
       \[E = \alpha_m \cdot m^2 \cdot \left( \sum_{j=1}^{m} 2^{-M[j]} \right)^{-1}\]
-      Trong đó: $E$ là ước lượng số lượng phần tử duy nhất, 
-      $\alpha_m$ là hằng số, được chọn tùy thuộc vào số lượng bộ nhớ sử dụng.
-      $m$ là số lượng register trong cấu trúc HyperLogLog, $M[j]$ là giá trị của register thứ j.
+      \SubItem{$E$ là ước lượng số lượng phần tử duy nhất}
+      \SubItem{$\alpha_m$ là hằng số}
+      \SubItem{$m$ là số lượng register trong cấu trúc HyperLogLog}
+      \SubItem{$M[j]$ là giá trị của register thứ j}
 \end{itemize}
 \end{frame}
 \section{Kế hoạch triển khai}
@@ -646,7 +650,7 @@ phần tử duy nhất trong dữ liệu dòng.
     \hline
 \end{tabular}
 \end{frame}
-\section{Nội dung dự kiến của luận văn}
+%\section{Nội dung dự kiến của luận văn}
 \begin{frame}{Nội dung dự kiến của luận văn}
   \textbf{Chương 1: Giới thiệu}. Tầm quan trọng của việc phát triển kỹ thuật đếm 
   số phần tử trên dòng dữ liệu trong ngữ cảnh 
@@ -664,27 +668,10 @@ phần tử duy nhất trong dữ liệu dòng.
   đề xuất hướng nghiên cứu phát triển kỹ thuật đếm số phần tử trong tương lai.
 \end{frame}
 
-\section{Kết luận}
+%\section{Kết luận}
 \begin{frame}{Kết luận}
-  Việc giám sát và quản lý số lượng người dùng đóng vai trò quan trọng trong việc tối ưu hóa hiệu quả hoạt động, 
-nâng cao trải nghiệm người dùng, hỗ trợ ra quyết định kinh doanh sáng suốt và đảm bảo an ninh mạng cho doanh nghiệp.\\
-
-Phân bổ tài nguyên hợp lý: Đảm bảo hệ thống hoạt động ổn định, tránh quá tải, lãng phí tài nguyên, tối ưu hóa chi phí vận hành.\\
-
-Nâng cao trải nghiệm người dùng: Giảm thiểu lỗi hệ thống, lag, giật, loading lâu, mang đến trải nghiệm mượt mà, thu hút và giữ chân khách hàng.\\
-
-Phát hiện và khắc phục sự cố kịp thời: Nhận diện sớm các dấu hiệu bất thường, sự cố hệ thống, từ đó có biện pháp khắc phục nhanh chóng, hạn chế ảnh hưởng đến hoạt động kinh doanh.\\
-
-Hiểu rõ hành vi người dùng: Phân tích dữ liệu truy cập, hành vi click chuột, sở thích, nhu cầu của người dùng để cá nhân hóa trải nghiệm, đề xuất sản phẩm/dịch vụ phù hợp, 
-nâng cao hiệu quả marketing và dự báo xu hướng thị trường.\\
-
-Hỗ trợ ra quyết định kinh doanh: Đánh giá hiệu quả chiến dịch marketing, điều chỉnh chiến lược phù hợp, dự báo nhu cầu thị trường, 
-lập kế hoạch sản xuất, kinh doanh hiệu quả, tối ưu hóa nguồn lực, nâng cao lợi nhuận cho doanh nghiệp.\\
-
-Sự bùng nổ của kỷ nguyên dữ liệu lớn đặt ra nhu cầu cấp thiết cho các kỹ thuật xử lý dữ liệu hiệu quả, chính xác. 
-Đề tài "NGHIÊN CỨU PHÁT TRIỂN KỸ THUẬT ĐẾM SỐ PHẦN TỬ TRÊN DÒNG DỮ LIỆU" là một đóng góp quan trọng cho lĩnh vực khoa học máy tính. 
-Các thuật toán mới được phát triển trong đề tài này giúp nâng cao hiệu quả và độ chính xác của việc xử lý dữ liệu, mang đến những đóng góp 
-to lớn cho lĩnh vực khoa học máy tính và mở ra cánh cửa cho vô số ứng dụng thực tiễn.\\
+  Việc phát triển kỹ thuật đếm số lượng phần tử trên dòng dữ liệu là cần thiết để tối ưu hóa hiệu quả hoạt động, nâng cao trải nghiệm người dùng và hỗ trợ ra quyết định kinh doanh.\\ 
+  Nghiên cứu này góp phần quan trọng vào lĩnh vực khoa học máy tính, đặc biệt trong bối cảnh dữ liệu lớn ngày càng phát triển.
 \end{frame}
 
 % {%
