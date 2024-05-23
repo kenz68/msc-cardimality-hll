@@ -89,33 +89,52 @@
 % phát trực tiếp, hệ thống giám sát và hệ thống giao thông thông minh.
 % \end{frame}
 \section{Các công trình nghiên cứu liên quan}
-\begin{frame}[fragile]{LogLog \cite{durand2003loglog}}
-  Thuật toán LogLog cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm
+\begin{frame}{Các công trình nghiên cứu liên quan}
+- LogLog\cite{durand2003loglog} cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm
   của Shakespeare chỉ trong một lần quét và với độ chính xác cỡ vài phần trăm, sử dụng một lượng bộ nhớ
   phụ nhỏ. Phiên bản cơ bản đã được xác minh qua phân tích toàn diện và có phiên bản tối ưu hóa có khả
-  năng song song.
-\end{frame}
-\begin{frame}[fragile]{HyperLogLog \cite{flajolet2007hyperloglog}}
-  Thuật toán HYPERLOGLOG là một thuật toán xác suất gần tối ưu, được thiết kế để ước lượng số lượng các phần tử khác nhau trong các tập dữ liệu rất lớn. 
+  năng song song.\\
+- HyperLogLog\cite{flajolet2007hyperloglog} là một thuật toán xác suất gần tối ưu, được thiết kế để ước lượng số lượng các phần tử khác nhau trong các tập dữ liệu rất lớn. 
   Sử dụng bộ nhớ phụ có kích thước m đơn vị, HYPERLOGLOG thực hiện một lần quét qua dữ liệu và tạo ra một ước lượng về số lượng phần tử khác nhau với độ chính xác tương đối là khoảng $\frac{1.04}{\sqrt{m}}$. 
   Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ sử dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu 
-  và thích nghi với mô hình cửa sổ trượt (sliding windown).
-\end{frame}
-\begin{frame}[fragile]{HyperLogLog++ \cite{heule2013hyperloglog}}
-  Bài báo giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
+  và thích nghi với mô hình cửa sổ trượt (sliding windown).\\
+- HyperLogLog++\cite{heule2013hyperloglog} giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
   thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
   so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
-  và tổng hợp.
-\end{frame}
-\begin{frame}[fragile]{Sliding HyperLogLog \cite{chabchoub2010sliding}}
-  Bài báo giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
+  và tổng hợp.\\
+- Sliding HyperLogLog\cite{chabchoub2010sliding} giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
   thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
   so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
-  và tổng hợp.
+  và tổng hợp.\\
+- ExaLogLog\cite{ertl2024exaloglog} là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.
 \end{frame}
-\begin{frame}[fragile]{ExaLogLog \cite{ertl2024exaloglog}}
-  ExaLogLog là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.
-\end{frame}
+% \begin{frame}[fragile]{LogLog \cite{durand2003loglog}}
+%   Thuật toán LogLog cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm
+%   của Shakespeare chỉ trong một lần quét và với độ chính xác cỡ vài phần trăm, sử dụng một lượng bộ nhớ
+%   phụ nhỏ. Phiên bản cơ bản đã được xác minh qua phân tích toàn diện và có phiên bản tối ưu hóa có khả
+%   năng song song.
+% \end{frame}
+% \begin{frame}[fragile]{HyperLogLog \cite{flajolet2007hyperloglog}}
+%   Thuật toán HYPERLOGLOG là một thuật toán xác suất gần tối ưu, được thiết kế để ước lượng số lượng các phần tử khác nhau trong các tập dữ liệu rất lớn. 
+%   Sử dụng bộ nhớ phụ có kích thước m đơn vị, HYPERLOGLOG thực hiện một lần quét qua dữ liệu và tạo ra một ước lượng về số lượng phần tử khác nhau với độ chính xác tương đối là khoảng $\frac{1.04}{\sqrt{m}}$. 
+%   Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ sử dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu 
+%   và thích nghi với mô hình cửa sổ trượt (sliding windown).
+% \end{frame}
+% \begin{frame}[fragile]{HyperLogLog++ \cite{heule2013hyperloglog}}
+%   Bài báo giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
+%   thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
+%   so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
+%   và tổng hợp.
+% \end{frame}
+% \begin{frame}[fragile]{Sliding HyperLogLog \cite{chabchoub2010sliding}}
+%   Bài báo giới thiệu một thuật toán mới ước lượng số lượng luồng hoạt động trong dòng dữ liệu, sử dụng cơ chế cửa sổ trượt kết hợp với 
+%   thuật toán HyperLogLog. Thuật toán này có độ chính xác cao, lỗi tiêu chuẩn khoảng $\frac{1.04}{\sqrt{m}}$, với m là số lượng thanh ghi trong bộ nhớ. Dù cần bộ nhớ bổ sung 
+%   so với HyperLogLog, tổng bộ nhớ cần thiết không vượt quá $5m\ln(\frac{n}{m})$ byte, với n là số luồng thực sự trong cửa sổ trượt. Kết quả lý thuyết được xác minh trên cả dữ liệu thực 
+%   và tổng hợp.
+% \end{frame}
+% \begin{frame}[fragile]{ExaLogLog \cite{ertl2024exaloglog}}
+%   ExaLogLog là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.
+% \end{frame}
 \section{Phát biểu bài toán}
 \begin{frame}[fragile]{Phát biểu bài toán}
 \textbf{Bài toán 1:} Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream).\\
