@@ -90,12 +90,22 @@
 % \end{frame}
 \section{Các công trình nghiên cứu liên quan}
 \begin{frame}{Các công trình nghiên cứu liên quan}
-- LogLog\cite{durand2003loglog} Thuật toán ước lượng số lượng phần tử với độ chính xác cao và sử dụng ít bộ nhớ.\\
-- HyperLogLog\cite{flajolet2007hyperloglog} là một cải tiến từ LogLog.
-  Thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu và thích nghi với mô hình cửa sổ trượt (sliding window).\\
-- HyperLogLog++\cite{heule2013hyperloglog} Phiên bản nâng cấp của HyperLogLog với độ chính xác cao hơn và yêu cầu bộ nhớ ít hơn.\\
-- Sliding HyperLogLog\cite{chabchoub2010sliding} Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.\\
-- ExaLogLog\cite{ertl2024exaloglog} là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.
+\begin{itemize}
+	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier\\ LogLog Counting of Large Cardinalities, 2003 \cite{durand2003loglog}: 
+	\SubItem{Thuật toán ước lượng số lượng phần tử với độ chính xác cao và sử dụng ít bộ nhớ.}
+	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier\\ HyperLogLog: The Analysis of a Near-Optimal Cardinality Estimation Algorithm, 2007 \cite{flajolet2007hyperloglog}: 
+	\SubItem{là một cải tiến từ LogLog, thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu và thích nghi với mô hình cửa sổ trượt (sliding window).}
+	\item Stefan Heule, Marc Nunkesser, Alexander Hall\\ HyperLogLog in Practice: Algorithmic Improvements for Practical Cardinality Estimation Deployments, 2017 \cite{heule2013hyperloglog}: 
+	\SubItem{Phiên bản nâng cấp của HyperLogLog với độ chính xác cao hơn và yêu cầu bộ nhớ ít hơn.}
+\end{itemize}
+\end{frame}
+\begin{frame}{Các công trình nghiên cứu liên quan}
+\begin{itemize}
+	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier, LogLog Counting of Large Cardinalities, 2010 \cite{chabchoub2010sliding}: 
+	\SubItem{Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.}
+	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier, HyperLogLog: The Analysis of a Near-Optimal Cardinality Estimation Algorithm, 2024 \cite{ertl2024exaloglog}: 
+	\SubItem{là một cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.}
+\end{itemize}
 \end{frame}
 % \begin{frame}[fragile]{LogLog \cite{durand2003loglog}}
 %   Thuật toán LogLog cho phép ước lượng số lượng từ vựng khác nhau trong toàn bộ tác phẩm
