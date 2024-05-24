@@ -136,8 +136,10 @@
 % \end{frame}
 \section{Phát biểu bài toán}
 \begin{frame}[fragile]{Phát biểu bài toán}
-\textbf{Bài toán 1:} Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream).\\
-\textbf{Bài toán 2:} Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu.
+  \begin{itemize}
+    \item \textbf{Bài toán 1:} Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong một khoảng thời gian trên một dòng dữ liệu (data stream).
+    \item \textbf{Bài toán 2:} Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu.
+  \end{itemize}
 \end{frame}
 \section{Mục tiêu, đối tượng và giới hạn nghiên cứu}
 
@@ -185,16 +187,26 @@
 \section{Cơ sở lý thuyết}
 
 \begin{frame}[fragile]{Cơ sở lý thuyết}
-Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong 
-thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
-được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 \cite{durand2003loglog}, 
-và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
-Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
-của các số không dấu hàng đầu trong biểu diễn nhị phân của các giá trị. Tất cả chúng đều yêu cầu một bộ nhớ phụ trợ và thực hiện một lần duyệt qua dữ liệu 
-để tạo ra một ước lượng về số lượng.\\
+\begin{itemize}
+  \item Các thuật toán xác suất cho việc ước lượng trong thực tế là họ của LogLog:
+  \SubItem{\textit{LogLog}, 2003}
+  \SubItem{\textit{HyperLogLog}, 2007}
+  \SubItem{\textit{HyperLogLog++}, 2017}
+  \item Sử dụng phương pháp tương tự thuật toán Đếm Xác Suất
+  \SubItem{ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất của các số không dấu
+  trong biểu diễn nhị phân}
+  \SubItem{Hàm băm $h \gets \{0,1,...,2^M-1\}$, với độ dài $M$}
+\end{itemize}
+% Các thuật toán xác suất phổ biến nhất để ước lượng số lượng được sử dụng trong 
+% thực tế là họ các thuật toán LogLog bao gồm thuật toán \textit{LogLog}, 
+% được đề xuất bởi Marianne Durand và Philippe Flajolet vào năm 2003 \cite{durand2003loglog}, 
+% và các kế thừa của nó \textit{HyperLogLog} và \textit{HyperLogLog++}.\\
+% Các thuật toán này sử dụng một phương pháp tương tự như thuật toán Đếm Xác Suất trong việc ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
+% của các số không dấu hàng đầu trong biểu diễn nhị phân của các giá trị. Tất cả chúng đều yêu cầu một bộ nhớ phụ trợ và thực hiện một lần duyệt qua dữ liệu 
+% để tạo ra một ước lượng về số lượng.\\
 
-Mỗi phần tử trong tập dữ liệu được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
-trên một phạm vi scala $\{0,1,...,2^M-1\}$ hoặc, tương đương, trên tập hợp các chuỗi nhị phân có độ dài M:
+% Mỗi phần tử trong tập dữ liệu được tiền xử lý bằng cách áp dụng một hàm băm $h$ chuyển đổi các phần tử thành số nguyên phân bố đều đặn đủ 
+% trên một phạm vi scala $\{0,1,...,2^M-1\}$ hoặc, tương đương, trên tập hợp các chuỗi nhị phân có độ dài M:
 \[
     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
 \]
