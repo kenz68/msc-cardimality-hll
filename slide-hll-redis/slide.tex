@@ -812,20 +812,92 @@ PFCOUNT unique_visitors:2024-05-25:morning
 \end{frame}
 
 \begin{frame}[fragile]{Cách HyperLogLog lưu trữ dữ liệu trong Redis}
-%Redis sử dụng một triển khai của HyperLogLog gọi là "sparse representation" cho các bộ đếm nhỏ và "dense representation" cho các bộ đếm lớn hơn. Dung lượng bộ nhớ của HyperLogLog phụ thuộc vào số lượng thanh ghi (registers), và mỗi thanh ghi lưu trữ thông tin về vị trí của bit đầu tiên là 1 trong chuỗi băm.\\
-
+Redis sử dụng "sparse representation" cho các bộ đếm nhỏ và "dense representation" cho các bộ đếm lớn hơn.\\
+Dung lượng bộ nhớ phụ thuộc vào số lượng thanh ghi (registers), 
+và mỗi thanh ghi lưu trữ thông tin về vị trí của bit đầu tiên là 1 
+trong chuỗi băm.\\
+\vspace{0.2cm}
 \textbf{Số lượng thanh ghi (m)}:
 \begin{itemize}
 	\item $m = 2^p$, trong đó p là số bit để xác định số thanh ghi.
-	\item Giá trị mặc định của p trong Redis là 14, nghĩa là có $2^{14} = 16384$ thanh ghi.
+	\item Giá trị mặc định p trong Redis là \textbf{14} => có $2^{14} = 16384$ thanh ghi.
 \end{itemize}
 \textbf{Dung lượng bộ nhớ cần thiết}
 \begin{itemize}
-	\item Mỗi thanh ghi cần 6 bit để lưu trữ vị trí của bit đầu tiên là 1.
-	\item Tổng dung lượng bộ nhớ cần thiết cho HyperLogLog trong Redis có thể tính theo công thức: 
-%	\[Memory=mx6 bits\], với m = 16384 thanh ghi:
-%	\[Memory=16384×6 bits=98304 bits=12288 bytes=12 KB\]
+	\item Mỗi thanh ghi cần \textbf{6 bit} để lưu trữ vị trí của bit đầu tiên là 1.
+	\item Tổng dung lượng bộ nhớ cần thiết cho HyperLogLog trong Redis có thể 
+  tính theo công thức (với m = 16384 thanh ghi):\\ 
+	Memory = 16384 x 6 bits = 98304 bits = 12288 bytes = \textbf{12 KB}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tính toán dung lượng cần thiết cho nhiều tập hợp HLL}
+Nếu bạn muốn lưu trữ nhiều tập hợp HyperLogLog trong Redis, ví dụ như 
+theo dõi số người dùng duy nhất theo giờ, cần nhân dung lượng bộ nhớ 
+của một tập hợp HLL với số lượng tập hợp bạn có.\\
+Giả sử bạn muốn lưu trữ dữ liệu người dùng duy nhất cho mỗi giờ trong 
+một ngày (24 giờ):\\
+\begin{center}
+  Total Memory = 12 KB x 24 = \textbf{288 KB}
+\end{center} 
+Nếu bạn muốn lưu trữ dữ liệu theo từng giờ cho nhiều ngày, bạn chỉ cần 
+nhân thêm số lượng ngày:
+\begin{center}
+  Total Memory for 30 days = 288 KB/day × 30 = 8640 KB = \textbf{8.64 MB}
+\end{center} 
+\end{frame}
+
+\begin{frame}[fragile]{Tối ưu hóa dung lượng bộ nhớ}
+  \begin{itemize}
+    \item Redis sử dụng "sparse representation" cho các bộ đếm nhỏ hơn, 
+    giúp tiết kiệm bộ nhớ khi số lượng phần tử trong HyperLogLog còn ít.
+    \item Khi số lượng phần tử tăng, Redis chuyển sang "dense representation" 
+    để đảm bảo độ chính xác và hiệu suất.
+    \item Redis tự động chuyển đổi giữa hai biểu diễn này dựa trên số lượng 
+    phần tử và mức độ lấp đầy của các thanh ghi, giúp tối ưu hóa việc 
+    sử dụng bộ nhớ và đảm bảo độ chính xác cao trong ước lượng số lượng 
+    phần tử duy nhất.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Sparse Representation}
+  \textbf{Đặc điểm:}
+  \begin{itemize}
+    \item \textbf{Tiết kiệm bộ nhớ}: Sparse Representation được thiết kế để 
+    tiết kiệm bộ nhớ khi số lượng phần tử trong tập hợp còn ít.
+    \item \textbf{Cấu trúc nén}: Lưu trữ các cặp (index, value) để chỉ 
+    lưu trữ thông tin cần thiết về các thanh ghi được cập nhật.
+    \item \textbf{Hiệu quả cho các tập hợp nhỏ}: Rất hiệu quả khi số lượng 
+    phần tử còn ít, vì không cần lưu trữ toàn bộ 16384 thanh ghi.
+  \end{itemize}
+  \textbf{Ước lượng số phần tử:}
+  \begin{itemize}
+    \item \textbf{Cơ chế hoạt động}: Các giá trị băm của phần tử được ánh xạ 
+    tới một trong 16384 thanh ghi, nhưng chỉ các thanh ghi có giá trị 
+    khác 0 mới được lưu trữ.
+    \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong sparse representation tương tự như trong dense representation khi số lượng phần tử còn nhỏ, vì các thanh ghi được quản lý chặt chẽ và thông tin được lưu trữ một cách nén.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Dense Representation}
+  \textbf{Đặc điểm:}
+  \begin{itemize}
+    \item \textbf{Sử dụng bộ nhớ cố định}:  Khi số lượng phần tử lớn, 
+    HyperLogLog chuyển sang Dense Representation, lưu trữ toàn bộ mảng 16384 
+    thanh ghi với mỗi thanh ghi sử dụng 6 bit.
+    \item \textbf{Hiệu quả cho các tập hợp lớn}: Dense Representation trở nên 
+    hiệu quả hơn khi số lượng phần tử tăng, vì việc nén không còn mang lại 
+    lợi ích về bộ nhớ so với việc lưu trữ toàn bộ thanh ghi.
+  \end{itemize}
+  \textbf{Ước lượng số phần tử:}
+  \begin{itemize}
+    \item \textbf{Cơ chế hoạt động}: Tương tự như sparse representation, 
+    nhưng toàn bộ mảng thanh ghi được lưu trữ và sử dụng để tính toán 
+    ước lượng.
+    \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong 
+    dense representation cao hơn khi số lượng phần tử lớn, vì nó có thể 
+    quản lý thông tin của tất cả các thanh ghi mà không cần nén.
+  \end{itemize}
 \end{frame}
 
 \section{Phương pháp thực hiện}
