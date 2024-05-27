@@ -212,16 +212,22 @@
 \]
 \end{frame}
 \begin{frame}[fragile]{Cơ sở lý thuyết}
-Đầu tiên, chúng ta chia tập dữ liệu ban đầu hoặc dòng dữ liệu đầu vào thành một số 
-tập con, mỗi tập con này được lập chỉ mục bởi một trong $m$ bộ đếm đơn giản. 
-Sau đó, theo phương pháp trung bình ngẫu nhiên, vì có một hàm băm đơn giản, chúng ta 
-chọn bộ đếm cho phần tử cụ thể $x$ bằng cách sử dụng một phần của giá trị băm 
-của nó $h(x)$, trong khi phần còn lại được sử dụng để cập nhật bộ đếm tương ứng.\\
-Tất cả các thuật toán được thảo luận ở đây dựa trên việc quan sát các mẫu $0^k1$ 
-xuất hiện ở đầu của các giá trị cho bộ đếm cụ thể, và gán mỗi mẫu với chỉ số của nó, 
-gọi là hạng (rank). Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải 
-trong biểu diễn nhị phân của giá trị băm của phần tử được lập chỉ mục và có thể được 
-tính bằng công thức:
+  \begin{itemize}
+    \item Bằng cách sử dụng một phần của giá trị băm $h(x)$ để chia tập dữ liệu ban
+    đầu thành một số tập con.
+    \item Phần còn lại được sử dụng để cập nhật bộ đếm dựa trên việc quan sát mẫu $0^k1$
+    \item Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải (rank)
+  \end{itemize}
+% Đầu tiên, chúng ta chia tập dữ liệu ban đầu hoặc dòng dữ liệu đầu vào thành một số 
+% tập con, mỗi tập con này được lập chỉ mục bởi một trong $m$ bộ đếm đơn giản. 
+% Sau đó, theo phương pháp trung bình ngẫu nhiên, vì có một hàm băm đơn giản, chúng ta 
+% chọn bộ đếm cho phần tử cụ thể $x$ bằng cách sử dụng một phần của giá trị băm 
+% của nó $h(x)$, trong khi phần còn lại được sử dụng để cập nhật bộ đếm tương ứng.\\
+% Tất cả các thuật toán được thảo luận ở đây dựa trên việc quan sát các mẫu $0^k1$ 
+% xuất hiện ở đầu của các giá trị cho bộ đếm cụ thể, và gán mỗi mẫu với chỉ số của nó, 
+% gọi là hạng (rank). Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải 
+% trong biểu diễn nhị phân của giá trị băm của phần tử được lập chỉ mục và có thể được 
+% tính bằng công thức:
 \[
     rank(i)=\left\{
                 \begin{array}{ll}
@@ -230,11 +236,14 @@ tính bằng công thức:
                 \end{array}
             \right.
 \]
-Mỗi bộ đếm đơn giản xây dựng quan sát về số lượng của riêng mình dựa trên các hạng 
-đã nhìn thấy, ước lượng cuối cùng của số lượng được tạo ra từ quan sát bằng một 
-hàm đánh giá.Liên quan đến lưu trữ, thuật toán \textit{LogLog} đề xuất một 
-giải pháp tiết kiệm lưu trữ cùng với một hàm đánh giá và phương pháp hiệu chỉnh 
-sai lệch tốt hơn.
+% Mỗi bộ đếm đơn giản xây dựng quan sát về số lượng của riêng mình dựa trên các hạng 
+% đã nhìn thấy, ước lượng cuối cùng của số lượng được tạo ra từ quan sát bằng một 
+% hàm đánh giá.Liên quan đến lưu trữ, thuật toán \textit{LogLog} đề xuất một 
+% giải pháp tiết kiệm lưu trữ cùng với một hàm đánh giá và phương pháp hiệu chỉnh 
+% sai lệch tốt hơn.
+\begin{itemize}
+  \item Tiết kiệm dung lượng lưu trữ và có độ chính xác cao.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{LogLog algorithm}
@@ -288,9 +297,13 @@ sai lệch tốt hơn.
 \end{algorithm}
 \end{frame}
 \begin{frame}{LogLog algorithm}
-Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog} có mối quan hệ nghịch với số lượng bộ đếm sử dụng $m$ và có thể được xấp xỉ gần như là:
+Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
-Do đó, với $m = 256$, sai số tiêu chuẩn là khoảng 8\% và với $m = 1024$, nó giảm xuống còn khoảng 4\%.
+\begin{itemize}
+  \item $m = 256$, $\delta \approx 8\%$
+  \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
+\end{itemize}
+% Do đó, với $m = 256$, sai số tiêu chuẩn là khoảng 8\% và với $m = 1024$, nó giảm xuống còn khoảng 4\%.
 \indent Yêu cầu lưu trữ của thuật toán \textit{LogLog} có thể được ước tính là $O(log_2log_2n)$ bit nếu cần đến đếm đến $n$. Cụ thể hơn, 
 tổng không gian được yêu cầu bởi thuật toán để đếm đến $n$ là $m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
 So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
