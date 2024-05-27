@@ -14,6 +14,18 @@
 \newcommand{\SubItem}[1]{
     {\setlength\itemindent{15pt} \item[-] #1}
 }
+\usepackage{listings}
+\usepackage{lstautogobble} % Provides autogobble, which is useful to remove indentation based on first line
+
+\lstset{ %
+  language=bash,
+%  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  breaklines=true,
+  autogobble=true, % Removes indentation based on first line
+}
 
 \title{Đề cương luận văn thạc sĩ}
 \subtitle{Nghiên cứu phát triển kỹ thuật đếm số phần tử \\ \hspace{2.4cm} trên dòng dữ liệu}
@@ -738,6 +750,7 @@ tức là tổng cộng 640 byte.
   
   \indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
 \end{frame}
+
 \begin{frame}{HyperLogLog: các thư viện và công cụ nổi bật }
   \begin{itemize}
     \item \textbf{Apache DataSketches:} một thư viện Java cung cấp các thuật toán xác suất và thống kê. Được sử dụng rộng rãi trong các hệ thống Big Data như 
@@ -752,6 +765,69 @@ tức là tổng cộng 640 byte.
     có tích hợp HyperLogLog để xử lý các phép tính phức tạp trên dữ liệu luồng.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Ví dụ: Redis (1/3)}
+Redis là một hệ thống lưu trữ dữ liệu dạng key-value phổ biến và hỗ trợ nhiều cấu trúc dữ liệu mạnh mẽ, trong đó có HyperLogLog. Redis cung cấp các lệnh chuyên biệt để làm việc với HyperLogLog, bao gồm PFADD, PFCOUNT và PFMERGE.\\
+\textbf{Các lệnh cơ bản của HyperLogLog trong Redis:}
+  \begin{itemize}
+    \item \textbf{PFADD:} Thêm các phần tử vào HyperLogLog.
+    \item \textbf{PFCOUNT:} Ước lượng số phần tử duy nhất trong HyperLogLog.
+    \item \textbf{PFMERGE:} Hợp nhất nhiều HyperLogLog thành một.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ví dụ: Redis (2/3)}
+Giả sử chúng ta có một ứng dụng web và muốn theo dõi số lượng người dùng duy nhất truy cập vào website mỗi ngày.\\
+\textbf{Các lệnh cơ bản của HyperLogLog trong Redis:}
+  \begin{itemize}
+    \item \textbf{Cài đặt Redis:} 
+   	\SubItem{sudo apt-get update}
+   	\SubItem{sudo apt-get install redis-server}
+    \item \textbf{Khởi động Redis server:} 
+    \SubItem{redis-server}   
+    \item \textbf{Kết nối tới Redis:}
+    \SubItem{redis-cli}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ví dụ: Redis (3/3)}
+\begin{itemize}
+	\item \textbf{Thêm người dùng}:
+	\begin{lstlisting}
+PFADD unique_visitors:2024-05-25T08 user1 user2 user3
+PFADD unique_visitors:2024-05-25T08 user2 user4
+PFADD unique_visitors:2024-05-25T09 user5 user6
+PFADD unique_visitors:2024-05-25T10 user1 user7
+\end{lstlisting}
+\item \textbf{Ước lượng số người dùng trong giờ 08:00 ngày 2024-05-25}:
+	\begin{lstlisting}
+PFCOUNT unique_visitors:2024-05-25T08
+\end{lstlisting}
+\item \textbf{Giả sử chúng ta muốn hợp nhất dữ liệu người dùng duy nhất từ ba giờ khác nhau (08:00, 09:00, và 10:00).}:
+	\begin{lstlisting}
+PFMERGE unique_visitors:2024-05-25:morning unique_visitors:2024-05-25T08 unique_visitors:2024-05-25T09 unique_visitors:2024-05-25T10
+PFCOUNT unique_visitors:2024-05-25:morning
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Cách HyperLogLog lưu trữ dữ liệu trong Redis}
+%Redis sử dụng một triển khai của HyperLogLog gọi là "sparse representation" cho các bộ đếm nhỏ và "dense representation" cho các bộ đếm lớn hơn. Dung lượng bộ nhớ của HyperLogLog phụ thuộc vào số lượng thanh ghi (registers), và mỗi thanh ghi lưu trữ thông tin về vị trí của bit đầu tiên là 1 trong chuỗi băm.\\
+
+\textbf{Số lượng thanh ghi (m)}:
+\begin{itemize}
+	\item $m = 2^p$, trong đó p là số bit để xác định số thanh ghi.
+	\item Giá trị mặc định của p trong Redis là 14, nghĩa là có $2^{14} = 16384$ thanh ghi.
+\end{itemize}
+\textbf{Dung lượng bộ nhớ cần thiết}
+\begin{itemize}
+	\item Mỗi thanh ghi cần 6 bit để lưu trữ vị trí của bit đầu tiên là 1.
+	\item Tổng dung lượng bộ nhớ cần thiết cho HyperLogLog trong Redis có thể tính theo công thức: 
+%	\[Memory=mx6 bits\], với m = 16384 thanh ghi:
+%	\[Memory=16384×6 bits=98304 bits=12288 bytes=12 KB\]
+\end{itemize}
+\end{frame}
+
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
 Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong 
