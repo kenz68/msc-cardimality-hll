@@ -316,12 +316,21 @@ Do đó, để ước lượng định lượng lên đến khoảng $10^9$ vớ
 tức là tổng cộng 640 byte.
 \end{frame}
 \begin{frame}{HyperLogLog algorithm}
-  Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
-  Frederic Meunier vào năm 2007 \cite{flajolet2007hyperloglog}. Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.
-  Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
-  thiết kế để xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với độ chính xác $p \in 4...16$.
-  Ngoài ra, hàm đánh giá khác biệt thuật toán \textit{HyperLogLog} so với \textit{LogLog} tiêu chuẩn. Thuật toán \textit{LogLog} gốc sử dụng 
-  trung bình hình học (geometric mean) trong khi \textit{HyperLogLog} sử dụng một hàm dựa trên phiên bản chuẩn hóa của trung bình điều hòa (harmonic mean):
+\begin{itemize}
+	\item Đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
+  Frederic Meunier vào năm 2007 \cite{flajolet2007hyperloglog}.
+  \item Sử dụng hàm băm 32-bit và hàm đánh giá có các sửa lỗi bía khác nhau.
+  \item Xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với $p \in 4...16$.
+  \item Sử dụng trung bình điều hoà (\textbf{hamonic} mean) thay vì sử dụng trung bình hình học (geometric mean) như phiên bản gốc LogLog
+
+\end{itemize}
+%  Một cải tiến của thuật toán \textit{LogLog}, gọi là \textit{HyperLogLog}, đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
+%  Frederic Meunier vào năm 2007 \cite{flajolet2007hyperloglog}. 
+%  Thuật toán \textit{HyperLogLog} sử dụng hàm băm 32-bit, một hàm đánh giá khác nhau và các sửa lỗi bias khác nhau.
+%  Tương tự như thuật toán \textit{LogLog}, \textit{HyperLogLog} sử dụng ngẫu nhiên hóa để xấp xỉ định lượng của một tập dữ liệu và đã được 
+%  thiết kế để xử lý các định lượng lên đến $10^9$ với một hàm băm 32-bit đơn lẻ $h$ chia tập dữ liệu thành $m = 2^p$ tập con, với độ chính xác $p \in 4...16$.
+%  Ngoài ra, hàm đánh giá khác biệt thuật toán \textit{HyperLogLog} so với \textit{LogLog} tiêu chuẩn. Thuật toán \textit{LogLog} gốc sử dụng 
+%  trung bình hình học (geometric mean) trong khi \textit{HyperLogLog} sử dụng một hàm dựa trên phiên bản chuẩn hóa của trung bình điều hòa (harmonic mean):
   \[
       \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
   \]
