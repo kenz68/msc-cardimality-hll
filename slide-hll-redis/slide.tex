@@ -247,33 +247,97 @@
 \end{frame}
 
 \begin{frame}{LogLog algorithm}
-  Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng 
-  cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
-  có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, 
-  trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
-  hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
+\begin{itemize}
+	\item Ý tưởng cơ bản: tính \textbf{rank(h(x))}, \textbf{h} là hash func, \textbf{x} input.
+	\item Có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, hạng tối đa:
   \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
-  Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
-  không thực tế. Để giảm sai số, thuật toán \textit{LogLog} sử dụng 
-  một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và chia tập dữ liệu 
-  thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$, trong đó tham số độ chính xác 
-  $p$ xác định số bit được sử dụng trong điều hướng.\\
-  Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị 
-  băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
-  \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
-  và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để 
-  tính hạng và quan sát $R_j$ theo công thức (3.9).\\
-  Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát 
-  $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+  \item Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+  không thực tế. 
+  \item Để giảm sai số, \textit{LogLog} chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$. Với mỗi giá trị băm $h(x)$:
+	\SubItem{$p$ bit đầu để tính chỉ số $j = \left(i_0i_1...i_{p-1}\right)_2$} 
+  	\SubItem{(m-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$.}
+%  	\item Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+%  một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
+%  số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
+%  của một quan sát duy nhất: $n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j}$
+%  với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
+%  \item Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+%  $\alpha_m \approx 0.39701$.
+\end{itemize}
+%  Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng 
+%  cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
+%  có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, 
+%  trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
+%  hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
+%  \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+%  Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+%  không thực tế. Để giảm sai số, thuật toán \textit{LogLog} sử dụng 
+%  một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và chia tập dữ liệu 
+%  thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$, trong đó tham số độ chính xác 
+%  $p$ xác định số bit được sử dụng trong điều hướng.\\
+%  Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị 
+%  băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
+%  \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
+%  và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để 
+%  tính hạng và quan sát $R_j$ theo công thức (3.9).\\
+%  Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát 
+%  $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+%  một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
+%  số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
+%  của một quan sát duy nhất:
+%  \[
+%      n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
+%  \]
+%  với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
+%  Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+%  $\alpha_m \approx 0.39701$.
+\end{frame}
+\begin{frame}{LogLog algorithm}
+\begin{itemize}
+%	\item Ý tưởng cơ bản: tính \textbf{rank(h(x))}, \textbf{h} là hash func, \textbf{x} input.
+%	\item Có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, hạng tối đa:
+%  \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+%  \item Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+%  không thực tế. 
+%  \item Để giảm sai số, \textit{LogLog} chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$. Với mỗi giá trị băm $h(x)$:
+%	\SubItem{$p$ bit đầu để tính chỉ số $j = \left(i_0i_1...i_{p-1}\right)_2$} 
+%  	\SubItem{(m-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$.}
+  	\item Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
   một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
   số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
-  của một quan sát duy nhất:
-  \[
-      n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
-  \]
+  của một quan sát duy nhất: 
+  \[n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j}\]
   với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
-  Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+  \item Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
   $\alpha_m \approx 0.39701$.
+\end{itemize}
+%  Ý tưởng cơ bản của thuật toán \textit{LogLog} bắt đầu bằng việc tính toán hạng 
+%  cho mỗi phần tử đầu vào dựa trên một hàm băm đơn giản $h$. Vì chúng ta 
+%  có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, 
+%  trong đó $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, 
+%  hạng quan sát tối đa có thể cung cấp một dấu hiệu tốt về giá trị của $log_2n$:
+%  \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+%  Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+%  không thực tế. Để giảm sai số, thuật toán \textit{LogLog} sử dụng 
+%  một kỹ thuật phân nhóm dựa trên việc trung bình ngẫu nhiên và chia tập dữ liệu 
+%  thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$, trong đó tham số độ chính xác 
+%  $p$ xác định số bit được sử dụng trong điều hướng.\\
+%  Do đó, đối với mỗi phần tử $x$ từ tập dữ liệu, $p$ bit đầu tiên của giá trị 
+%  băm $h(x)$ M-bit có thể được lấy để tìm ra chỉ số $j$ của tập con thích hợp.
+%  \[j = \left(i_0i_1...i_{p-1}\right)_2,\]
+%  và phần còn lại (M-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để 
+%  tính hạng và quan sát $R_j$ theo công thức (3.9).\\
+%  Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát 
+%  $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+%  một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
+%  số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
+%  của một quan sát duy nhất:
+%  \[
+%      n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j},
+%  \]
+%  với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
+%  Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+%  $\alpha_m \approx 0.39701$.
 \end{frame}
 \begin{frame}{LogLog algorithm}
   \begin{algorithm}[H]
@@ -296,25 +360,47 @@
     \vspace{0.25cm}
 \end{algorithm}
 \end{frame}
+
 \begin{frame}{LogLog algorithm}
 Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
 \begin{itemize}
   \item $m = 256$, $\delta \approx 8\%$
   \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
+  \item Yêu cầu lưu trữ có thể được ước tính là $O(log_2log_2n)$ bits nếu cần đến đếm đến \textbf{n}.
+  \item So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
+nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. 
+\item Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
+so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
 \end{itemize}
 % Do đó, với $m = 256$, sai số tiêu chuẩn là khoảng 8\% và với $m = 1024$, nó giảm xuống còn khoảng 4\%.
-\indent Yêu cầu lưu trữ của thuật toán \textit{LogLog} có thể được ước tính là $O(log_2log_2n)$ bit nếu cần đến đếm đến $n$. Cụ thể hơn, 
-tổng không gian được yêu cầu bởi thuật toán để đếm đến $n$ là $m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
-So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
-nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
-so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.\\
-Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
-cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.\\
-$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32). 
-Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
-tức là tổng cộng 640 byte.
+%\indent Yêu cầu lưu trữ của thuật toán \textit{LogLog} có thể được ước tính là $O(log_2log_2n)$ bit nếu cần đến đếm đến $n$. Cụ thể hơn, 
+%tổng không gian được yêu cầu bởi thuật toán để đếm đến $n$ là $m\cdot log_2log_2\frac{n}{m}(1 + O(1))$.\\
+%So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
+%nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
+%so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.\\
+%Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+%cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.\\
+%$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32). 
+%Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+%tức là tổng cộng 640 byte.
 \end{frame}
+
+\begin{frame}{LogLog algorithm}
+\begin{itemize}
+  \item Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.
+$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32).
+	\item Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+tức là tổng cộng 640 byte.
+\end{itemize}
+%Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+%cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.\\
+%$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32). 
+%Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+%tức là tổng cộng 640 byte.
+\end{frame}
+
 \begin{frame}{HyperLogLog algorithm}
 \begin{itemize}
 	\item Đã được đề xuất bởi Philippe Flajolet, Eric Fusy, Olivier Gandouet và 
@@ -385,10 +471,10 @@ tức là tổng cộng 640 byte.
   \indent Không có bằng chứng cho thấy một số hàm băm phổ biến (ví dụ: MurmurHash3, MD5, SHA-1, SHA-256) 
   hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.
 \end{frame}
-\begin{frame}{HyperLogLog algorithm}
+\begin{frame}{HyperLogLog algorithm (1/2)}
   \begin{algorithm}[H]
     \DontPrintSemicolon
-    \LinesNumberedHidden
+%    \LinesNumberedHidden
     \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
     \KwIn{Dataset D}
     \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
@@ -400,6 +486,36 @@ tức là tổng cộng 640 byte.
         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
         $COUNTER[j] \gets \max($COUNTER[j],r)
     }
+    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+    $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
+    $n \gets \hat{n}$ \\
+%    \If{$\hat{n} \le \frac{5}{2}m$}
+%    {
+%        $Z \gets \underset{j=0...m-1}{count}\left(COUNTER[j] == 0\right)$\\
+%        \If{$Z \ne 0$}{$n \gets m \cdot \log\left(\frac{m}{Z}\right)$}
+%    }
+%    \ElseIf{$\hat{n} > \frac{1}{30}2^{32}$}
+%    {
+%        $n \gets -2^{32}\cdot\log\left(1-\frac{n}{2^{32}}\right)$
+%    }
+%    \Return{$n$}
+\end{algorithm}
+\end{frame}
+\begin{frame}{HyperLogLog algorithm (2/2)}
+  \begin{algorithm}[H]
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+%    \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
+%    \KwIn{Dataset D}
+%    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+%    \KwOut{Cardinality estimation}
+%    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+%    \For{$x \in D$}{
+%        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+%        $j \gets $($i_0i_1...i_{M-1})_2$\\
+%        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+%        $COUNTER[j] \gets \max($COUNTER[j],r)
+%    }
     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
     $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
     $n \gets \hat{n}$ \\
@@ -416,21 +532,29 @@ tức là tổng cộng 640 byte.
 \end{algorithm}
 \end{frame}
 \begin{frame}{HyperLogLog algorithm}
-  Tương tự như thuật toán \textit{LogLog}, có một sự đánh đổi rõ ràng giữa sai số tiêu chuẩn $\delta$ và số lượng bộ đếm $m$:
-  \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
-  \indent Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử (không giống như, ví dụ, thuật toán Đếm Tuyến Tính), 
-  phân bổ $(M=p$) bit cho các giá trị băm và có tổng cộng $m = 2^p$ bộ đếm, bộ nhớ cần thiết là
+\begin{itemize}
+	\item Tương tự LogLog, sai số tiêu chuẩn $\delta$: \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
+	\item Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử, phân bổ $(M=p$) bit cho các giá trị băm và có tổng cộng $m = 2^p$ bộ đếm, bộ nhớ cần thiết là:
   \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits }\]
-  hơn nữa, vì thuật toán chỉ sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ cho 
-  cấu trúc dữ liệu \textit{HyperLogLog} là $5\cdot 2^p$ bit.\\
-  Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ 
-  trong khi chỉ sử dụng một bộ nhớ chỉ 1.5 KB.\\
-  Ví dụ, cơ sở dữ liệu trong bộ nhớ nổi tiếng Redis duy trì cấu trúc dữ liệu \textit{HyperLogLog} của 12 KB để xấp xỉ các định lượng 
-  với sai số tiêu chuẩn là 0.81.\%.
-  Trong khi \textit{HyperLogLog}, so với \textit{LogLog}, đã cải thiện ước lượng định lượng cho các bộ dữ liệu nhỏ, 
-  nó vẫn đánh giá quá cao các định lượng thực tế trong các trường hợp như vậy.\\
-  Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
+  \item Sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ là $5\cdot 2^p$ bit. Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ trong khi chỉ sử dụng một bộ nhớ chỉ \textbf{1.5 KB}.
+  \item Ví dụ, \textbf{Redis} duy trì cấu trúc dữ liệu \textit{HyperLogLog} của \textbf{12 KB} để xấp xỉ các định lượng $\delta \approx 0.81.\%$.
+  \item Các biến thể của $HyperLogLog$ được triển khai trong các CSDL nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
   và các hệ thống khác.
+\end{itemize}
+%  Tương tự như thuật toán \textit{LogLog}, có một sự đánh đổi rõ ràng giữa sai số tiêu chuẩn $\delta$ và số lượng bộ đếm $m$:
+%  \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
+%  \indent Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử (không giống như, ví dụ, thuật toán Đếm Tuyến Tính), 
+%  phân bổ $(M=p$) bit cho các giá trị băm và có tổng cộng $m = 2^p$ bộ đếm, bộ nhớ cần thiết là
+%  \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits }\]
+%  hơn nữa, vì thuật toán chỉ sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ cho 
+%  cấu trúc dữ liệu \textit{HyperLogLog} là $5\cdot 2^p$ bit.\\
+%  Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ trong khi chỉ sử dụng một bộ nhớ chỉ 1.5 KB.\\
+%  Ví dụ, cơ sở dữ liệu trong bộ nhớ nổi tiếng Redis duy trì cấu trúc dữ liệu \textit{HyperLogLog} của 12 KB để xấp xỉ các định lượng 
+%  với sai số tiêu chuẩn là 0.81.\%.
+%  Trong khi \textit{HyperLogLog}, so với \textit{LogLog}, đã cải thiện ước lượng định lượng cho các bộ dữ liệu nhỏ, 
+%  nó vẫn đánh giá quá cao các định lượng thực tế trong các trường hợp như vậy.\\
+%  Các biến thể của thuật toán $HyperLogLog$ được triển khai trong các cơ sở dữ liệu nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
+%  và các hệ thống khác.
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
   Sau một thời gian, vào năm 2013 \cite{chabchoub2010sliding}, một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
