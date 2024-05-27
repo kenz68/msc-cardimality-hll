@@ -605,6 +605,20 @@ tức là tổng cộng 640 byte.
   
   \indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
 \end{frame}
+\begin{frame}{HyperLogLog: các thư viện và công cụ nổi bật }
+  \begin{itemize}
+    \item \textbf{Apache DataSketches:} một thư viện Java cung cấp các thuật toán xác suất và thống kê. Được sử dụng rộng rãi trong các hệ thống Big Data như 
+    Apache Druid, Apache Kafka và Apache Hive.
+    \item \textbf{Redis:} hệ thống lưu trữ dữ liệu dạng key-value phổ biến, cung cấp 
+    cấu trúc dữ liệu HyperLogLog tích hợp sẵn. Sử dụng các lệnh như PFADD, PFCOUNT 
+    và PFMERGE để làm việc với HLL.
+    \item \textbf{Google BigQuery:} sử dụng HyperLogLog++ cho các chức năng thống kê và phân tích dữ liệu lớn.
+    \item \textbf{PostgreSQL:} Extension postgreSQL-hll giúp thực hiện các truy vấn với số lượng phần tử duy nhất một cách hiệu quả.
+    \item \textbf{Amazon Redshift:} hỗ trợ HyperLogLog để tối ưu hóa các truy vấn thống kê và giảm thiểu dung lượng bộ nhớ cần thiết.
+    \item \textbf{Apache Flink:} một nền tảng xử lý luồng dữ liệu phân tán, 
+    có tích hợp HyperLogLog để xử lý các phép tính phức tạp trên dữ liệu luồng.
+  \end{itemize}
+\end{frame}
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
 Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong 
