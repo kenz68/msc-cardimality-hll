@@ -733,22 +733,37 @@ tức là tổng cộng 640 byte.
   sử dụng 2.56 KB bộ nhớ.
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
-  Như đã đề cập trước đó, thuật toán sử dụng phương pháp lấy trung bình ngẫu nhiên và chia tập dữ liệu thành $m = 2^p$ tập con $\left\{COUNTER[j]\right\}_{j=0}^{m-1}$, 
-  mỗi bộ đếm xử lý thông tin về $\frac{n}{m}$ phần tử. Heule và đồng nghiệp đã nhận thấy rằng đối với $n \ll m$, hầu hết các bộ đếm không bao giờ được 
-  sử dụng và không cần phải được lưu trữ, do đó lưu trữ có thể được hưởng lợi từ một biểu diễn thưa thớt. Nếu số lượng phần tử $n$ nhỏ hơn rất nhiều 
-  so với $m$, thì HyperLogLog++ yêu cầu bộ nhớ đáng kể ít hơn so với các phiên bản trước đó.\\
-  \indent Thuật toán HyperLogLog++ trong phiên bản thưa thớt chỉ lưu trữ các cặp $(j, COUNTER[j])$, biểu diễn chúng dưới dạng một số nguyên duy nhất 
-  bằng cách nối các mẫu bit của chúng. Tất cả các cặp như vậy được lưu trữ trong một danh sách đã sắp xếp duy nhất của các số nguyên. 
-  Vì chúng ta luôn tính toán hạng cực đại, nên chúng ta không cần phải lưu trữ các cặp khác nhau có cùng chỉ số, thay vào đó chỉ cần lưu trữ cặp 
-  có chỉ số cực đại.\\
+  \begin{itemize}
+    \item Heule và đồng nghiệp đã nhận thấy rằng đối với $n \ll m$, hầu hết các bộ đếm 
+    không bao giờ được sử dụng và không cần phải được lưu trữ, do đó lưu trữ có thể được hưởng lợi 
+    từ một biểu diễn thưa thớt. Nếu số lượng phần tử $n$ nhỏ hơn rất nhiều 
+    so với $m$, thì HyperLogLog++ yêu cầu bộ nhớ đáng kể ít hơn so với các phiên bản 
+    trước đó.
+    \item Phiên bản thưa thớt chỉ lưu trữ các cặp $(j, COUNTER[j])$. Tất cả các cặp 
+    như vậy được lưu trữ trong một danh sách đã sắp xếp duy nhất của các số nguyên. 
+    \item Trong thực tế, người ta có thể duy trì một 
+    danh sách không được sắp xếp khác để thực hiện các thêm nhanh 
+    cần phải được sắp xếp và hợp nhất định kỳ vào danh sách chính. 
+    \item Nếu một danh sách yêu cầu nhiều bộ nhớ hơn, nó có thể dễ dàng chuyển đổi 
+    thành dạng dày đặc. 
+    \item Được sử dụng trong nhiều ứng dụng phổ biến như Google BigQuery và Elasticsearch.
+  \end{itemize}
+  % Như đã đề cập trước đó, thuật toán sử dụng phương pháp lấy trung bình ngẫu nhiên và chia tập dữ liệu thành $m = 2^p$ tập con $\left\{COUNTER[j]\right\}_{j=0}^{m-1}$, 
+  % mỗi bộ đếm xử lý thông tin về $\frac{n}{m}$ phần tử. Heule và đồng nghiệp đã nhận thấy rằng đối với $n \ll m$, hầu hết các bộ đếm không bao giờ được 
+  % sử dụng và không cần phải được lưu trữ, do đó lưu trữ có thể được hưởng lợi từ một biểu diễn thưa thớt. Nếu số lượng phần tử $n$ nhỏ hơn rất nhiều 
+  % so với $m$, thì HyperLogLog++ yêu cầu bộ nhớ đáng kể ít hơn so với các phiên bản trước đó.\\
+  % \indent Thuật toán HyperLogLog++ trong phiên bản thưa thớt chỉ lưu trữ các cặp $(j, COUNTER[j])$, biểu diễn chúng dưới dạng một số nguyên duy nhất 
+  % bằng cách nối các mẫu bit của chúng. Tất cả các cặp như vậy được lưu trữ trong một danh sách đã sắp xếp duy nhất của các số nguyên. 
+  % Vì chúng ta luôn tính toán hạng cực đại, nên chúng ta không cần phải lưu trữ các cặp khác nhau có cùng chỉ số, thay vào đó chỉ cần lưu trữ cặp 
+  % có chỉ số cực đại.\\
   
-  Trong thực tế, để cung cấp trải nghiệm tốt hơn, người ta có thể duy trì một danh sách không được sắp xếp khác để thực hiện các thêm nhanh 
-  cần phải được sắp xếp và hợp nhất định kỳ vào danh sách chính. Nếu một danh sách như vậy yêu cầu nhiều bộ nhớ hơn so với biểu diễn dày đặc 
-  của các bộ đếm, nó có thể dễ dàng chuyển đổi thành dạng dày đặc. Ngoài ra, để làm cho biểu diễn thưa thớt thậm chí còn thân thiện với không gian hơn, 
-  thuật toán HyperLogLog++ đề xuất các kỹ thuật nén khác nhau bằng cách sử dụng mã hóa độ dài biến và mã hóa sự khác biệt cho các số nguyên, 
-  do đó chỉ lưu trữ cặp đầu tiên và sự khác biệt từ giá trị đó.\\
+  % Trong thực tế, để cung cấp trải nghiệm tốt hơn, người ta có thể duy trì một danh sách không được sắp xếp khác để thực hiện các thêm nhanh 
+  % cần phải được sắp xếp và hợp nhất định kỳ vào danh sách chính. Nếu một danh sách như vậy yêu cầu nhiều bộ nhớ hơn so với biểu diễn dày đặc 
+  % của các bộ đếm, nó có thể dễ dàng chuyển đổi thành dạng dày đặc. Ngoài ra, để làm cho biểu diễn thưa thớt thậm chí còn thân thiện với không gian hơn, 
+  % thuật toán HyperLogLog++ đề xuất các kỹ thuật nén khác nhau bằng cách sử dụng mã hóa độ dài biến và mã hóa sự khác biệt cho các số nguyên, 
+  % do đó chỉ lưu trữ cặp đầu tiên và sự khác biệt từ giá trị đó.\\
   
-  \indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
+  % \indent Hiện nay, thuật toán HyperLogLog++ được rộng rãi sử dụng trong nhiều ứng dụng phổ biến, bao gồm Google BigQuery và Elasticsearch.
 \end{frame}
 
 \begin{frame}{HyperLogLog: các thư viện và công cụ nổi bật }
