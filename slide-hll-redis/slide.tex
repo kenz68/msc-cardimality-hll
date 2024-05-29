@@ -569,26 +569,42 @@ tức là tổng cộng 640 byte.
 %  và các hệ thống khác.
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
-  Sau một thời gian, vào năm 2013 \cite{chabchoub2010sliding}, một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
-  đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
-  các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
+  \begin{itemize}
+    \item $HyperLogLog++$, Stefan Heule, Marc Nunkesser và Alexander Hall, 2013 \cite{chabchoub2010sliding}, tập trung vào 
+    các định lượng lớn hơn và sửa lỗi sai tốt hơn.
+    \item Cải tiến đáng chú ý nhất là việc sử dụng hàm băm 64-bit. Cho phép 
+    ước lượng các định lượng lớn hơn rất nhiều so với $10^9$ phần tử duy nhất, 
+    nhưng khi định lượng tiến gần đến $2^{64} \approx 1.8\cdot 10^{19}$, 
+    đụng độ hàm băm cũng trở thành một vấn đề đối với $HyperLogLog++$.
+    \item Thực hiện một loạt các thí nghiệm để đo lường 
+    sai lệch và phát hiện rằng đối với $n \le 5m$, sai lệch của thuật toán $HyperLogLog$ 
+    có thể được sửa lỗi hơn bằng cách sử dụng dữ liệu thực nghiệm được thu thập 
+    trong quá trình thí nghiệm.
+    \item Cung cấp các giá trị được xác định dựa trên kinh nghiệm 
+    để cải thiện việc sửa lỗi sai trong thuật toán - mảng ước lượng $RAWESTIMATEDATA$ và 
+    các sai lệch liên quan $BIASDATA$.
+  \end{itemize}
+  % Sau một thời gian, vào năm 2013 \cite{chabchoub2010sliding}, một phiên bản cải tiến của $HyperLogLog$ đã được phát triển, 
+  % đó là thuật toán $HyperLogLog++$, được công bố bởi Stefan Heule, Marc Nunkesser và Alexander Hall và tập trung vào 
+  % các định lượng lớn hơn và sửa lỗi sai tốt hơn.\\
   
-  Cải tiến đáng chú ý nhất của thuật toán $HyperLogLog++$ là việc sử dụng hàm băm 64-bit. Rõ ràng, 
-  càng dài giá trị đầu ra của hàm băm, càng nhiều phần tử khác nhau có thể được mã hóa. Sự cải thiện này cho phép ước lượng 
-  các định lượng lớn hơn rất nhiều so với $10^9$ phần tử duy nhất, nhưng khi định lượng tiến gần đến $2^64 \approx 1.8\cdot 10^{19}$, 
-  đụng độ hàm băm cũng trở thành một vấn đề đối với $HyperLogLog++$.\\
+  % Cải tiến đáng chú ý nhất của thuật toán $HyperLogLog++$ là việc sử dụng hàm băm 64-bit. Rõ ràng, 
+  % càng dài giá trị đầu ra của hàm băm, càng nhiều phần tử khác nhau có thể được mã hóa. Sự cải thiện này cho phép ước lượng 
+  % các định lượng lớn hơn rất nhiều so với $10^9$ phần tử duy nhất, nhưng khi định lượng tiến gần đến $2^64 \approx 1.8\cdot 10^{19}$, 
+  % đụng độ hàm băm cũng trở thành một vấn đề đối với $HyperLogLog++$.\\
   
-  Thuật toán $HyperLogLog++$ sử dụng chính xác hàm đánh giá giống như được đưa ra trong $HyperLogLog$. Tuy nhiên, nó cải thiện việc sửa lỗi sai. 
-  Các tác giả của thuật toán đã thực hiện một loạt các thí nghiệm để đo lường sai lệch và phát hiện rằng đối với $n \le 5m$, 
-  sai lệch của thuật toán $HyperLogLog$ gốc có thể được sửa lỗi hơn bằng cách sử dụng dữ liệu thực nghiệm được thu thập trong quá trình thí nghiệm.\\
+  % Thuật toán $HyperLogLog++$ sử dụng chính xác hàm đánh giá giống như được đưa ra trong $HyperLogLog$. Tuy nhiên, nó cải thiện việc sửa lỗi sai. 
+  % Các tác giả của thuật toán đã thực hiện một loạt các thí nghiệm để đo lường sai lệch và phát hiện rằng đối với $n \le 5m$, 
+  % sai lệch của thuật toán $HyperLogLog$ gốc có thể được sửa lỗi hơn bằng cách sử dụng dữ liệu thực nghiệm được thu thập trong quá trình thí nghiệm.\\
   
-  Ngoài bài báo gốc, Heule và đồng nghiệp cung cấp các giá trị được xác định dựa trên kinh nghiệm 
-  để cải thiện việc sửa lỗi sai trong thuật toán - các mảng ước lượng định lượng thô $RAWESTIMATEDATA$ và 
-  các sai lệch liên quan $BIASDATA$. cung cấp một mảng gồm 200 điểm nội suy, lưu trữ ước lượng thô trung bình được đo tại điểm này 
-  qua 5000 tập dữ liệu khác nhau. $BIASDATA$ chứa khoảng 200 sai lệch đã được đo lường tương ứng với $RAWESTIMATEDATA$. 
-  Cả hai mảng đều có chỉ số bắt đầu từ 0 và chứa các giá trị được tính toán trước cho tất cả các độ chính xác được hỗ trợ $p \in 4...18$,
-  trong đó chỉ số 0 trong các mảng tương ứng với các giá trị độ chính xác 4. Như một ví dụ, đối với $m = 2^{10} and p = 10$ 
-  dữ liệu cần thiết có thể được tìm thấy trong $RAWESTIMATEDATA[6]$ và $BIASDATA[6]$.
+  % Ngoài bài báo gốc, Heule và đồng nghiệp cung cấp các giá trị được xác định dựa trên kinh nghiệm 
+  % để cải thiện việc sửa lỗi sai trong thuật toán - các mảng ước lượng định lượng thô $RAWESTIMATEDATA$ và 
+  % các sai lệch liên quan $BIASDATA$. cung cấp một mảng gồm 200 điểm nội suy, lưu trữ ước lượng thô trung bình được đo tại điểm này 
+  % qua 5000 tập dữ liệu khác nhau. $BIASDATA$ chứa khoảng 200 sai lệch đã được đo lường tương ứng với $RAWESTIMATEDATA$. 
+  % Cả hai mảng đều có chỉ số bắt đầu từ 0 và chứa các giá trị được tính toán trước cho tất cả các độ chính xác được hỗ trợ $p \in 4...18$,
+  % trong đó chỉ số 0 trong các mảng tương ứng với các giá trị độ chính xác 4. 
+  % Như một ví dụ, đối với $m = 2^{10} and p = 10$ 
+  % dữ liệu cần thiết có thể được tìm thấy trong $RAWESTIMATEDATA[6]$ và $BIASDATA[6]$.
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
   \begin{algorithm}[H]
@@ -616,39 +632,56 @@ tức là tổng cộng 640 byte.
     \vspace{0.25cm}
 \end{algorithm}
 \end{frame}
-\begin{frame}{HyperLogLog++ algorithm}
-  Ví dụ (1), giả sử chúng ta đã tính toán ước lượng định lượng $\hat{n} = 2018.34$ bằng cách sử dụng công thức
+\begin{frame}{HyperLogLog++ algorithm: Ví dụ (1)}
+  Giả sử chúng ta đã tính toán ước lượng định lượng $\hat{n} = 2018.34$
   \[
   \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
   \]
   và muốn sửa chúng cho 
   độ chính xác $p = 10 (m = 2^{10})$.\\
-  Đầu tiên chúng ta kiểm trang mảng RAWESTIMATEDATA[6] và xác định giá trị $\hat{n}$, như vậy giá trị này rơi vào khoảng 73 đến 74,\\ với RAWESTIMATEDATA[6][73] = 2003.1804 và
+  Kiểm tra mảng RAWESTIMATEDATA[6] và xác định giá trị $\hat{n}$ khoảng 73 đến 74,
+  với RAWESTIMATEDATA[6][73] = 2003.1804 và
   RAWESTIMATEDATA[6][74] = 2026.071.
   \[2003.1804 \le \hat{n} \le 2026.071.\]
   Ước lượng chính xác nằm trong khoảng:
   \[\left[2023.1804 - 134.1804, 2026.071 - 131.071\right] = \left[1869.0, 1895.0\right]\]
-  và để tính toán ước lượng được sửa, chúng ta có thể nội suy giá trị đó, ví dụ, sử dụng tìm kiếm k-nearest neighbor hoặc chỉ là một nội suy tuyến tính\\
-  \newpage
-  $y(x) = a \cdot x + b, where y(2003.1804) = 1869.0 and y(2026.071) = 1895.0.$\\
+\end{frame}
+\begin{frame}{HyperLogLog++ algorithm: Ví dụ (1)}
+  Và để tính toán ước lượng được sửa, chúng ta có thể nội suy giá trị đó\\
+  Ví dụ, sử dụng tìm kiếm k-nearest neighbor hoặc chỉ là một nội suy tuyến tính
+  \[y(x) = a \cdot x + b, \text{ where } y(2003.1804) = 1869.0 \text{ and } y(2026.071) = 1895.0.\]
   Do đó, bằng cách tính toán đơn giản, đường nội suy là
   \[y = 1.135837 \cdot x - 406.28725,\]
   và giá trị được nội suy cho ước lượng định lượng của chúng ta là
   \[n = y(\hat{n}) = y(2018.34) \approx 1886.218.\]
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
-  Theo các thí nghiệm thực hiện bởi các tác giả của HyperLogLog++, ước lượng $n_{lin}$ được tính theo thuật toán 
-  Linear Counting vẫn tốt hơn cho các số lượng phần tử nhỏ so với giá trị được hiệu chỉnh sai số $n$. Do đó, nếu ít nhất một bộ đếm trống tồn tại, 
-  thuật toán sẽ tính toán thêm ước lượng tuyến tính và sử dụng một danh sách các ngưỡng thực nghiệm, có thể tìm thấy trong Bảng 3.4, để chọn xem ước lượng 
-  nào nên được ưu tiên. Trong trường hợp như vậy, giá trị được hiệu chỉnh sai số $n$ chỉ được sử dụng khi ước lượng tuyến tính $n_{lin}$ 
-  vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
-  Trong ví dụ (1), khi $m = 2^{10}$, chúng ta tính được giá trị được hiệu chỉnh sai số $n \approx 1886.218$. Để xác định xem chúng ta có nên 
-  ưu tiên giá trị này so với ước lượng bằng Linear Counting hay không, chúng ta cần tìm ra số lượng bộ đếm trống $Z$ trong cấu trúc dữ liệu của 
-  HyperLogLog++. Vì chúng ta không có giá trị trong ví dụ của chúng ta, hãy giả định rằng $Z = 73$.
-  Do đó, ước lượng tuyến tính là:
-  \[n_{lin} = 2^{10} \cdot \log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
-  Tiếp theo, chúng ta so sánh $n_{lin}$ với ngưỡng $\varkappa_m = 900$ từ Table 2, mà là rất thấp so với giá trị tính toán, do đó, 
-  chúng ta ưu tiên ước lượng được hiệu chỉnh sai số $n$ so với ước lượng của Linear Counting $n_{lin}$.
+  \begin{itemize}
+    \item Theo thí nghiệm, ước lượng $n_{lin}$ được tính theo thuật toán 
+    \textbf{Linear Counting} vẫn \textbf{tốt hơn} cho các số lượng phần tử nhỏ so với giá trị được hiệu 
+    chỉnh sai số $n$.
+    \item Do đó, nếu ít nhất một bộ đếm trống tồn tại, thuật toán sẽ tính toán thêm 
+    ước lượng tuyến tính và sử dụng một danh sách các ngưỡng thực nghiệm, có thể 
+    tìm thấy trong \textbf{Table 2}, để chọn xem ước lượng nào nên được ưu tiên. 
+    \item Giá trị được hiệu chỉnh sai số $n$ chỉ được sử dụng khi ước lượng tuyến tính 
+    $n_{lin}$ vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
+  \end{itemize}
+  % Theo các thí nghiệm thực hiện bởi các tác giả của HyperLogLog++, ước lượng $n_{lin}$ 
+  % được tính theo thuật toán 
+  % Linear Counting vẫn tốt hơn cho các số lượng phần tử nhỏ so với giá trị được hiệu 
+  % chỉnh sai số $n$. 
+  % Do đó, nếu ít nhất một bộ đếm trống tồn tại, 
+  % thuật toán sẽ tính toán thêm ước lượng tuyến tính và sử dụng một danh sách các ngưỡng thực nghiệm, có thể tìm thấy trong Bảng 3.4, để chọn xem ước lượng 
+  % nào nên được ưu tiên. 
+  % Trong trường hợp như vậy, giá trị được hiệu chỉnh sai số $n$ chỉ được sử dụng khi ước lượng tuyến tính $n_{lin}$ 
+  % vượt qua ngưỡng $\varkappa_m$ cho $m$ hiện tại.
+  % Trong ví dụ (1), khi $m = 2^{10}$, chúng ta tính được giá trị được hiệu chỉnh sai số $n \approx 1886.218$. Để xác định xem chúng ta có nên 
+  % ưu tiên giá trị này so với ước lượng bằng Linear Counting hay không, chúng ta cần tìm ra số lượng bộ đếm trống $Z$ trong cấu trúc dữ liệu của 
+  % HyperLogLog++. Vì chúng ta không có giá trị trong ví dụ của chúng ta, hãy giả định rằng $Z = 73$.
+  % Do đó, ước lượng tuyến tính là:
+  % \[n_{lin} = 2^{10} \cdot \log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
+  % Tiếp theo, chúng ta so sánh $n_{lin}$ với ngưỡng $\varkappa_m = 900$ từ Table 2, mà là rất thấp so với giá trị tính toán, do đó, 
+  % chúng ta ưu tiên ước lượng được hiệu chỉnh sai số $n$ so với ước lượng của Linear Counting $n_{lin}$.
 \end{frame}
 \begin{frame}{HyperLogLog++ algorithm}
   \begin{center}
@@ -685,6 +718,17 @@ tức là tổng cộng 640 byte.
     \hspace{0.5cm}
 \end{center}
 \end{frame}
+
+\begin{frame}{HyperLogLog++ algorithm}
+  Trong ví dụ (1), khi $m = 2^{10}$, chúng ta tính được giá trị được hiệu chỉnh sai số $n \approx 1886.218$. Để xác định xem chúng ta có nên 
+  ưu tiên giá trị này so với ước lượng bằng Linear Counting hay không, chúng ta cần tìm ra số lượng bộ đếm trống $Z$ trong cấu trúc dữ liệu của 
+  HyperLogLog++. Vì chúng ta không có giá trị trong ví dụ của chúng ta, hãy giả định rằng $Z = 73$.
+  Do đó, ước lượng tuyến tính là:
+  \[n_{lin} = 2^{10} \cdot \log\left(\frac{2^{10}}{73}\right) \approx 2704.\]
+  Tiếp theo, chúng ta so sánh $n_{lin}$ với ngưỡng $\varkappa_m = 900$ từ Table 2, mà là rất thấp so với giá trị tính toán, do đó, 
+  chúng ta ưu tiên ước lượng được hiệu chỉnh sai số $n$ so với ước lượng của Linear Counting $n_{lin}$.
+\end{frame}
+
 \begin{frame}{HyperLogLog++ algorithm}
   \begin{algorithm}[H]
     \vspace{0.25cm}
@@ -720,6 +764,7 @@ tức là tổng cộng 640 byte.
     \vspace{0.25cm}
 \end{algorithm}
 \end{frame}
+
 \begin{frame}{HyperLogLog++ algorithm}
   Độ chính xác của HyperLogLog++ tốt hơn so với HyperLogLog cho một phạm vi lớn của các số lượng phần tử và tương đương tốt cho phần còn lại. 
   Đối với các số lượng phần tử từ 12000 đến 61000, việc hiệu chỉnh sai số cho phép giảm thiểu sai số và tránh một đỉnh sai số khi chuyển đổi 
