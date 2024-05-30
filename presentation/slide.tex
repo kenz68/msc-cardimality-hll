@@ -267,13 +267,13 @@
   \item Sử dụng trung bình điều hoà (\textbf{hamonic} mean) thay vì sử dụng trung bình hình học (geometric mean) như phiên bản gốc LogLog
 
 \end{itemize}
-\[
-      \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
-  \]
-  \indent với
-  \[
-      \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
-  \]
+% \[
+%       \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
+%   \]
+%   \indent với
+%   \[
+%       \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
+%   \]
 \end{frame}
 % \begin{frame}{HyperLogLog algorithm}
 %   Ý tưởng đằng sau việc sử dụng trung bình điều hòa là nó giảm phương sai do tính chất của nó để kiểm soát các phân phối xác suất lệch.\\
@@ -322,7 +322,11 @@
 %   hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.
 % \end{frame}
 \begin{frame}{HyperLogLog algorithm}
-  \includegraphics[scale=.42]{hyperloglog.png}
+  \includegraphics[scale=.5]{raw_hll.png}
+  \indent Với $\alpha_m$
+  \[
+      \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1} \hspace{1cm}(3)  
+  \]
 \end{frame}
 
 % \begin{frame}{HyperLogLog algorithm (1/2)}
