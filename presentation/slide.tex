@@ -346,8 +346,6 @@ tức là tổng cộng 640 byte.
   \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits }\]
   \item Sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ là $5\cdot 2^p$ bit. Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ trong khi chỉ sử dụng một bộ nhớ chỉ \textbf{1.5 KB}.
   \item Ví dụ, \textbf{Redis} duy trì cấu trúc dữ liệu \textit{HyperLogLog} của \textbf{12 KB} để xấp xỉ các định lượng $\delta \approx 0.81.\%$.
-  \item Các biến thể của $HyperLogLog$ được triển khai trong các CSDL nổi tiếng như Amazon Redshift, Redis, Apache CouchDB, Riak 
-  và các hệ thống khác.
 \end{itemize}
 \end{frame}
 
@@ -511,7 +509,7 @@ một khoảng thời gian trên một dòng dữ liệu (data stream):
   phần tử. Ví dụ, mỗi giờ hoặc mỗi phút.
   \item Bước 2: Lưu trữ HyperLogLog
   Tiếp theo, chúng tôi sẽ lưu trữ cấu trúc HyperLogLog cho mỗi khoảng thời gian. 
-  Cấu trúc dữ liệu sẽ bao gồm cặp $\left< T_1, HLL_1\right>$, trong đó $T_1$ là 
+  Cấu trúc dữ liệu sẽ bao gồm cặp $\left< T, HLL_1\right>$, trong đó $T$ là 
   thời điểm đại diện cho khung thời gian cụ thể.
   \item Bước 3: Sử dụng kết quả
   Cuối cùng, khi cần, chúng tôi có thể truy vấn và sử dụng kết quả từ các cấu trúc 
