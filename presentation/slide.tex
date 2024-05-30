@@ -54,20 +54,22 @@
   \SubItem{Đánh giá mức độ tương tác và quan tâm của người dùng.}
   \SubItem{Đo lường hiệu quả của chiến dịch marketing và quảng cáo.}
   \SubItem{Hỗ trợ ra quyết định kinh doanh.}
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile]{Giới thiệu}
-
-\begin{itemize}
   \item Thách thức:
   \SubItem{Đếm DAU trên dữ liệu lớn và tốc độ truy cập cao.}
   \SubItem{Tổng hợp DAU từ nhiều nguồn dữ liệu khác nhau.}
-  \SubItem{Đếm DAU theo nhiều khoảng thời gian và tiêu chí khác nhau.}
-  \item Giải pháp:
-  \SubItem{Sử dụng các thuật toán đếm hiệu suất cao và tin cậy.}
-  \SubItem{Xây dựng hệ thống tổng hợp dữ liệu linh hoạt và đồng bộ.}
 \end{itemize}
 \end{frame}
+% \begin{frame}[fragile]{Giới thiệu}
+% \begin{itemize}
+%   \item Thách thức:
+%   \SubItem{Đếm DAU trên dữ liệu lớn và tốc độ truy cập cao.}
+%   \SubItem{Tổng hợp DAU từ nhiều nguồn dữ liệu khác nhau.}
+%   \SubItem{Đếm DAU theo nhiều khoảng thời gian và tiêu chí khác nhau.}
+%   \item Giải pháp:
+%   \SubItem{Sử dụng các thuật toán đếm hiệu suất cao và tin cậy.}
+%   \SubItem{Xây dựng hệ thống tổng hợp dữ liệu linh hoạt và đồng bộ.}
+% \end{itemize}
+% \end{frame}
 
 \section{Các công trình nghiên cứu liên quan}
 \begin{frame}{Các công trình nghiên cứu liên quan}
@@ -75,19 +77,19 @@
 	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier\\ LogLog Counting of Large Cardinalities, 2003 \cite{durand2003loglog}: 
 	\SubItem{Thuật toán ước lượng số lượng phần tử với độ chính xác cao và sử dụng ít bộ nhớ.}
 	\item Philippe Flajolet, Éric Fusy, Olivier Gandouet, and Frédéric Meunier\\ HyperLogLog: The Analysis of a Near-Optimal Cardinality Estimation Algorithm, 2007 \cite{flajolet2007hyperloglog}: 
-	\SubItem{là một cải tiến từ LogLog, thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với độ chính xác khoảng 2\% chỉ dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu và thích nghi với mô hình cửa sổ trượt (sliding window).}
+	\SubItem{là một cải tiến từ LogLog, thuật toán này có khả năng ước lượng số lượng phần tử lớn hơn $10^9$ với sai số khoảng 2\% chỉ dụng 1.5 kilobytes bộ nhớ, đồng thời có khả năng song song hoá tối ưu và thích nghi với mô hình cửa sổ trượt (sliding window).}
 	\item Stefan Heule, Marc Nunkesser, Alexander Hall\\ HyperLogLog in Practice: Algorithmic Improvements for Practical Cardinality Estimation Deployments, 2017 \cite{heule2013hyperloglog}: 
 	\SubItem{Phiên bản nâng cấp của HyperLogLog với độ chính xác cao hơn và yêu cầu bộ nhớ ít hơn.}
 \end{itemize}
 \end{frame}
-\begin{frame}{Các công trình nghiên cứu liên quan}
-\begin{itemize}
-	\item Chabchoub, Yousra and He{\'e}brail, Georges, Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window, 2010 \cite{chabchoub2010sliding}: 
-	\SubItem{Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.}
-	\item Ertl, Otmar, ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale, 2024 \cite{ertl2024exaloglog}: 
-	\SubItem{Cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.}
-\end{itemize}
-\end{frame}
+% \begin{frame}{Các công trình nghiên cứu liên quan}
+% \begin{itemize}
+% 	\item Chabchoub, Yousra and He{\'e}brail, Georges, Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window, 2010 \cite{chabchoub2010sliding}: 
+% 	\SubItem{Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.}
+% 	\item Ertl, Otmar, ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale, 2024 \cite{ertl2024exaloglog}: 
+% 	\SubItem{Cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.}
+% \end{itemize}
+% \end{frame}
 
 \section{Phát biểu bài toán}
 \begin{frame}[fragile]{Phát biểu bài toán}
@@ -108,132 +110,153 @@
 \end{frame}
 
 \begin{frame}{Giới hạn, đối tượng nghiên cứu}
-  \textbf{Giới hạn}:
-  \begin{itemize}
-    \item Đề tài tập trung nghiên cứu kỹ thuật đếm số lượng phần tử trên dòng dữ liệu dạng văn bản.
-    \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng được cho tất cả các loại dữ liệu.
-    \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
-  \end{itemize}
   \textbf{Đối tượng nghiên cứu}:
     \begin{itemize}
-        \item Dòng dữ liệu dạng văn bản có chứa nhiều phần tử cần đếm.
+        \item Dòng dữ liệu dạng \textbf{văn bản} có chứa nhiều phần tử cần đếm.
         \SubItem{userID, IP address, words, etc}
-        \item Các kỹ thuật đếm số lượng phần tử hiện có và mới được đề xuất.
+        \item Các kỹ thuật đếm số lượng phần tử.
     \end{itemize}
+  \textbf{Giới hạn}:
+  \begin{itemize}
+    \item Nghiên cứu kỹ thuật đếm số lượng phần tử trên \textbf{dòng dữ liệu} dạng văn bản.
+    \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng 
+    được cho tất cả các loại dữ liệu.
+    \SubItem{Hình ảnh, âm thanh ...}
+    % \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
+  \end{itemize}
+  
 \end{frame}
 
 \section{Cơ sở lý thuyết}
 
+% \begin{frame}[fragile]{Cơ sở lý thuyết}
+% \begin{itemize}
+%   \item Các thuật toán xác suất cho việc ước lượng trong thực tế là họ của LogLog:
+%   \SubItem{\textit{LogLog}, 2003}
+%   \SubItem{\textit{HyperLogLog}, 2007}
+%   \SubItem{\textit{HyperLogLog++}, 2017}
+%   \item Sử dụng phương pháp tương tự thuật toán Đếm Xác Suất
+%   \SubItem{ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
+%   của các số không dấu trong biểu diễn nhị phân}
+%   \SubItem{Hàm băm $h \gets \{0,1,...,2^M-1\}$, với độ dài $M$}
+% \end{itemize}
+% \[
+%     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
+% \]
+% \end{frame}
 \begin{frame}[fragile]{Cơ sở lý thuyết}
-\begin{itemize}
-  \item Các thuật toán xác suất cho việc ước lượng trong thực tế là họ của LogLog:
-  \SubItem{\textit{LogLog}, 2003}
-  \SubItem{\textit{HyperLogLog}, 2007}
-  \SubItem{\textit{HyperLogLog++}, 2017}
-  \item Sử dụng phương pháp tương tự thuật toán Đếm Xác Suất
-  \SubItem{ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất của các số không dấu
-  trong biểu diễn nhị phân}
-  \SubItem{Hàm băm $h \gets \{0,1,...,2^M-1\}$, với độ dài $M$}
-\end{itemize}
-\[
-    h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
-\]
-\end{frame}
-\begin{frame}[fragile]{Cơ sở lý thuyết}
-  \begin{itemize}
-    \item Bằng cách sử dụng một phần của giá trị băm $h(x)$ để chia tập dữ liệu ban
-    đầu thành một số tập con.
-    \item Phần còn lại được sử dụng để cập nhật bộ đếm dựa trên việc quan sát mẫu $0^k1$
-    \item Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải (rank)
-  \end{itemize}
+  \textbf{LogLog Algorithm}
 
-\[
-    rank(i)=\left\{
-                \begin{array}{ll}
-                    \min\limits_{i_k\neq 0}, \indent\text{for } i > 0,\\
-                    M\indent\indent\text{for } i = 0
-                \end{array}
-            \right.
-\]
+  % \vspace{0.3cm}
+  \includegraphics[scale=0.35]{loglog.png}
+  % \begin{itemize}
+%     \item Bằng cách sử dụng một phần của giá trị băm $h(x)$ để chia tập dữ liệu ban
+%     đầu thành một số tập con.
+%     \[
+%     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
+% \]
+%     \item Phần còn lại được sử dụng để cập nhật bộ đếm dựa trên việc quan sát mẫu $0^k1$
+    % \item Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải (rank)
+  % \end{itemize}
 
-\begin{itemize}
-  \item Tiết kiệm dung lượng lưu trữ và có độ chính xác cao.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{LogLog algorithm}
-\begin{itemize}
-	\item Ý tưởng cơ bản: tính \textbf{rank(h(x))}, \textbf{h} là hash func, \textbf{x} input.
-	\item Có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, hạng tối đa:
-  \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
-  \item Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
-  không thực tế. 
-  \item Để giảm sai số, \textit{LogLog} chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$. Với mỗi giá trị băm $h(x)$:
-	\SubItem{$p$ bit đầu để tính chỉ số $j = \left(i_0i_1...i_{p-1}\right)_2$} 
-  	\SubItem{(m-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$.}
-
-\end{itemize}
-
-\end{frame}
-\begin{frame}{LogLog algorithm}
-\begin{itemize}
-\item Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
-  một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
-  số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
-  của một quan sát duy nhất: 
-  \[n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j}\]
-  với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
-  \item Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
-  $\alpha_m \approx 0.39701$.
-\end{itemize}
-\end{frame}
-\begin{frame}{LogLog algorithm}
-  \begin{algorithm}[H]
-    \vspace{0.25cm}
-    \DontPrintSemicolon
-    \LinesNumberedHidden
-    \caption[]{Estimatin cardinality with \textit{LogLog}}
-    \KwIn{Dataset D}
-    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
-    \KwOut{Cardinality estimation}
-    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
-    \For{$x \in D$}{
-        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
-        $j \gets $($i_0i_1...i_{M-1})_2$\\
-        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
-        $COUNTER[j] \gets \max($COUNTER[j],r)
-    }
-    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-    \Return{$\alpha_m \cdot m \cdot 2^R$}
-    \vspace{0.25cm}
-\end{algorithm}
-\end{frame}
-
-\begin{frame}{LogLog algorithm}
-Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
+  \indent Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
 \begin{itemize}
   \item $m = 256$, $\delta \approx 8\%$
   \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
-  \item Yêu cầu lưu trữ có thể được ước tính là $O(log_2log_2n)$ bits nếu cần đến đếm đến \textbf{n}.
-  \item So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
-nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. 
-\item Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
-so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
 \end{itemize}
+% \[
+%     \rho(y)=\left\{
+%                 \begin{array}{ll}
+%                     \min\limits_{i_k\neq 0}, \indent\text{ for } i > 0,\\
+%                     M\indent\indent\text{ for } i = 0
+%                 \end{array}
+%             \right.
+% \]
 
+% \begin{itemize}
+%   \item Tiết kiệm dung lượng lưu trữ và có độ chính xác cao.
+% \end{itemize}
 \end{frame}
 
-\begin{frame}{LogLog algorithm}
-\begin{itemize}
-  \item Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
-cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.
-$log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32).
-	\item Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
-tức là tổng cộng 640 byte.
-\end{itemize}
+% \begin{frame}{LogLog algorithm}
+% \begin{itemize}
+% 	\item Ý tưởng cơ bản: tính \textbf{rank(h(x))}, \textbf{h} là hash func, \textbf{x} input.
+% 	\item Có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, hạng tối đa:
+%   \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
+%   \item Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
+%   không thực tế. 
+%   \item Để giảm sai số, \textit{LogLog} chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$. Với mỗi giá trị băm $h(x)$:
+% 	\SubItem{$p$ bit đầu để tính chỉ số $j = \left(i_0i_1...i_{p-1}\right)_2$} 
+%   	\SubItem{(m-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$.}
 
-\end{frame}
+% \end{itemize}
+
+% \end{frame}
+% \begin{frame}{LogLog algorithm}
+% \begin{itemize}
+% \item Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
+%   một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
+%   số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
+%   của một quan sát duy nhất: 
+%   \[n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j}\]
+%   với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
+%   \item Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
+%   $\alpha_m \approx 0.39701$.
+% \end{itemize}
+% \end{frame}
+% \end{frame}
+% \begin{frame}{LogLog algorithm}
+% \includegraphics[scale=0.35]{loglog.png}
+% \end{frame}
+% \begin{frame}{LogLog algorithm}
+%   \begin{algorithm}[H]
+%     \vspace{0.25cm}
+%     \DontPrintSemicolon
+%     \LinesNumberedHidden
+%     \caption[]{Estimatin cardinality with \textit{LogLog}}
+%     \KwIn{Dataset D}
+%     \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+%     \KwOut{Cardinality estimation}
+%     $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+%     \For{$x \in D$}{
+%         $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+%         $j \gets $($i_0i_1...i_{M-1})_2$\\
+%         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+%         $COUNTER[j] \gets \max($COUNTER[j],r)
+%     }
+%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+%     \Return{$\alpha_m \cdot m \cdot 2^R$}
+%     \vspace{0.25cm}
+% \end{algorithm}
+% \end{frame}
+
+% \begin{frame}{LogLog algorithm}
+% Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
+% \[\delta \approx \frac{1.3}{\sqrt{m}}\]
+% \begin{itemize}
+%   \item $m = 256$, $\delta \approx 8\%$
+%   \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
+% %   \item Yêu cầu lưu trữ có thể được ước tính là $O(log_2log_2n)$ bits nếu cần đến đếm đến \textbf{n}.
+% %   \item So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
+% % nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. 
+% % \item Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
+% % so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
+% \end{itemize}
+
+% \end{frame}
+
+% \begin{frame}{LogLog algorithm}
+% \begin{itemize}
+%   \item Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là 
+%   khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
+% cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.
+% $log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32).
+% 	\item Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
+% tức là tổng cộng 640 byte.
+% \end{itemize}
+
+% \end{frame}
 
 \begin{frame}{HyperLogLog algorithm}
 \begin{itemize}
@@ -252,93 +275,97 @@ tức là tổng cộng 640 byte.
       \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
   \]
 \end{frame}
-\begin{frame}{HyperLogLog algorithm}
-  Ý tưởng đằng sau việc sử dụng trung bình điều hòa là nó giảm phương sai do tính chất của nó để kiểm soát các phân phối xác suất lệch.\\
-  \begin{center}
-      \textbf{Table 1:} $\alpha_m$ for most used values of $m$\\
-      \begin{tabular}{ |c|c| }
-          \multicolumn{2}{}{} \\ \hline
-          m & $\alpha_m$ \\ \hline
-          64 &  0.673 \\ \hline
-          256 & 0.697 \\ \hline
-          1024 & 0.709 \\ \hline
-          $\ge 2^7$ & $\frac{0.7213 \cdot m}{m + 1.079}$ \\ \hline
-      \end{tabular}
-  \end{center}
-\end{frame}
-\begin{frame}{HyperLogLog algorithm}
-  Tuy nhiên, ước lượng $\hat{\textbf{n}}$ yêu cầu một sự điều chỉnh cho các phạm vi nhỏ và lớn do lỗi phi tuyến. Flajolet và các đồng nghiệp 
-  đã tìm thấy từ kinh nghiệm rằng đối với các định lượng nhỏ $n < \frac{5}{2}m$ để đạt được ước lượng tốt hơn, thuật toán \textit{HyperLogLog} 
-  có thể được sửa lỗi bằng Đếm Tuyến Tính bằng cách sử dụng một số bộ đếm COUNTER[j] khác không (nếu một bộ đếm có giá trị là không, 
-  chúng ta có thể nói chắc chắn rằng tập con cụ thể đó là trống).\\
+% \begin{frame}{HyperLogLog algorithm}
+%   Ý tưởng đằng sau việc sử dụng trung bình điều hòa là nó giảm phương sai do tính chất của nó để kiểm soát các phân phối xác suất lệch.\\
+%   \begin{center}
+%       \textbf{Table 1:} $\alpha_m$ for most used values of $m$\\
+%       \begin{tabular}{ |c|c| }
+%           \multicolumn{2}{}{} \\ \hline
+%           m & $\alpha_m$ \\ \hline
+%           64 &  0.673 \\ \hline
+%           256 & 0.697 \\ \hline
+%           1024 & 0.709 \\ \hline
+%           $\ge 2^7$ & $\frac{0.7213 \cdot m}{m + 1.079}$ \\ \hline
+%       \end{tabular}
+%   \end{center}
+% \end{frame}
+% \begin{frame}{HyperLogLog algorithm}
+%   Tuy nhiên, ước lượng $\hat{\textbf{n}}$ yêu cầu một sự điều chỉnh cho các phạm vi nhỏ và lớn do lỗi phi tuyến. Flajolet và các đồng nghiệp 
+%   đã tìm thấy từ kinh nghiệm rằng đối với các định lượng nhỏ $n < \frac{5}{2}m$ để đạt được ước lượng tốt hơn, thuật toán \textit{HyperLogLog} 
+%   có thể được sửa lỗi bằng Đếm Tuyến Tính bằng cách sử dụng một số bộ đếm COUNTER[j] khác không (nếu một bộ đếm có giá trị là không, 
+%   chúng ta có thể nói chắc chắn rằng tập con cụ thể đó là trống).\\
   
-  Do đó, cho các phạm vi định lượng khác nhau, được biểu diễn dưới dạng các khoảng trên ước lượng $\hat{n}$, 
-  thuật toán cung cấp các sửa lỗi sau:
-  \[
-      n = \left\{ \begin{array}{lcl}
-          \text{LINEARCOUNTER,} & \hat{n} \leq \frac{5}{2}m \mbox{ and } \exists_j : COUNTER[j] \neq 0 \\ 
-          -2^{32}\log\left(1-\frac{\hat{n}}{2^{32}}\right), & \hat{n}>\frac{1}{30}2^{32} \\
-          \hat{n}, & \textit{otherwise.}
-          \end{array}\right.    
-  \]
-\end{frame}
-\begin{frame}{HyperLogLog algorithm}
-  Tuy nhiên, đối với $n = 0$, sự sửa lỗi có vẻ không đủ và thuật toán luôn trả về một kết quả xấp xỉ $0.7m$.\\
-  Vì thuật toán \textit{HyperLogLog} sử dụng một hàm băm 32-bit, khi định lượng tiến gần đến $2^{32}\approx 4 \cdot 10^9$, 
-  hàm băm gần như đạt đến giới hạn của nó và xác suất va chạm tăng lên. Đối với các phạm vi lớn như vậy, thuật toán \textit{HyperLogLog} 
-  ước lượng số lượng giá trị băm khác nhau và sử dụng nó để xấp xỉ định lượng. Tuy nhiên, trong thực tế, có nguy cơ rằng một số lượng cao hơn 
-  không thể được đại diện và sẽ bị mất, ảnh hưởng đến độ chính xác.\\
+%   Do đó, cho các phạm vi định lượng khác nhau, được biểu diễn dưới dạng các khoảng trên ước lượng $\hat{n}$, 
+%   thuật toán cung cấp các sửa lỗi sau:
+%   \[
+%       n = \left\{ \begin{array}{lcl}
+%           \text{LINEARCOUNTER,} & \hat{n} \leq \frac{5}{2}m \mbox{ and } \exists_j : COUNTER[j] \neq 0 \\ 
+%           -2^{32}\log\left(1-\frac{\hat{n}}{2^{32}}\right), & \hat{n}>\frac{1}{30}2^{32} \\
+%           \hat{n}, & \textit{otherwise.}
+%           \end{array}\right.    
+%   \]
+% \end{frame}
+% \begin{frame}{HyperLogLog algorithm}
+%   Tuy nhiên, đối với $n = 0$, sự sửa lỗi có vẻ không đủ và thuật toán luôn trả về một kết quả xấp xỉ $0.7m$.\\
+%   Vì thuật toán \textit{HyperLogLog} sử dụng một hàm băm 32-bit, khi định lượng tiến gần đến $2^{32}\approx 4 \cdot 10^9$, 
+%   hàm băm gần như đạt đến giới hạn của nó và xác suất va chạm tăng lên. Đối với các phạm vi lớn như vậy, thuật toán \textit{HyperLogLog} 
+%   ước lượng số lượng giá trị băm khác nhau và sử dụng nó để xấp xỉ định lượng. Tuy nhiên, trong thực tế, có nguy cơ rằng một số lượng cao hơn 
+%   không thể được đại diện và sẽ bị mất, ảnh hưởng đến độ chính xác.\\
   
-  \begin{quote}
-      Xem xét một hàm băm mà ánh xạ vũ trụ thành các giá trị có độ dài M bit. Tối đa, một hàm như vậy có thể mã hóa $2^M$ 
-      giá trị khác nhau và nếu định lượng ước lượng $n$ tiến dần đến giới hạn này, đụng độ hàm băm trở nên ngày càng có khả năng xảy ra.
-      \vspace{0.25cm}
-  \end{quote}
-  \newpage
-  \indent Không có bằng chứng cho thấy một số hàm băm phổ biến (ví dụ: MurmurHash3, MD5, SHA-1, SHA-256) 
-  hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.
+%   \begin{quote}
+%       Xem xét một hàm băm mà ánh xạ vũ trụ thành các giá trị có độ dài M bit. Tối đa, một hàm như vậy có thể mã hóa $2^M$ 
+%       giá trị khác nhau và nếu định lượng ước lượng $n$ tiến dần đến giới hạn này, đụng độ hàm băm trở nên ngày càng có khả năng xảy ra.
+%       \vspace{0.25cm}
+%   \end{quote}
+%   \newpage
+%   \indent Không có bằng chứng cho thấy một số hàm băm phổ biến (ví dụ: MurmurHash3, MD5, SHA-1, SHA-256) 
+%   hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.
+% \end{frame}
+\begin{frame}{HyperLogLog algorithm}
+  \includegraphics[scale=.42]{hyperloglog.png}
 \end{frame}
-\begin{frame}{HyperLogLog algorithm (1/2)}
-  \begin{algorithm}[H]
-    \DontPrintSemicolon
-%    \LinesNumberedHidden
-    \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
-    \KwIn{Dataset D}
-    \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
-    \KwOut{Cardinality estimation}
-    $COUNTER[j] \gets $0, $j = 0...m - 1$\\
-    \For{$x \in D$}{
-        $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
-        $j \gets $($i_0i_1...i_{M-1})_2$\\
-        $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
-        $COUNTER[j] \gets \max($COUNTER[j],r)
-    }
-    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-    $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
-    $n \gets \hat{n}$ \\
 
-\end{algorithm}
-\end{frame}
-\begin{frame}{HyperLogLog algorithm (2/2)}
-  \begin{algorithm}[H]
-    \DontPrintSemicolon
-    \LinesNumberedHidden
+% \begin{frame}{HyperLogLog algorithm (1/2)}
+%   \begin{algorithm}[H]
+%     \DontPrintSemicolon
+% %    \LinesNumberedHidden
+%     \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
+%     \KwIn{Dataset D}
+%     \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
+%     \KwOut{Cardinality estimation}
+%     $COUNTER[j] \gets $0, $j = 0...m - 1$\\
+%     \For{$x \in D$}{
+%         $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
+%         $j \gets $($i_0i_1...i_{M-1})_2$\\
+%         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
+%         $COUNTER[j] \gets \max($COUNTER[j],r)
+%     }
+%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+%     $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
+%     $n \gets \hat{n}$ \\
 
-    $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-    $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
-    $n \gets \hat{n}$ \\
-    \If{$\hat{n} \le \frac{5}{2}m$}
-    {
-        $Z \gets \underset{j=0...m-1}{count}\left(COUNTER[j] == 0\right)$\\
-        \If{$Z \ne 0$}{$n \gets m \cdot \log\left(\frac{m}{Z}\right)$}
-    }
-    \ElseIf{$\hat{n} > \frac{1}{30}2^{32}$}
-    {
-        $n \gets -2^{32}\cdot\log\left(1-\frac{n}{2^{32}}\right)$
-    }
-    \Return{$n$}
-\end{algorithm}
-\end{frame}
+% \end{algorithm}
+% \end{frame}
+% \begin{frame}{HyperLogLog algorithm (2/2)}
+%   \begin{algorithm}[H]
+%     \DontPrintSemicolon
+%     \LinesNumberedHidden
+
+%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
+%     $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
+%     $n \gets \hat{n}$ \\
+%     \If{$\hat{n} \le \frac{5}{2}m$}
+%     {
+%         $Z \gets \underset{j=0...m-1}{count}\left(COUNTER[j] == 0\right)$\\
+%         \If{$Z \ne 0$}{$n \gets m \cdot \log\left(\frac{m}{Z}\right)$}
+%     }
+%     \ElseIf{$\hat{n} > \frac{1}{30}2^{32}$}
+%     {
+%         $n \gets -2^{32}\cdot\log\left(1-\frac{n}{2^{32}}\right)$
+%     }
+%     \Return{$n$}
+% \end{algorithm}
+% \end{frame}
 \begin{frame}{HyperLogLog algorithm}
 \begin{itemize}
 	\item Tương tự LogLog, sai số tiêu chuẩn $\delta$: \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
