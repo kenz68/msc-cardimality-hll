@@ -323,7 +323,7 @@
 % \end{frame}
 \begin{frame}{HyperLogLog algorithm}
   \includegraphics[scale=.5]{raw_hll.png}
-  \indent Với $\alpha_m$
+  \indent Với $\alpha_m$:
   \[
       \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1} \hspace{1cm}(3)  
   \]
@@ -476,58 +476,58 @@ nhân thêm số lượng ngày:
 \end{center} 
 \end{frame}
 
-\begin{frame}[fragile]{Tối ưu hóa dung lượng bộ nhớ}
-  \begin{itemize}
-    \item Redis sử dụng "sparse representation" cho các bộ đếm nhỏ hơn, 
-    giúp tiết kiệm bộ nhớ khi số lượng phần tử trong HyperLogLog còn ít.
-    \item Khi số lượng phần tử tăng, Redis chuyển sang "dense representation" 
-    để đảm bảo độ chính xác và hiệu suất.
-    \item Redis tự động chuyển đổi giữa hai biểu diễn này dựa trên số lượng 
-    phần tử và mức độ lấp đầy của các thanh ghi, giúp tối ưu hóa việc 
-    sử dụng bộ nhớ và đảm bảo độ chính xác cao trong ước lượng số lượng 
-    phần tử duy nhất.
-  \end{itemize}
-\end{frame}
+% \begin{frame}[fragile]{Tối ưu hóa dung lượng bộ nhớ}
+%   \begin{itemize}
+%     \item Redis sử dụng "sparse representation" cho các bộ đếm nhỏ hơn, 
+%     giúp tiết kiệm bộ nhớ khi số lượng phần tử trong HyperLogLog còn ít.
+%     \item Khi số lượng phần tử tăng, Redis chuyển sang "dense representation" 
+%     để đảm bảo độ chính xác và hiệu suất.
+%     \item Redis tự động chuyển đổi giữa hai biểu diễn này dựa trên số lượng 
+%     phần tử và mức độ lấp đầy của các thanh ghi, giúp tối ưu hóa việc 
+%     sử dụng bộ nhớ và đảm bảo độ chính xác cao trong ước lượng số lượng 
+%     phần tử duy nhất.
+%   \end{itemize}
+% \end{frame}
 
-\begin{frame}[fragile]{Sparse Representation}
-  \textbf{Đặc điểm:}
-  \begin{itemize}
-    \item \textbf{Tiết kiệm bộ nhớ}: Sparse Representation được thiết kế để 
-    tiết kiệm bộ nhớ khi số lượng phần tử trong tập hợp còn ít.
-    \item \textbf{Cấu trúc nén}: Lưu trữ các cặp (index, value) để chỉ 
-    lưu trữ thông tin cần thiết về các thanh ghi được cập nhật.
-    \item \textbf{Hiệu quả cho các tập hợp nhỏ}: Rất hiệu quả khi số lượng 
-    phần tử còn ít, vì không cần lưu trữ toàn bộ 16384 thanh ghi.
-  \end{itemize}
-  \textbf{Ước lượng số phần tử:}
-  \begin{itemize}
-    \item \textbf{Cơ chế hoạt động}: Các giá trị băm của phần tử được ánh xạ 
-    tới một trong 16384 thanh ghi, nhưng chỉ các thanh ghi có giá trị 
-    khác 0 mới được lưu trữ.
-    \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong sparse representation tương tự như trong dense representation khi số lượng phần tử còn nhỏ, vì các thanh ghi được quản lý chặt chẽ và thông tin được lưu trữ một cách nén.
-  \end{itemize}
-\end{frame}
+% \begin{frame}[fragile]{Sparse Representation}
+%   \textbf{Đặc điểm:}
+%   \begin{itemize}
+%     \item \textbf{Tiết kiệm bộ nhớ}: Sparse Representation được thiết kế để 
+%     tiết kiệm bộ nhớ khi số lượng phần tử trong tập hợp còn ít.
+%     \item \textbf{Cấu trúc nén}: Lưu trữ các cặp (index, value) để chỉ 
+%     lưu trữ thông tin cần thiết về các thanh ghi được cập nhật.
+%     \item \textbf{Hiệu quả cho các tập hợp nhỏ}: Rất hiệu quả khi số lượng 
+%     phần tử còn ít, vì không cần lưu trữ toàn bộ 16384 thanh ghi.
+%   \end{itemize}
+%   \textbf{Ước lượng số phần tử:}
+%   \begin{itemize}
+%     \item \textbf{Cơ chế hoạt động}: Các giá trị băm của phần tử được ánh xạ 
+%     tới một trong 16384 thanh ghi, nhưng chỉ các thanh ghi có giá trị 
+%     khác 0 mới được lưu trữ.
+%     \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong sparse representation tương tự như trong dense representation khi số lượng phần tử còn nhỏ, vì các thanh ghi được quản lý chặt chẽ và thông tin được lưu trữ một cách nén.
+%   \end{itemize}
+% \end{frame}
 
-\begin{frame}[fragile]{Dense Representation}
-  \textbf{Đặc điểm:}
-  \begin{itemize}
-    \item \textbf{Sử dụng bộ nhớ cố định}:  Khi số lượng phần tử lớn, 
-    HyperLogLog chuyển sang Dense Representation, lưu trữ toàn bộ mảng 16384 
-    thanh ghi với mỗi thanh ghi sử dụng 6 bit.
-    \item \textbf{Hiệu quả cho các tập hợp lớn}: Dense Representation trở nên 
-    hiệu quả hơn khi số lượng phần tử tăng, vì việc nén không còn mang lại 
-    lợi ích về bộ nhớ so với việc lưu trữ toàn bộ thanh ghi.
-  \end{itemize}
-  \textbf{Ước lượng số phần tử:}
-  \begin{itemize}
-    \item \textbf{Cơ chế hoạt động}: Tương tự như sparse representation, 
-    nhưng toàn bộ mảng thanh ghi được lưu trữ và sử dụng để tính toán 
-    ước lượng.
-    \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong 
-    dense representation cao hơn khi số lượng phần tử lớn, vì nó có thể 
-    quản lý thông tin của tất cả các thanh ghi mà không cần nén.
-  \end{itemize}
-\end{frame}
+% \begin{frame}[fragile]{Dense Representation}
+%   \textbf{Đặc điểm:}
+%   \begin{itemize}
+%     \item \textbf{Sử dụng bộ nhớ cố định}:  Khi số lượng phần tử lớn, 
+%     HyperLogLog chuyển sang Dense Representation, lưu trữ toàn bộ mảng 16384 
+%     thanh ghi với mỗi thanh ghi sử dụng 6 bit.
+%     \item \textbf{Hiệu quả cho các tập hợp lớn}: Dense Representation trở nên 
+%     hiệu quả hơn khi số lượng phần tử tăng, vì việc nén không còn mang lại 
+%     lợi ích về bộ nhớ so với việc lưu trữ toàn bộ thanh ghi.
+%   \end{itemize}
+%   \textbf{Ước lượng số phần tử:}
+%   \begin{itemize}
+%     \item \textbf{Cơ chế hoạt động}: Tương tự như sparse representation, 
+%     nhưng toàn bộ mảng thanh ghi được lưu trữ và sử dụng để tính toán 
+%     ước lượng.
+%     \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong 
+%     dense representation cao hơn khi số lượng phần tử lớn, vì nó có thể 
+%     quản lý thông tin của tất cả các thanh ghi mà không cần nén.
+%   \end{itemize}
+% \end{frame}
 
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
@@ -635,13 +635,21 @@ một khoảng thời gian trên một dòng dữ liệu (data stream):
 %   slides in the appendix.
 % \end{frame}
 
-\begin{frame}[allowframebreaks]{Tài liệu tham khảo}
+\begin{frame}[fragile]{Tài liệu tham khảo}
   \bibliography{ref}
   \bibliographystyle{ieeetr}
 \end{frame}
 
-\begin{frame}[standout]
-  Questions?
+\begin{frame}[fragile]
+  \begin{center}
+    \LARGE \textbf{Q \& A}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{center}
+    \LARGE \textbf{Chân thành cảm ơn!}
+  \end{center}
 \end{frame}
 
 \end{document}
