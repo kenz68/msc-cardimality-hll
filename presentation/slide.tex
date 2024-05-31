@@ -27,8 +27,8 @@
   autogobble=true, % Removes indentation based on first line
 }
 
-\title{Đề cương luận văn thạc sĩ}
-\subtitle{Nghiên cứu phát triển kỹ thuật đếm số phần tử \\ \hspace{2.4cm} trên dòng dữ liệu}
+\title{Nghiên cứu phát triển kỹ thuật đếm\\ số phần tử  trên dòng dữ liệu}
+% \subtitle{Nghiên cứu phát triển kỹ thuật đếm số phần tử \\ \hspace{2.4cm} trên dòng dữ liệu}
 \date{Người hướng dẫn khoa học: \hspace{0.5cm}PGS. TS. THOẠI NAM}
 \author{Học viên: Lê Anh Quốc \hspace{1cm} ID: 2070428}
 %\institute{\today}
@@ -59,17 +59,6 @@
   \SubItem{Tổng hợp DAU từ nhiều nguồn dữ liệu khác nhau.}
 \end{itemize}
 \end{frame}
-% \begin{frame}[fragile]{Giới thiệu}
-% \begin{itemize}
-%   \item Thách thức:
-%   \SubItem{Đếm DAU trên dữ liệu lớn và tốc độ truy cập cao.}
-%   \SubItem{Tổng hợp DAU từ nhiều nguồn dữ liệu khác nhau.}
-%   \SubItem{Đếm DAU theo nhiều khoảng thời gian và tiêu chí khác nhau.}
-%   \item Giải pháp:
-%   \SubItem{Sử dụng các thuật toán đếm hiệu suất cao và tin cậy.}
-%   \SubItem{Xây dựng hệ thống tổng hợp dữ liệu linh hoạt và đồng bộ.}
-% \end{itemize}
-% \end{frame}
 
 \section{Các công trình nghiên cứu liên quan}
 \begin{frame}{Các công trình nghiên cứu liên quan}
@@ -82,14 +71,6 @@
 	\SubItem{Phiên bản nâng cấp của HyperLogLog với độ chính xác cao hơn và yêu cầu bộ nhớ ít hơn.}
 \end{itemize}
 \end{frame}
-% \begin{frame}{Các công trình nghiên cứu liên quan}
-% \begin{itemize}
-% 	\item Chabchoub, Yousra and He{\'e}brail, Georges, Sliding hyperloglog: Estimating cardinality in a data stream over a sliding window, 2010 \cite{chabchoub2010sliding}: 
-% 	\SubItem{Cung cấp ước lượng chính xác số lượng phần tử duy nhất trong dòng dữ liệu liên tục theo cơ chế cửa sổ trượt, sử dụng bộ nhớ hiệu quả. Nó đặc biệt hữu ích cho giám sát thời gian thực và phân tích dữ liệu liên tục.}
-% 	\item Ertl, Otmar, ExaLogLog: Space-Efficient and Practical Approximate Distinct Counting up to the Exa-Scale, 2024 \cite{ertl2024exaloglog}: 
-% 	\SubItem{Cấu trúc dữ liệu mới cho việc đếm độc lập xấp xỉ, tương tự như HyperLogLog, nhưng tiêu tốn ít hơn 43\% không gian với cùng lỗi ước lượng.}
-% \end{itemize}
-% \end{frame}
 
 \section{Phát biểu bài toán}
 \begin{frame}[fragile]{Phát biểu bài toán}
@@ -105,7 +86,7 @@
       \item Phát triển kỹ thuật đếm số lượng phần tử hiệu quả, có chính xác cao trên dòng dữ liệu.
       \item Nâng cao hiệu suất xử lý dữ liệu lớn, đáp ứng nhu cầu ngày càng tăng trong kỷ nguyên số.
       \item Thực hiện, phân tích kết quả thí nghiệm, rút ra kết luận và đề xuất hướng nghiên cứu tiếp theo.
-      \item Đóng góp vào sự phát triển của công nghệ dữ liệu lớn, mở ra tiềm năng ứng dụng rộng lớn trong nhiều lĩnh vực.
+      \item Đóng góp vào sự phát triển của công nghệ dữ liệu lớn, mở ra tiềm năng ứng dụng trong nhiều lĩnh vực.
   \end{itemize}
 \end{frame}
 
@@ -122,141 +103,22 @@
     \item Các kỹ thuật được đề xuất và triển khai có thể chưa áp dụng 
     được cho tất cả các loại dữ liệu.
     \SubItem{Hình ảnh, âm thanh ...}
-    % \item Nghiên cứu chỉ giới hạn trong thời gian cho phép.
   \end{itemize}
   
 \end{frame}
 
 \section{Cơ sở lý thuyết}
 
-% \begin{frame}[fragile]{Cơ sở lý thuyết}
-% \begin{itemize}
-%   \item Các thuật toán xác suất cho việc ước lượng trong thực tế là họ của LogLog:
-%   \SubItem{\textit{LogLog}, 2003}
-%   \SubItem{\textit{HyperLogLog}, 2007}
-%   \SubItem{\textit{HyperLogLog++}, 2017}
-%   \item Sử dụng phương pháp tương tự thuật toán Đếm Xác Suất
-%   \SubItem{ước lượng số lượng $n$ bằng cách quan sát số lượng lớn nhất 
-%   của các số không dấu trong biểu diễn nhị phân}
-%   \SubItem{Hàm băm $h \gets \{0,1,...,2^M-1\}$, với độ dài $M$}
-% \end{itemize}
-% \[
-%     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
-% \]
-% \end{frame}
 \begin{frame}[fragile]{Cơ sở lý thuyết}
   \textbf{LogLog Algorithm}
-
-  % \vspace{0.3cm}
   \includegraphics[scale=0.35]{loglog.png}
-  % \begin{itemize}
-%     \item Bằng cách sử dụng một phần của giá trị băm $h(x)$ để chia tập dữ liệu ban
-%     đầu thành một số tập con.
-%     \[
-%     h(x) = j = \sum\limits_{k=0}^{M-1}j_k\cdot2^k := \left(i_0i_1...i_{M-1}\right)_2,i_k \in \{0,1\}
-% \]
-%     \item Phần còn lại được sử dụng để cập nhật bộ đếm dựa trên việc quan sát mẫu $0^k1$
-    % \item Hạng tương đương với vị trí bit 1 đầu tiên từ trái qua phải (rank)
-  % \end{itemize}
-
   \indent Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
 \[\delta \approx \frac{1.3}{\sqrt{m}}\]
 \begin{itemize}
   \item $m = 256$, $\delta \approx 8\%$
   \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
 \end{itemize}
-% \[
-%     \rho(y)=\left\{
-%                 \begin{array}{ll}
-%                     \min\limits_{i_k\neq 0}, \indent\text{ for } i > 0,\\
-%                     M\indent\indent\text{ for } i = 0
-%                 \end{array}
-%             \right.
-% \]
-
-% \begin{itemize}
-%   \item Tiết kiệm dung lượng lưu trữ và có độ chính xác cao.
-% \end{itemize}
 \end{frame}
-
-% \begin{frame}{LogLog algorithm}
-% \begin{itemize}
-% 	\item Ý tưởng cơ bản: tính \textbf{rank(h(x))}, \textbf{h} là hash func, \textbf{x} input.
-% 	\item Có thể mong đợi rằng khoảng $\frac{n}{2^k}$ phần tử có thể có $rank(\cdot) = k$, $n$ là tổng số phần tử được lập chỉ mục vào một bộ đếm, hạng tối đa:
-%   \[R = \underset{x \in D}{\max}\left(rank(x)\right) \approx log_2n.\]
-%   \item Tuy nhiên, ước lượng như vậy có sai số khoảng $\pm1.87$ lần nhị phân, điều này 
-%   không thực tế. 
-%   \item Để giảm sai số, \textit{LogLog} chia tập dữ liệu thành $m = 2^p$ tập con $S_0, S_1,..., S_{m-1}$. Với mỗi giá trị băm $h(x)$:
-% 	\SubItem{$p$ bit đầu để tính chỉ số $j = \left(i_0i_1...i_{p-1}\right)_2$} 
-%   	\SubItem{(m-p) bit được lập chỉ mục vào bộ đếm tương ứng COUNTER[j] để tính hạng và quan sát $R_j$.}
-
-% \end{itemize}
-
-% \end{frame}
-% \begin{frame}{LogLog algorithm}
-% \begin{itemize}
-% \item Dưới sự phân phối công bằng, mỗi tập con nhận $\frac{n}{m}$ phần tử, do đó quan sát $R_j$ từ các bộ đếm $\{COUNTER[j]\}_{j=0}^{m-1}$ có thể cung cấp 
-%   một dấu hiệu về giá trị của $\log_2{\frac{n}{m}}$, và bằng cách sử dụng trung bình 
-%   số học của chúng với một số sự hiệu chỉnh, chúng ta có thể giảm thiểu phương sai 
-%   của một quan sát duy nhất: 
-%   \[n = \alpha_m \cdot m \cdot 2 ^{\frac{1}{m}\sum\limits_{j=0}^{m-1}R_j}\]
-%   với $\alpha_m = \left(\Gamma\left(-\frac{1}{m}\right)\cdot \frac{1-2\frac{1}{m}}{\log_2}\right)^m$, $\Gamma(\cdot)$ là gamma function.\\ 
-%   \item Tuy nhiên, đối với hầu hết các trường hợp thực tế, $m \geq 64$ là đủ để chỉ sử dụng 
-%   $\alpha_m \approx 0.39701$.
-% \end{itemize}
-% \end{frame}
-% \end{frame}
-% \begin{frame}{LogLog algorithm}
-% \includegraphics[scale=0.35]{loglog.png}
-% \end{frame}
-% \begin{frame}{LogLog algorithm}
-%   \begin{algorithm}[H]
-%     \vspace{0.25cm}
-%     \DontPrintSemicolon
-%     \LinesNumberedHidden
-%     \caption[]{Estimatin cardinality with \textit{LogLog}}
-%     \KwIn{Dataset D}
-%     \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
-%     \KwOut{Cardinality estimation}
-%     $COUNTER[j] \gets $0, $j = 0...m - 1$\\
-%     \For{$x \in D$}{
-%         $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
-%         $j \gets $($i_0i_1...i_{M-1})_2$\\
-%         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
-%         $COUNTER[j] \gets \max($COUNTER[j],r)
-%     }
-%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-%     \Return{$\alpha_m \cdot m \cdot 2^R$}
-%     \vspace{0.25cm}
-% \end{algorithm}
-% \end{frame}
-
-% \begin{frame}{LogLog algorithm}
-% Sai số tiêu chuẩn $\delta$ của thuật toán \textit{LogLog}:
-% \[\delta \approx \frac{1.3}{\sqrt{m}}\]
-% \begin{itemize}
-%   \item $m = 256$, $\delta \approx 8\%$
-%   \item $m = 1024$, nó giảm xuống còn khoảng 4\%.
-% %   \item Yêu cầu lưu trữ có thể được ước tính là $O(log_2log_2n)$ bits nếu cần đến đếm đến \textbf{n}.
-% %   \item So sánh với thuật toán Đếm Xác suất trong đó mỗi bộ đếm yêu cầu 16 hoặc 32 bit, thuật toán \textit{LogLog} yêu cầu bộ đếm nhỏ hơn 
-% % nhiều $\{COUNTER[j]\}_{j=0}^{m-1}$, thường là 5 bit mỗi bộ đếm. 
-% % \item Tuy nhiên, trong khi thuật toán \textit{LogLog} cung cấp hiệu quả lưu trữ tốt hơn 
-% % so với thuật toán Đếm Xác suất, nó đôi chút ít chính xác hơn.
-% \end{itemize}
-
-% \end{frame}
-
-% \begin{frame}{LogLog algorithm}
-% \begin{itemize}
-%   \item Giả sử chúng ta cần đếm định lượng cho đến $2^{30}$, tức là 
-%   khoảng 1 tỷ, với độ chính xác khoảng 4\%. Như đã đề cập, cho sai số tiêu chuẩn như vậy, 
-% cần $m = 1024$ ngăn, mỗi ngăn sẽ nhận xấp xỉ $\frac{n}{m} = 2^{20}$ phần tử.
-% $log_2\left(log_{2}2^{20}\right) \approx 4.32$, do đó, chỉ cần phân bổ khoảng 5 bit cho mỗi ngăn (tức là một giá trị nhỏ hơn 32).
-% 	\item Do đó, để ước lượng định lượng lên đến khoảng $10^9$ với sai số tiêu chuẩn là 4\%, thuật toán yêu cầu 1024 ngăn với 5 bit mỗi ngăn, 
-% tức là tổng cộng 640 byte.
-% \end{itemize}
-
-% \end{frame}
 
 \begin{frame}{HyperLogLog algorithm}
 \begin{itemize}
@@ -267,116 +129,25 @@
   \item Sử dụng trung bình điều hoà (\textbf{hamonic} mean) thay vì sử dụng trung bình hình học (geometric mean) như phiên bản gốc LogLog
 
 \end{itemize}
-% \[
-%       \hat{n} \approx \alpha_m \cdot m^2 \cdot \left(\sum_{j=0}^{m-1}2^{-COUNTER[j]}\right),
-%   \]
-%   \indent với
-%   \[
-%       \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1}.    
-%   \]
+
 \end{frame}
-% \begin{frame}{HyperLogLog algorithm}
-%   Ý tưởng đằng sau việc sử dụng trung bình điều hòa là nó giảm phương sai do tính chất của nó để kiểm soát các phân phối xác suất lệch.\\
-%   \begin{center}
-%       \textbf{Table 1:} $\alpha_m$ for most used values of $m$\\
-%       \begin{tabular}{ |c|c| }
-%           \multicolumn{2}{}{} \\ \hline
-%           m & $\alpha_m$ \\ \hline
-%           64 &  0.673 \\ \hline
-%           256 & 0.697 \\ \hline
-%           1024 & 0.709 \\ \hline
-%           $\ge 2^7$ & $\frac{0.7213 \cdot m}{m + 1.079}$ \\ \hline
-%       \end{tabular}
-%   \end{center}
-% \end{frame}
-% \begin{frame}{HyperLogLog algorithm}
-%   Tuy nhiên, ước lượng $\hat{\textbf{n}}$ yêu cầu một sự điều chỉnh cho các phạm vi nhỏ và lớn do lỗi phi tuyến. Flajolet và các đồng nghiệp 
-%   đã tìm thấy từ kinh nghiệm rằng đối với các định lượng nhỏ $n < \frac{5}{2}m$ để đạt được ước lượng tốt hơn, thuật toán \textit{HyperLogLog} 
-%   có thể được sửa lỗi bằng Đếm Tuyến Tính bằng cách sử dụng một số bộ đếm COUNTER[j] khác không (nếu một bộ đếm có giá trị là không, 
-%   chúng ta có thể nói chắc chắn rằng tập con cụ thể đó là trống).\\
-  
-%   Do đó, cho các phạm vi định lượng khác nhau, được biểu diễn dưới dạng các khoảng trên ước lượng $\hat{n}$, 
-%   thuật toán cung cấp các sửa lỗi sau:
-%   \[
-%       n = \left\{ \begin{array}{lcl}
-%           \text{LINEARCOUNTER,} & \hat{n} \leq \frac{5}{2}m \mbox{ and } \exists_j : COUNTER[j] \neq 0 \\ 
-%           -2^{32}\log\left(1-\frac{\hat{n}}{2^{32}}\right), & \hat{n}>\frac{1}{30}2^{32} \\
-%           \hat{n}, & \textit{otherwise.}
-%           \end{array}\right.    
-%   \]
-% \end{frame}
-% \begin{frame}{HyperLogLog algorithm}
-%   Tuy nhiên, đối với $n = 0$, sự sửa lỗi có vẻ không đủ và thuật toán luôn trả về một kết quả xấp xỉ $0.7m$.\\
-%   Vì thuật toán \textit{HyperLogLog} sử dụng một hàm băm 32-bit, khi định lượng tiến gần đến $2^{32}\approx 4 \cdot 10^9$, 
-%   hàm băm gần như đạt đến giới hạn của nó và xác suất va chạm tăng lên. Đối với các phạm vi lớn như vậy, thuật toán \textit{HyperLogLog} 
-%   ước lượng số lượng giá trị băm khác nhau và sử dụng nó để xấp xỉ định lượng. Tuy nhiên, trong thực tế, có nguy cơ rằng một số lượng cao hơn 
-%   không thể được đại diện và sẽ bị mất, ảnh hưởng đến độ chính xác.\\
-  
-%   \begin{quote}
-%       Xem xét một hàm băm mà ánh xạ vũ trụ thành các giá trị có độ dài M bit. Tối đa, một hàm như vậy có thể mã hóa $2^M$ 
-%       giá trị khác nhau và nếu định lượng ước lượng $n$ tiến dần đến giới hạn này, đụng độ hàm băm trở nên ngày càng có khả năng xảy ra.
-%       \vspace{0.25cm}
-%   \end{quote}
-%   \newpage
-%   \indent Không có bằng chứng cho thấy một số hàm băm phổ biến (ví dụ: MurmurHash3, MD5, SHA-1, SHA-256) 
-%   hoạt động đáng kể tốt hơn các hàm khác trong các thuật toán \textit{HyperLogLog} hoặc các biến thể của nó.
-% \end{frame}
 \begin{frame}{HyperLogLog algorithm}
-  \includegraphics[scale=.5]{raw_hll.png}
+  \includegraphics[scale=.468]{raw_hll.png}
   \indent Với $\alpha_m$:
   \[
       \alpha_m = \left(m\int_0^\infty\left(\log_2\left(\frac{2+x}{1+x}\right)\right)^m\text{dx}\right)^{-1} \hspace{1cm}(3)  
   \]
 \end{frame}
 
-% \begin{frame}{HyperLogLog algorithm (1/2)}
-%   \begin{algorithm}[H]
-%     \DontPrintSemicolon
-% %    \LinesNumberedHidden
-%     \caption[]{Estimatin cardinality with \textit{HyperLogLog}}
-%     \KwIn{Dataset D}
-%     \KwIn{Array of $m$ \textit{LogLog} counters with hash function $h$}
-%     \KwOut{Cardinality estimation}
-%     $COUNTER[j] \gets $0, $j = 0...m - 1$\\
-%     \For{$x \in D$}{
-%         $i \gets $h(x) := $(i_0i_1...i_{M-1})_2$, $i_k \in \{$0,1\}\\
-%         $j \gets $($i_0i_1...i_{M-1})_2$\\
-%         $r \gets $rank($(i_pi_{p+1}...i_{M-1})_2$)\\
-%         $COUNTER[j] \gets \max($COUNTER[j],r)
-%     }
-%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-%     $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
-%     $n \gets \hat{n}$ \\
-
-% \end{algorithm}
-% \end{frame}
-% \begin{frame}{HyperLogLog algorithm (2/2)}
-%   \begin{algorithm}[H]
-%     \DontPrintSemicolon
-%     \LinesNumberedHidden
-
-%     $R \gets \frac{1}{m} \sum\limits_{k=0}^{m-1}$COUNTER[j] \\
-%     $\hat{n} = \alpha_m \cdot m^2 \cdot \frac{1}{R}$ \\
-%     $n \gets \hat{n}$ \\
-%     \If{$\hat{n} \le \frac{5}{2}m$}
-%     {
-%         $Z \gets \underset{j=0...m-1}{count}\left(COUNTER[j] == 0\right)$\\
-%         \If{$Z \ne 0$}{$n \gets m \cdot \log\left(\frac{m}{Z}\right)$}
-%     }
-%     \ElseIf{$\hat{n} > \frac{1}{30}2^{32}$}
-%     {
-%         $n \gets -2^{32}\cdot\log\left(1-\frac{n}{2^{32}}\right)$
-%     }
-%     \Return{$n$}
-% \end{algorithm}
-% \end{frame}
 \begin{frame}{HyperLogLog algorithm}
 \begin{itemize}
 	\item Tương tự LogLog, sai số tiêu chuẩn $\delta$: \[\delta \approx \frac{1.04}{\sqrt{m}}.\]
-	\item Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử, phân bổ $(M=p$) bit cho các giá trị băm và có tổng cộng $m = 2^p$ bộ đếm, bộ nhớ cần thiết là:
+	\item Yêu cầu bộ nhớ không tăng tuyến tính theo số lượng phần tử, 
+  $m = 2^p$ bộ đếm, bộ nhớ cần thiết là:
   \[\lceil\log_2\left(M + 1 - p\right)\rceil\cdot2^p \text{ bits }\]
-  \item Sử dụng hàm băm 32-bit và độ chính xác $p \in 4...16$, yêu cầu bộ nhớ là $5\cdot 2^p$ bit. Do đó, thuật toán \textit{HyperLogLog} cho phép ước lượng các định lượng vượt xa $10^9$ với độ chính xác thông thường là $2\%$ trong khi chỉ sử dụng một bộ nhớ chỉ \textbf{1.5 KB}.
   \item Ví dụ, \textbf{Redis} duy trì cấu trúc dữ liệu \textit{HyperLogLog} của \textbf{12 KB} để xấp xỉ các định lượng $\delta \approx 0.81.\%$.
+  \SubItem{$\log_2(64 + 1 - 14)*2^{14}$, sử dụng hàm băm 64-bit và p = 14}
+  \SubItem{$\delta \approx \frac{1.04}{\sqrt{2^{14}}} = 0.008125$}
 \end{itemize}
 \end{frame}
 
@@ -476,59 +247,6 @@ nhân thêm số lượng ngày:
 \end{center} 
 \end{frame}
 
-% \begin{frame}[fragile]{Tối ưu hóa dung lượng bộ nhớ}
-%   \begin{itemize}
-%     \item Redis sử dụng "sparse representation" cho các bộ đếm nhỏ hơn, 
-%     giúp tiết kiệm bộ nhớ khi số lượng phần tử trong HyperLogLog còn ít.
-%     \item Khi số lượng phần tử tăng, Redis chuyển sang "dense representation" 
-%     để đảm bảo độ chính xác và hiệu suất.
-%     \item Redis tự động chuyển đổi giữa hai biểu diễn này dựa trên số lượng 
-%     phần tử và mức độ lấp đầy của các thanh ghi, giúp tối ưu hóa việc 
-%     sử dụng bộ nhớ và đảm bảo độ chính xác cao trong ước lượng số lượng 
-%     phần tử duy nhất.
-%   \end{itemize}
-% \end{frame}
-
-% \begin{frame}[fragile]{Sparse Representation}
-%   \textbf{Đặc điểm:}
-%   \begin{itemize}
-%     \item \textbf{Tiết kiệm bộ nhớ}: Sparse Representation được thiết kế để 
-%     tiết kiệm bộ nhớ khi số lượng phần tử trong tập hợp còn ít.
-%     \item \textbf{Cấu trúc nén}: Lưu trữ các cặp (index, value) để chỉ 
-%     lưu trữ thông tin cần thiết về các thanh ghi được cập nhật.
-%     \item \textbf{Hiệu quả cho các tập hợp nhỏ}: Rất hiệu quả khi số lượng 
-%     phần tử còn ít, vì không cần lưu trữ toàn bộ 16384 thanh ghi.
-%   \end{itemize}
-%   \textbf{Ước lượng số phần tử:}
-%   \begin{itemize}
-%     \item \textbf{Cơ chế hoạt động}: Các giá trị băm của phần tử được ánh xạ 
-%     tới một trong 16384 thanh ghi, nhưng chỉ các thanh ghi có giá trị 
-%     khác 0 mới được lưu trữ.
-%     \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong sparse representation tương tự như trong dense representation khi số lượng phần tử còn nhỏ, vì các thanh ghi được quản lý chặt chẽ và thông tin được lưu trữ một cách nén.
-%   \end{itemize}
-% \end{frame}
-
-% \begin{frame}[fragile]{Dense Representation}
-%   \textbf{Đặc điểm:}
-%   \begin{itemize}
-%     \item \textbf{Sử dụng bộ nhớ cố định}:  Khi số lượng phần tử lớn, 
-%     HyperLogLog chuyển sang Dense Representation, lưu trữ toàn bộ mảng 16384 
-%     thanh ghi với mỗi thanh ghi sử dụng 6 bit.
-%     \item \textbf{Hiệu quả cho các tập hợp lớn}: Dense Representation trở nên 
-%     hiệu quả hơn khi số lượng phần tử tăng, vì việc nén không còn mang lại 
-%     lợi ích về bộ nhớ so với việc lưu trữ toàn bộ thanh ghi.
-%   \end{itemize}
-%   \textbf{Ước lượng số phần tử:}
-%   \begin{itemize}
-%     \item \textbf{Cơ chế hoạt động}: Tương tự như sparse representation, 
-%     nhưng toàn bộ mảng thanh ghi được lưu trữ và sử dụng để tính toán 
-%     ước lượng.
-%     \item \textbf{Độ chính xác}: Độ chính xác của ước lượng trong 
-%     dense representation cao hơn khi số lượng phần tử lớn, vì nó có thể 
-%     quản lý thông tin của tất cả các thanh ghi mà không cần nén.
-%   \end{itemize}
-% \end{frame}
-
 \section{Phương pháp thực hiện}
 \begin{frame}[fragile]{Bài toán 1}
 Phát triển thuật toán để ước lượng số lượng phần tử (cardinality estimation) trong 
@@ -548,28 +266,27 @@ một khoảng thời gian trên một dòng dữ liệu (data stream):
   mỗi khoảng thời gian.
 \end{itemize}
 \end{frame}
-\begin{frame}[fragile]{Bài toán 2 (1/2)}
-  Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:\\
-\vspace{0.1cm}
-  \textit{ Ví dụ khi chúng ta cần biết có bao nhiêu người dùng đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người dùng được lưu ở trên nhiều hệ thống như web, application và cũng như trên các bộ phận khác nhau của doanh nghiệp. Khi đó chúng ta sẽ có nhiều nguồn dữ liệu khác nhau và cần một thuật toán để kết hợp các nguồn dữ liệu này để tổng hợp cho ra ước lượng
-  số lượng cuối cùng.}
-
-\end{frame}
-\begin{frame}[fragile]{Bài toán 2 (2/2)}
+\begin{frame}[fragile]{Bài toán 2}
+%   Mở rộng thuật toán để ước lượng số lượng phần tử trong một khoảng thời gian trên nhiều dòng dữ liệu:\\
+% \vspace{0.1cm}
+%   \textit{ Ví dụ khi chúng ta cần biết có bao nhiêu người dùng đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người dùng được lưu ở trên nhiều hệ thống như web, application và cũng như trên các bộ phận khác nhau của doanh nghiệp. Khi đó chúng ta sẽ có nhiều nguồn dữ liệu khác nhau và cần một thuật toán để kết hợp các nguồn dữ liệu này để tổng hợp cho ra ước lượng
+%   số lượng cuối cùng.}
   \begin{itemize}
-      \item Bước 1: Lưu trữ dữ liệu
-      \SubItem{Lưu trữ dữ liệu theo khung thời gian $\left< T, HLL\right>$}
-      \item Bước 2: Tổng hợp HLL từ các dữ liệu từ nhiều nơi khác nhau:\\
-      $\left< T, HLL_1\right>, \left< T, HLL_2\right>,...,\left< T, HLL_N\right>$\\
-      \SubItem{$T$ là khoảng thời gian cần tổng hợp} \\
-      \SubItem{$HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian}
-      \item Bước 3: Ước lượng số phần tử
-      \[E = \alpha_m \cdot m^2 \cdot \left( \sum_{j=1}^{m} 2^{-M[j]} \right)^{-1}\]
-      \SubItem{$E$ là ước lượng số lượng phần tử duy nhất}
-      \SubItem{$\alpha_m$ là hằng số}
-      \SubItem{$m$ là số lượng register trong cấu trúc HyperLogLog}
-      \SubItem{$M[j]$ là giá trị của register thứ j}
+    \item Mở rộng thuật toán để ước lượng số lượng phần tử trong 
+    một khoảng thời gian trên nhiều dòng dữ liệu:
+    \SubItem{Ví dụ khi chúng ta cần biết có bao nhiêu người dùng 
+    đã đăng nhập vào hệ thống vào ngày hôm qua, do dữ liệu người 
+    dùng được lưu ở trên nhiều hệ thống như web, application và 
+    cũng như trên các bộ phận khác nhau của doanh nghiệp.} 
+    \item Bước 1: Lưu trữ dữ liệu
+    \SubItem{Lưu trữ dữ liệu theo khung thời gian $\left< T, HLL\right>$}
+    \item Bước 2: Tổng hợp HLL từ các dữ liệu từ nhiều nơi khác nhau:\\
+    $\left< T, HLL_1\right>, \left< T, HLL_2\right>,...,\left< T, HLL_N\right>$\\
+    \SubItem{$T$ là khoảng thời gian cần tổng hợp} \\
+    \SubItem{$HLL_1$ là dữ liệu HyperLogLog trong khoảng thời gian}
+    \item Bước 3: Ước lượng số phần tử
 \end{itemize}
+
 \end{frame}
 \section{Kế hoạch triển khai}
 \begin{frame}{Kế hoạch triển khai}
@@ -609,31 +326,6 @@ một khoảng thời gian trên một dòng dữ liệu (data stream):
   \textbf{Chương 6: Kết luận.} Đánh giá ưu điểm và nhược điểm của mô hình và 
   đề xuất hướng nghiên cứu phát triển kỹ thuật đếm số phần tử trong tương lai.
 \end{frame}
-
-% {%
-% \setbeamertemplate{frame footer}{My custom footer}
-% \begin{frame}[fragile]{Frame footer}
-%     \themename defines a custom beamer template to add a text to the footer. It can be set via
-%     \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
-% \end{frame}
-% }
-
-% \begin{frame}{References}
-%   Some references to showcase [allowframebreaks] \cite{durand2003loglog, flajolet2007hyperloglog, chabchoub2010sliding, ertl2024exaloglog, heule2013hyperloglog}
-% \end{frame}
-
-% \appendix
-
-% \begin{frame}[fragile]{Backup slides}
-%   Sometimes, it is useful to add slides at the end of your presentation to
-%   refer to during audience questions.
-
-%   The best way to do this is to include the \verb|appendixnumberbeamer|
-%   package in your preamble and call \verb|\appendix| before your backup slides.
-
-%   \themename will automatically turn off slide numbering and progress bars for
-%   slides in the appendix.
-% \end{frame}
 
 \begin{frame}[fragile]{Tài liệu tham khảo}
   \bibliography{ref}
